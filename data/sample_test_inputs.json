@@ -1,0 +1,90 @@
+{
+  "test_cases": [
+    {
+      "case_id": "TEST_CASE_1_LARGE_OUTLIER",
+      "customer_id": "CUST-104",
+      "customer_name": "Elena Rostova",
+      "description": "Customer with normal average spend of $115 triggers statistical outlier on sudden $14,500 international wire.",
+      "expected_verdict": "ATTENTION NEEDED",
+      "expected_triggered_rules": [
+        "RULE_LARGE_TRANSFER"
+      ],
+      "sample_transaction_ids": [
+        "TXN-1335"
+      ]
+    },
+    {
+      "case_id": "TEST_CASE_2_NEW_PAYEE_BURST",
+      "customer_id": "CUST-109",
+      "customer_name": "Marcus Vance",
+      "description": "Customer performs 3 rapid successive payments to previously unseen crypto payee within 6 hours.",
+      "expected_verdict": "ATTENTION NEEDED",
+      "expected_triggered_rules": [
+        "RULE_NEW_PAYEE_BURST"
+      ],
+      "sample_transaction_ids": [
+        "TXN-1718",
+        "TXN-1719",
+        "TXN-1720"
+      ]
+    },
+    {
+      "case_id": "TEST_CASE_3_ODD_HOURS",
+      "customer_id": "CUST-112",
+      "customer_name": "Aisha Patel",
+      "description": "High-value transactions executed at 03:15 AM and 04:20 AM, outside customer's baseline active window (08:00 - 21:00).",
+      "expected_verdict": "ATTENTION NEEDED",
+      "expected_triggered_rules": [
+        "RULE_ODD_HOURS"
+      ],
+      "sample_transaction_ids": [
+        "TXN-1941",
+        "TXN-1942"
+      ]
+    },
+    {
+      "case_id": "TEST_CASE_4_PATTERN_BREAK",
+      "customer_id": "CUST-115",
+      "customer_name": "David Chen",
+      "description": "Sudden unprecedented high-value international wire payments on a domestic retail account.",
+      "expected_verdict": "ATTENTION NEEDED",
+      "expected_triggered_rules": [
+        "RULE_PATTERN_BREAK"
+      ],
+      "sample_transaction_ids": [
+        "TXN-2165",
+        "TXN-2166",
+        "TXN-2167"
+      ]
+    },
+    {
+      "case_id": "TEST_CASE_5_MULTI_VECTOR_ANOMALY",
+      "customer_id": "CUST-118",
+      "customer_name": "Sophia Morales",
+      "description": "Outlier transfer ($9,850) + New Payee + Odd Hours (02:40 AM) triggering multiple rules simultaneously.",
+      "expected_verdict": "ATTENTION NEEDED",
+      "expected_triggered_rules": [
+        "RULE_LARGE_TRANSFER",
+        "RULE_ODD_HOURS",
+        "RULE_NEW_PAYEE_BURST",
+        "RULE_PATTERN_BREAK"
+      ]
+    },
+    {
+      "case_id": "TEST_CASE_6_CLEAN_CUSTOMER",
+      "customer_id": "CUST-101",
+      "customer_name": "Alexander Hayes",
+      "description": "Routine personal checking account with 80+ standard transactions adhering strictly to baseline profile.",
+      "expected_verdict": "NOTHING FLAGGED",
+      "expected_triggered_rules": []
+    },
+    {
+      "case_id": "TEST_CASE_7_EMPTY_HISTORY",
+      "customer_id": "CUST-199",
+      "customer_name": "Lucas Vance",
+      "description": "New account with zero transactions. Handled gracefully without errors.",
+      "expected_verdict": "NOTHING FLAGGED",
+      "expected_triggered_rules": []
+    }
+  ]
+}

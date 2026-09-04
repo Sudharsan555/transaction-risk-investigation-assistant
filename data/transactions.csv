@@ -1,0 +1,1484 @@
+transaction_id,customer_id,timestamp,description,payee,amount,channel,category
+TXN-1022,CUST-101,2026-03-01T15:32:48,Payment to ConEd Utility,ConEd Utility,101.08,Web,Utilities
+TXN-1057,CUST-101,2026-03-03T10:04:56,Payment to Whole Foods Market,Whole Foods Market,71.89,Mobile,Groceries
+TXN-1063,CUST-101,2026-03-10T22:14:12,Payment to Amazon.com,Amazon.com,92.98,POS,Shopping
+TXN-1043,CUST-101,2026-03-15T08:47:20,Payment to ConEd Utility,ConEd Utility,118.31,POS,Utilities
+TXN-1015,CUST-101,2026-03-17T13:58:36,Payment to Shell Gas Station,Shell Gas Station,98.40,Mobile,Gasoline
+TXN-1045,CUST-101,2026-03-18T14:25:07,Payment to Whole Foods Market,Whole Foods Market,117.41,Web,Groceries
+TXN-1032,CUST-101,2026-03-19T14:17:42,Payment to Shell Gas Station,Shell Gas Station,61.52,POS,Gasoline
+TXN-1078,CUST-101,2026-03-19T21:26:56,Payment to Netflix,Netflix,86.39,Web,Entertainment
+TXN-1038,CUST-101,2026-03-20T21:51:55,Payment to Metro Transit,Metro Transit,94.26,POS,Transportation
+TXN-1026,CUST-101,2026-03-21T09:46:31,Payment to Metro Transit,Metro Transit,56.24,Web,Transportation
+TXN-1046,CUST-101,2026-03-21T20:42:37,Payment to Starbucks,Starbucks,63.54,Mobile,Food & Beverage
+TXN-1003,CUST-101,2026-03-24T13:14:32,Payment to Trader Joe's,Trader Joe's,45.48,POS,Groceries
+TXN-1006,CUST-101,2026-03-24T19:06:22,Payment to Starbucks,Starbucks,145.29,Web,Food & Beverage
+TXN-1010,CUST-101,2026-03-26T19:17:29,Payment to Starbucks,Starbucks,104.78,POS,Food & Beverage
+TXN-1023,CUST-101,2026-03-28T16:53:40,Payment to Starbucks,Starbucks,57.15,POS,Food & Beverage
+TXN-1067,CUST-101,2026-03-28T20:22:46,Payment to Metro Transit,Metro Transit,86.30,Mobile,Transportation
+TXN-1001,CUST-101,2026-03-29T07:47:17,Payment to Metro Transit,Metro Transit,79.06,Web,Transportation
+TXN-1025,CUST-101,2026-03-29T18:56:53,Payment to Netflix,Netflix,86.79,Web,Entertainment
+TXN-1066,CUST-101,2026-03-30T15:11:37,Payment to Amazon.com,Amazon.com,109.33,POS,Shopping
+TXN-1021,CUST-101,2026-03-30T15:49:41,Payment to ConEd Utility,ConEd Utility,64.14,Mobile,Utilities
+TXN-1027,CUST-101,2026-04-02T11:42:30,Payment to Trader Joe's,Trader Joe's,96.72,POS,Groceries
+TXN-1018,CUST-101,2026-04-05T22:05:48,Payment to Whole Foods Market,Whole Foods Market,96.97,POS,Groceries
+TXN-1019,CUST-101,2026-04-09T12:50:43,Payment to Trader Joe's,Trader Joe's,68.23,Web,Groceries
+TXN-1061,CUST-101,2026-04-11T12:56:26,Payment to Starbucks,Starbucks,130.30,Mobile,Food & Beverage
+TXN-1009,CUST-101,2026-04-19T09:02:42,Payment to Metro Transit,Metro Transit,82.17,POS,Transportation
+TXN-1037,CUST-101,2026-04-19T13:34:28,Payment to Shell Gas Station,Shell Gas Station,91.51,POS,Gasoline
+TXN-1047,CUST-101,2026-04-22T17:15:16,Payment to Amazon.com,Amazon.com,40.50,Mobile,Shopping
+TXN-1075,CUST-101,2026-04-24T22:50:57,Payment to Metro Transit,Metro Transit,129.23,Mobile,Transportation
+TXN-1031,CUST-101,2026-04-26T07:04:45,Payment to Whole Foods Market,Whole Foods Market,62.77,Mobile,Groceries
+TXN-1064,CUST-101,2026-04-27T07:42:12,Payment to Trader Joe's,Trader Joe's,45.92,Mobile,Groceries
+TXN-1014,CUST-101,2026-04-28T08:51:20,Payment to Trader Joe's,Trader Joe's,46.94,Mobile,Groceries
+TXN-1084,CUST-101,2026-05-06T14:53:40,Payment to Amazon.com,Amazon.com,58.21,Web,Shopping
+TXN-1007,CUST-101,2026-05-07T08:46:29,Payment to Trader Joe's,Trader Joe's,5.00,POS,Groceries
+TXN-1052,CUST-101,2026-05-07T10:56:06,Payment to ConEd Utility,ConEd Utility,53.48,Mobile,Utilities
+TXN-1056,CUST-101,2026-05-07T12:47:28,Payment to Trader Joe's,Trader Joe's,86.41,Web,Groceries
+TXN-1065,CUST-101,2026-05-11T09:49:17,Payment to Starbucks,Starbucks,55.76,POS,Food & Beverage
+TXN-1053,CUST-101,2026-05-12T13:45:21,Payment to Amazon.com,Amazon.com,91.59,Web,Shopping
+TXN-1077,CUST-101,2026-05-19T14:51:12,Payment to Shell Gas Station,Shell Gas Station,84.44,Web,Gasoline
+TXN-1071,CUST-101,2026-05-19T20:20:25,Payment to Netflix,Netflix,65.21,Mobile,Entertainment
+TXN-1048,CUST-101,2026-05-20T09:00:29,Payment to Metro Transit,Metro Transit,107.68,POS,Transportation
+TXN-1070,CUST-101,2026-05-20T10:46:57,Payment to Amazon.com,Amazon.com,98.69,Web,Shopping
+TXN-1030,CUST-101,2026-05-26T07:37:35,Payment to Netflix,Netflix,76.70,Web,Entertainment
+TXN-1059,CUST-101,2026-06-02T08:57:22,Payment to Metro Transit,Metro Transit,84.54,Mobile,Transportation
+TXN-1050,CUST-101,2026-06-03T16:10:28,Payment to Amazon.com,Amazon.com,100.49,Web,Shopping
+TXN-1011,CUST-101,2026-06-03T18:13:42,Payment to Metro Transit,Metro Transit,70.47,Web,Transportation
+TXN-1041,CUST-101,2026-06-06T07:24:16,Payment to Amazon.com,Amazon.com,128.90,Mobile,Shopping
+TXN-1036,CUST-101,2026-06-12T17:51:55,Payment to Metro Transit,Metro Transit,30.89,POS,Transportation
+TXN-1034,CUST-101,2026-06-13T13:06:06,Payment to Trader Joe's,Trader Joe's,50.17,Mobile,Groceries
+TXN-1080,CUST-101,2026-06-17T14:11:51,Payment to Shell Gas Station,Shell Gas Station,125.37,POS,Gasoline
+TXN-1035,CUST-101,2026-06-17T20:29:55,Payment to Metro Transit,Metro Transit,72.21,POS,Transportation
+TXN-1004,CUST-101,2026-06-23T15:51:55,Payment to Whole Foods Market,Whole Foods Market,53.86,POS,Groceries
+TXN-1013,CUST-101,2026-06-27T19:17:59,Payment to Starbucks,Starbucks,52.39,POS,Food & Beverage
+TXN-1020,CUST-101,2026-06-28T15:35:55,Payment to Whole Foods Market,Whole Foods Market,83.96,Web,Groceries
+TXN-1040,CUST-101,2026-07-02T13:55:25,Payment to Whole Foods Market,Whole Foods Market,54.93,POS,Groceries
+TXN-1085,CUST-101,2026-07-03T14:17:28,Payment to Amazon.com,Amazon.com,101.77,Mobile,Shopping
+TXN-1054,CUST-101,2026-07-04T15:57:58,Payment to Whole Foods Market,Whole Foods Market,122.11,POS,Groceries
+TXN-1083,CUST-101,2026-07-08T20:53:58,Payment to Shell Gas Station,Shell Gas Station,13.10,Mobile,Gasoline
+TXN-1044,CUST-101,2026-07-09T09:54:11,Payment to Metro Transit,Metro Transit,93.45,Web,Transportation
+TXN-1076,CUST-101,2026-07-10T17:05:52,Payment to Netflix,Netflix,65.42,Web,Entertainment
+TXN-1069,CUST-101,2026-07-12T13:23:27,Payment to Starbucks,Starbucks,121.41,Web,Food & Beverage
+TXN-1082,CUST-101,2026-07-14T17:48:57,Payment to Shell Gas Station,Shell Gas Station,90.36,Web,Gasoline
+TXN-1049,CUST-101,2026-07-16T13:32:16,Payment to Metro Transit,Metro Transit,98.52,POS,Transportation
+TXN-1024,CUST-101,2026-07-17T07:38:20,Payment to Shell Gas Station,Shell Gas Station,77.47,POS,Gasoline
+TXN-1033,CUST-101,2026-07-17T11:46:59,Payment to Netflix,Netflix,109.59,Mobile,Entertainment
+TXN-1028,CUST-101,2026-07-17T13:45:19,Payment to Trader Joe's,Trader Joe's,72.18,Web,Groceries
+TXN-1002,CUST-101,2026-07-18T09:37:27,Payment to Whole Foods Market,Whole Foods Market,96.09,POS,Groceries
+TXN-1008,CUST-101,2026-07-20T16:53:40,Payment to Starbucks,Starbucks,59.02,Web,Food & Beverage
+TXN-1081,CUST-101,2026-07-21T14:58:54,Payment to Shell Gas Station,Shell Gas Station,90.92,Web,Gasoline
+TXN-1017,CUST-101,2026-07-22T15:47:37,Payment to Starbucks,Starbucks,40.24,POS,Food & Beverage
+TXN-1060,CUST-101,2026-07-22T20:39:47,Payment to ConEd Utility,ConEd Utility,102.06,POS,Utilities
+TXN-1073,CUST-101,2026-07-24T16:25:35,Payment to Netflix,Netflix,92.22,Mobile,Entertainment
+TXN-1068,CUST-101,2026-07-26T13:16:02,Payment to Trader Joe's,Trader Joe's,45.02,POS,Groceries
+TXN-1074,CUST-101,2026-07-27T17:29:28,Payment to Shell Gas Station,Shell Gas Station,54.87,Web,Gasoline
+TXN-1058,CUST-101,2026-07-28T11:27:08,Payment to Whole Foods Market,Whole Foods Market,61.50,Mobile,Groceries
+TXN-1012,CUST-101,2026-08-10T12:34:46,Payment to Netflix,Netflix,153.48,POS,Entertainment
+TXN-1055,CUST-101,2026-08-10T20:53:17,Payment to ConEd Utility,ConEd Utility,106.32,Web,Utilities
+TXN-1016,CUST-101,2026-08-12T21:09:16,Payment to ConEd Utility,ConEd Utility,58.94,POS,Utilities
+TXN-1039,CUST-101,2026-08-14T07:05:59,Payment to Trader Joe's,Trader Joe's,79.03,Mobile,Groceries
+TXN-1029,CUST-101,2026-08-14T18:28:57,Payment to Netflix,Netflix,62.30,POS,Entertainment
+TXN-1051,CUST-101,2026-08-15T07:42:52,Payment to Metro Transit,Metro Transit,8.45,POS,Transportation
+TXN-1072,CUST-101,2026-08-18T19:43:47,Payment to ConEd Utility,ConEd Utility,39.91,Web,Utilities
+TXN-1062,CUST-101,2026-08-19T14:17:10,Payment to Metro Transit,Metro Transit,86.63,Mobile,Transportation
+TXN-1079,CUST-101,2026-08-26T19:31:25,Payment to Whole Foods Market,Whole Foods Market,80.27,POS,Groceries
+TXN-1005,CUST-101,2026-08-26T20:21:17,Payment to Starbucks,Starbucks,123.60,POS,Food & Beverage
+TXN-1042,CUST-101,2026-08-26T22:09:12,Payment to Amazon.com,Amazon.com,53.42,POS,Shopping
+TXN-1123,CUST-102,2026-03-04T18:18:30,Payment to Campus Dining,Campus Dining,17.46,POS,Food & Beverage
+TXN-1111,CUST-102,2026-03-08T16:54:20,Payment to Spotify,Spotify,39.51,POS,Entertainment
+TXN-1134,CUST-102,2026-03-16T11:50:19,Payment to Target,Target,5.00,POS,Shopping
+TXN-1152,CUST-102,2026-03-18T13:49:50,Payment to Uber,Uber,43.69,POS,Transportation
+TXN-1125,CUST-102,2026-03-19T18:40:43,Payment to Target,Target,44.13,POS,Shopping
+TXN-1096,CUST-102,2026-03-21T16:01:47,Payment to Target,Target,23.95,Mobile,Shopping
+TXN-1126,CUST-102,2026-03-22T12:07:35,Payment to Uber,Uber,37.68,Mobile,Transportation
+TXN-1120,CUST-102,2026-03-26T22:12:18,Payment to University Bookstore,University Bookstore,58.55,POS,Education
+TXN-1159,CUST-102,2026-03-26T22:54:28,Payment to Campus Dining,Campus Dining,67.12,Mobile,Food & Beverage
+TXN-1103,CUST-102,2026-03-27T20:49:19,Payment to Campus Dining,Campus Dining,48.97,Mobile,Food & Beverage
+TXN-1099,CUST-102,2026-04-02T16:42:07,Payment to Venmo,Venmo,22.26,POS,P2P Transfer
+TXN-1154,CUST-102,2026-04-08T16:34:30,Payment to Spotify,Spotify,49.45,POS,Entertainment
+TXN-1130,CUST-102,2026-04-10T09:26:28,Payment to Venmo,Venmo,25.05,POS,P2P Transfer
+TXN-1101,CUST-102,2026-04-11T13:06:37,Payment to Venmo,Venmo,49.99,POS,P2P Transfer
+TXN-1092,CUST-102,2026-04-12T22:29:58,Payment to University Bookstore,University Bookstore,35.85,Mobile,Education
+TXN-1121,CUST-102,2026-04-15T13:00:45,Payment to Campus Dining,Campus Dining,19.72,POS,Food & Beverage
+TXN-1094,CUST-102,2026-04-16T09:16:24,Payment to Spotify,Spotify,38.70,Mobile,Entertainment
+TXN-1145,CUST-102,2026-04-18T17:23:39,Payment to Campus Dining,Campus Dining,35.25,Mobile,Food & Beverage
+TXN-1119,CUST-102,2026-04-19T12:47:30,Payment to Target,Target,30.11,POS,Shopping
+TXN-1098,CUST-102,2026-04-21T22:01:39,Payment to University Bookstore,University Bookstore,7.84,Mobile,Education
+TXN-1129,CUST-102,2026-04-23T19:13:16,Payment to University Bookstore,University Bookstore,28.43,Mobile,Education
+TXN-1149,CUST-102,2026-04-27T22:58:07,Payment to University Bookstore,University Bookstore,25.22,POS,Education
+TXN-1146,CUST-102,2026-05-08T17:08:59,Payment to Spotify,Spotify,8.30,POS,Entertainment
+TXN-1112,CUST-102,2026-05-11T23:38:44,Payment to Spotify,Spotify,45.82,Mobile,Entertainment
+TXN-1142,CUST-102,2026-05-13T19:25:52,Payment to Target,Target,40.89,Mobile,Shopping
+TXN-1131,CUST-102,2026-05-14T09:14:18,Payment to Uber,Uber,26.50,Mobile,Transportation
+TXN-1150,CUST-102,2026-05-14T17:45:17,Payment to Uber,Uber,36.42,POS,Transportation
+TXN-1115,CUST-102,2026-05-15T12:25:44,Payment to Spotify,Spotify,35.35,POS,Entertainment
+TXN-1148,CUST-102,2026-05-19T17:00:35,Payment to Uber,Uber,29.94,Mobile,Transportation
+TXN-1118,CUST-102,2026-05-20T10:47:34,Payment to Venmo,Venmo,46.75,Mobile,P2P Transfer
+TXN-1157,CUST-102,2026-05-21T20:30:45,Payment to Venmo,Venmo,49.71,Mobile,P2P Transfer
+TXN-1109,CUST-102,2026-05-22T22:15:53,Payment to Uber,Uber,47.92,Mobile,Transportation
+TXN-1104,CUST-102,2026-05-28T17:27:42,Payment to Spotify,Spotify,13.95,Mobile,Entertainment
+TXN-1097,CUST-102,2026-05-29T12:41:04,Payment to Campus Dining,Campus Dining,39.44,Mobile,Food & Beverage
+TXN-1090,CUST-102,2026-05-30T13:48:24,Payment to Uber,Uber,17.69,Mobile,Transportation
+TXN-1117,CUST-102,2026-05-30T20:29:17,Payment to Venmo,Venmo,29.53,Mobile,P2P Transfer
+TXN-1106,CUST-102,2026-06-01T19:57:53,Payment to Uber,Uber,6.32,Mobile,Transportation
+TXN-1100,CUST-102,2026-06-03T11:38:38,Payment to Venmo,Venmo,29.13,Mobile,P2P Transfer
+TXN-1093,CUST-102,2026-06-09T18:36:42,Payment to University Bookstore,University Bookstore,60.36,POS,Education
+TXN-1102,CUST-102,2026-06-10T20:12:04,Payment to Target,Target,36.77,Mobile,Shopping
+TXN-1141,CUST-102,2026-06-13T14:20:42,Payment to Uber,Uber,42.87,POS,Transportation
+TXN-1160,CUST-102,2026-06-13T22:41:09,Payment to Campus Dining,Campus Dining,58.03,POS,Food & Beverage
+TXN-1088,CUST-102,2026-06-15T09:13:53,Payment to Uber,Uber,41.63,POS,Transportation
+TXN-1133,CUST-102,2026-06-17T10:34:14,Payment to University Bookstore,University Bookstore,9.94,Mobile,Education
+TXN-1107,CUST-102,2026-06-20T11:46:33,Payment to Target,Target,48.54,POS,Shopping
+TXN-1135,CUST-102,2026-06-21T10:29:44,Payment to Spotify,Spotify,27.94,POS,Entertainment
+TXN-1136,CUST-102,2026-06-21T10:38:02,Payment to Uber,Uber,51.90,POS,Transportation
+TXN-1143,CUST-102,2026-06-25T10:20:16,Payment to Uber,Uber,12.41,Mobile,Transportation
+TXN-1095,CUST-102,2026-06-25T14:21:48,Payment to Uber,Uber,45.07,POS,Transportation
+TXN-1110,CUST-102,2026-06-27T18:39:42,Payment to Uber,Uber,28.23,POS,Transportation
+TXN-1108,CUST-102,2026-06-28T15:52:46,Payment to Target,Target,31.04,POS,Shopping
+TXN-1151,CUST-102,2026-06-29T12:29:35,Payment to Target,Target,41.60,Mobile,Shopping
+TXN-1139,CUST-102,2026-06-29T17:41:28,Payment to Target,Target,44.32,POS,Shopping
+TXN-1124,CUST-102,2026-07-01T10:52:04,Payment to Uber,Uber,36.45,POS,Transportation
+TXN-1091,CUST-102,2026-07-03T12:17:27,Payment to Venmo,Venmo,15.92,POS,P2P Transfer
+TXN-1158,CUST-102,2026-07-05T09:08:32,Payment to Target,Target,24.82,POS,Shopping
+TXN-1153,CUST-102,2026-07-08T13:52:00,Payment to Target,Target,31.01,POS,Shopping
+TXN-1105,CUST-102,2026-07-08T19:21:00,Payment to Campus Dining,Campus Dining,54.34,POS,Food & Beverage
+TXN-1113,CUST-102,2026-07-11T12:05:15,Payment to University Bookstore,University Bookstore,30.20,POS,Education
+TXN-1127,CUST-102,2026-07-12T15:28:58,Payment to Uber,Uber,5.00,POS,Transportation
+TXN-1086,CUST-102,2026-07-17T10:08:09,Payment to University Bookstore,University Bookstore,41.30,POS,Education
+TXN-1116,CUST-102,2026-07-20T17:22:27,Payment to Venmo,Venmo,61.50,POS,P2P Transfer
+TXN-1155,CUST-102,2026-07-20T21:34:24,Payment to University Bookstore,University Bookstore,18.53,Mobile,Education
+TXN-1128,CUST-102,2026-07-24T18:03:39,Payment to Venmo,Venmo,47.12,Mobile,P2P Transfer
+TXN-1156,CUST-102,2026-07-25T15:14:54,Payment to Uber,Uber,38.71,Mobile,Transportation
+TXN-1089,CUST-102,2026-07-28T20:01:54,Payment to Uber,Uber,51.93,Mobile,Transportation
+TXN-1137,CUST-102,2026-08-02T13:01:05,Payment to Target,Target,37.86,Mobile,Shopping
+TXN-1140,CUST-102,2026-08-10T22:31:05,Payment to Uber,Uber,28.31,POS,Transportation
+TXN-1114,CUST-102,2026-08-13T20:31:28,Payment to Campus Dining,Campus Dining,13.15,Mobile,Food & Beverage
+TXN-1144,CUST-102,2026-08-16T22:34:29,Payment to Uber,Uber,78.13,Mobile,Transportation
+TXN-1138,CUST-102,2026-08-20T22:17:36,Payment to Campus Dining,Campus Dining,61.67,Mobile,Food & Beverage
+TXN-1132,CUST-102,2026-08-23T12:59:16,Payment to Venmo,Venmo,6.42,Mobile,P2P Transfer
+TXN-1087,CUST-102,2026-08-25T11:45:13,Payment to Target,Target,51.61,POS,Shopping
+TXN-1122,CUST-102,2026-08-26T11:40:55,Payment to Uber,Uber,31.05,Mobile,Transportation
+TXN-1147,CUST-102,2026-08-26T16:07:01,Payment to University Bookstore,University Bookstore,59.19,Mobile,Education
+TXN-1198,CUST-103,2026-03-01T10:54:09,Payment to Office Depot,Office Depot,315.71,Wire,Business Supplies
+TXN-1174,CUST-103,2026-03-03T15:55:43,Payment to Sysco Food Services,Sysco Food Services,413.86,Wire,Business Supplies
+TXN-1163,CUST-103,2026-03-10T15:04:15,Payment to Office Depot,Office Depot,175.19,Wire,Business Supplies
+TXN-1201,CUST-103,2026-03-14T08:47:26,Payment to Waste Management,Waste Management,158.79,POS,Sanitation
+TXN-1214,CUST-103,2026-03-16T15:35:35,Payment to Square Terminal Pay,Square Terminal Pay,265.58,Wire,Payment Processing
+TXN-1239,CUST-103,2026-03-20T14:40:07,Payment to Square Terminal Pay,Square Terminal Pay,316.88,POS,Payment Processing
+TXN-1226,CUST-103,2026-03-21T10:28:42,Payment to Waste Management,Waste Management,642.31,POS,Sanitation
+TXN-1213,CUST-103,2026-03-22T07:27:06,Payment to Office Depot,Office Depot,414.75,Wire,Business Supplies
+TXN-1164,CUST-103,2026-03-24T12:06:48,Payment to Sysco Food Services,Sysco Food Services,155.46,POS,Business Supplies
+TXN-1193,CUST-103,2026-03-26T16:23:34,Payment to Sysco Food Services,Sysco Food Services,607.68,POS,Business Supplies
+TXN-1191,CUST-103,2026-03-26T19:31:39,Payment to Sysco Food Services,Sysco Food Services,90.15,Wire,Business Supplies
+TXN-1250,CUST-103,2026-03-27T18:57:53,Payment to Square Terminal Pay,Square Terminal Pay,304.30,Wire,Payment Processing
+TXN-1228,CUST-103,2026-03-29T10:43:43,Payment to Local Produce Wholesale,Local Produce Wholesale,607.28,POS,Wholesale
+TXN-1188,CUST-103,2026-03-30T07:15:56,Payment to Local Produce Wholesale,Local Produce Wholesale,717.76,Web,Wholesale
+TXN-1218,CUST-103,2026-03-30T18:17:36,Payment to Office Depot,Office Depot,495.58,POS,Business Supplies
+TXN-1209,CUST-103,2026-03-30T19:41:41,Payment to Office Depot,Office Depot,565.66,POS,Business Supplies
+TXN-1215,CUST-103,2026-04-01T12:22:55,Payment to Sysco Food Services,Sysco Food Services,284.82,POS,Business Supplies
+TXN-1196,CUST-103,2026-04-02T18:36:13,Payment to Sysco Food Services,Sysco Food Services,400.94,Wire,Business Supplies
+TXN-1182,CUST-103,2026-04-06T18:14:55,Payment to Waste Management,Waste Management,209.85,Wire,Sanitation
+TXN-1212,CUST-103,2026-04-09T16:59:30,Payment to Sysco Food Services,Sysco Food Services,547.95,Web,Business Supplies
+TXN-1224,CUST-103,2026-04-10T11:19:46,Payment to Square Terminal Pay,Square Terminal Pay,390.41,Wire,Payment Processing
+TXN-1165,CUST-103,2026-04-12T17:19:57,Payment to Sysco Food Services,Sysco Food Services,559.35,POS,Business Supplies
+TXN-1230,CUST-103,2026-04-22T10:13:49,Payment to Office Depot,Office Depot,873.80,POS,Business Supplies
+TXN-1197,CUST-103,2026-04-23T15:13:52,Payment to Office Depot,Office Depot,517.56,Wire,Business Supplies
+TXN-1217,CUST-103,2026-04-24T08:42:30,Payment to Local Produce Wholesale,Local Produce Wholesale,432.34,POS,Wholesale
+TXN-1203,CUST-103,2026-04-26T15:02:46,Payment to Local Produce Wholesale,Local Produce Wholesale,486.61,POS,Wholesale
+TXN-1176,CUST-103,2026-04-26T16:12:39,Payment to Square Terminal Pay,Square Terminal Pay,699.17,Wire,Payment Processing
+TXN-1169,CUST-103,2026-04-29T13:40:16,Payment to Waste Management,Waste Management,190.39,POS,Sanitation
+TXN-1200,CUST-103,2026-04-30T15:20:01,Payment to Office Depot,Office Depot,388.99,POS,Business Supplies
+TXN-1199,CUST-103,2026-05-04T18:11:07,Payment to Sysco Food Services,Sysco Food Services,400.61,POS,Business Supplies
+TXN-1241,CUST-103,2026-05-05T09:11:38,Payment to Sysco Food Services,Sysco Food Services,574.72,Web,Business Supplies
+TXN-1161,CUST-103,2026-05-07T11:39:44,Payment to Square Terminal Pay,Square Terminal Pay,367.65,Wire,Payment Processing
+TXN-1221,CUST-103,2026-05-09T17:48:19,Payment to Office Depot,Office Depot,551.07,Web,Business Supplies
+TXN-1194,CUST-103,2026-05-10T09:07:54,Payment to Waste Management,Waste Management,286.67,Web,Sanitation
+TXN-1247,CUST-103,2026-05-13T07:41:55,Payment to Local Produce Wholesale,Local Produce Wholesale,488.91,Wire,Wholesale
+TXN-1231,CUST-103,2026-05-14T11:07:00,Payment to Office Depot,Office Depot,250.20,POS,Business Supplies
+TXN-1179,CUST-103,2026-05-15T11:47:26,Payment to Local Produce Wholesale,Local Produce Wholesale,458.37,POS,Wholesale
+TXN-1187,CUST-103,2026-05-17T16:26:07,Payment to Square Terminal Pay,Square Terminal Pay,667.04,POS,Payment Processing
+TXN-1246,CUST-103,2026-05-19T13:28:02,Payment to Sysco Food Services,Sysco Food Services,473.75,POS,Business Supplies
+TXN-1238,CUST-103,2026-05-19T17:21:14,Payment to Square Terminal Pay,Square Terminal Pay,483.64,Web,Payment Processing
+TXN-1234,CUST-103,2026-05-20T15:27:36,Payment to Waste Management,Waste Management,248.92,Wire,Sanitation
+TXN-1233,CUST-103,2026-05-30T07:25:55,Payment to Waste Management,Waste Management,411.44,Web,Sanitation
+TXN-1166,CUST-103,2026-05-31T11:27:09,Payment to Office Depot,Office Depot,445.63,Wire,Business Supplies
+TXN-1202,CUST-103,2026-06-01T14:37:06,Payment to Waste Management,Waste Management,376.80,Wire,Sanitation
+TXN-1183,CUST-103,2026-06-02T07:50:25,Payment to Waste Management,Waste Management,617.68,POS,Sanitation
+TXN-1192,CUST-103,2026-06-03T09:28:28,Payment to Office Depot,Office Depot,634.85,POS,Business Supplies
+TXN-1248,CUST-103,2026-06-07T13:37:35,Payment to Sysco Food Services,Sysco Food Services,410.14,POS,Business Supplies
+TXN-1172,CUST-103,2026-06-07T19:30:06,Payment to Office Depot,Office Depot,255.51,POS,Business Supplies
+TXN-1189,CUST-103,2026-06-08T13:23:42,Payment to Local Produce Wholesale,Local Produce Wholesale,654.68,POS,Wholesale
+TXN-1211,CUST-103,2026-06-11T12:46:06,Payment to Square Terminal Pay,Square Terminal Pay,366.95,POS,Payment Processing
+TXN-1167,CUST-103,2026-06-14T15:43:50,Payment to Local Produce Wholesale,Local Produce Wholesale,462.23,POS,Wholesale
+TXN-1205,CUST-103,2026-06-18T16:06:31,Payment to Sysco Food Services,Sysco Food Services,379.45,POS,Business Supplies
+TXN-1237,CUST-103,2026-06-20T19:06:15,Payment to Sysco Food Services,Sysco Food Services,271.20,POS,Business Supplies
+TXN-1178,CUST-103,2026-06-21T06:37:23,Payment to Office Depot,Office Depot,170.45,Web,Business Supplies
+TXN-1245,CUST-103,2026-06-22T16:19:50,Payment to Local Produce Wholesale,Local Produce Wholesale,411.60,Web,Wholesale
+TXN-1243,CUST-103,2026-06-23T16:59:56,Payment to Local Produce Wholesale,Local Produce Wholesale,211.15,POS,Wholesale
+TXN-1210,CUST-103,2026-06-24T20:14:26,Payment to Square Terminal Pay,Square Terminal Pay,279.22,POS,Payment Processing
+TXN-1208,CUST-103,2026-06-25T14:38:27,Payment to Sysco Food Services,Sysco Food Services,880.64,Wire,Business Supplies
+TXN-1204,CUST-103,2026-06-26T16:01:03,Payment to Waste Management,Waste Management,105.60,POS,Sanitation
+TXN-1236,CUST-103,2026-06-26T19:44:58,Payment to Square Terminal Pay,Square Terminal Pay,654.01,Web,Payment Processing
+TXN-1181,CUST-103,2026-07-02T18:18:47,Payment to Waste Management,Waste Management,618.33,Web,Sanitation
+TXN-1175,CUST-103,2026-07-06T19:57:57,Payment to Local Produce Wholesale,Local Produce Wholesale,355.39,POS,Wholesale
+TXN-1229,CUST-103,2026-07-13T16:19:02,Payment to Sysco Food Services,Sysco Food Services,505.04,Web,Business Supplies
+TXN-1180,CUST-103,2026-07-14T14:58:17,Payment to Office Depot,Office Depot,496.06,POS,Business Supplies
+TXN-1162,CUST-103,2026-07-15T12:20:40,Payment to Waste Management,Waste Management,459.32,Wire,Sanitation
+TXN-1232,CUST-103,2026-07-15T17:14:32,Payment to Local Produce Wholesale,Local Produce Wholesale,422.79,Wire,Wholesale
+TXN-1219,CUST-103,2026-07-22T18:52:39,Payment to Sysco Food Services,Sysco Food Services,246.46,Wire,Business Supplies
+TXN-1222,CUST-103,2026-07-23T16:25:04,Payment to Office Depot,Office Depot,349.59,Wire,Business Supplies
+TXN-1173,CUST-103,2026-07-25T11:36:18,Payment to Waste Management,Waste Management,553.70,POS,Sanitation
+TXN-1249,CUST-103,2026-07-25T16:12:20,Payment to Sysco Food Services,Sysco Food Services,270.86,POS,Business Supplies
+TXN-1171,CUST-103,2026-07-29T10:40:27,Payment to Square Terminal Pay,Square Terminal Pay,355.25,Web,Payment Processing
+TXN-1190,CUST-103,2026-07-29T17:46:09,Payment to Waste Management,Waste Management,342.74,Wire,Sanitation
+TXN-1225,CUST-103,2026-07-31T07:56:03,Payment to Sysco Food Services,Sysco Food Services,569.90,Wire,Business Supplies
+TXN-1216,CUST-103,2026-08-01T10:22:06,Payment to Local Produce Wholesale,Local Produce Wholesale,190.30,Wire,Wholesale
+TXN-1206,CUST-103,2026-08-03T08:04:08,Payment to Square Terminal Pay,Square Terminal Pay,251.57,Wire,Payment Processing
+TXN-1227,CUST-103,2026-08-03T13:26:17,Payment to Square Terminal Pay,Square Terminal Pay,461.16,POS,Payment Processing
+TXN-1186,CUST-103,2026-08-04T09:41:04,Payment to Waste Management,Waste Management,455.84,Wire,Sanitation
+TXN-1168,CUST-103,2026-08-06T16:15:31,Payment to Local Produce Wholesale,Local Produce Wholesale,509.83,Web,Wholesale
+TXN-1244,CUST-103,2026-08-08T11:09:28,Payment to Sysco Food Services,Sysco Food Services,330.41,POS,Business Supplies
+TXN-1242,CUST-103,2026-08-08T13:29:48,Payment to Local Produce Wholesale,Local Produce Wholesale,641.24,Wire,Wholesale
+TXN-1223,CUST-103,2026-08-10T06:05:47,Payment to Waste Management,Waste Management,267.40,POS,Sanitation
+TXN-1207,CUST-103,2026-08-10T15:35:45,Payment to Local Produce Wholesale,Local Produce Wholesale,184.61,POS,Wholesale
+TXN-1185,CUST-103,2026-08-11T11:06:43,Payment to Local Produce Wholesale,Local Produce Wholesale,423.66,POS,Wholesale
+TXN-1235,CUST-103,2026-08-11T12:18:07,Payment to Office Depot,Office Depot,75.52,Wire,Business Supplies
+TXN-1240,CUST-103,2026-08-13T19:09:15,Payment to Sysco Food Services,Sysco Food Services,399.92,Web,Business Supplies
+TXN-1177,CUST-103,2026-08-16T16:53:08,Payment to Sysco Food Services,Sysco Food Services,180.44,POS,Business Supplies
+TXN-1220,CUST-103,2026-08-16T19:44:17,Payment to Sysco Food Services,Sysco Food Services,269.74,Web,Business Supplies
+TXN-1195,CUST-103,2026-08-17T09:41:40,Payment to Square Terminal Pay,Square Terminal Pay,392.76,Web,Payment Processing
+TXN-1184,CUST-103,2026-08-20T17:43:16,Payment to Local Produce Wholesale,Local Produce Wholesale,437.33,POS,Wholesale
+TXN-1170,CUST-103,2026-08-21T14:10:04,Payment to Waste Management,Waste Management,479.62,POS,Sanitation
+TXN-1283,CUST-104,2026-03-01T17:22:15,Payment to Chevron,Chevron,88.83,POS,Gasoline
+TXN-1291,CUST-104,2026-03-11T13:59:19,Payment to Delta Air Lines,Delta Air Lines,5.00,Mobile,Travel
+TXN-1299,CUST-104,2026-03-11T19:55:58,Payment to Walgreens,Walgreens,19.10,Web,Pharmacy
+TXN-1288,CUST-104,2026-03-12T13:34:21,Payment to Chevron,Chevron,151.03,POS,Gasoline
+TXN-1270,CUST-104,2026-03-14T18:30:55,Payment to Walgreens,Walgreens,41.15,Web,Pharmacy
+TXN-1300,CUST-104,2026-03-15T09:42:40,Payment to Nordstrom,Nordstrom,242.63,Mobile,Luxury Shopping
+TXN-1281,CUST-104,2026-03-17T09:53:57,Payment to Chevron,Chevron,59.23,Web,Gasoline
+TXN-1271,CUST-104,2026-03-27T19:54:33,Payment to City Water Board,City Water Board,136.89,Mobile,Utilities
+TXN-1276,CUST-104,2026-04-05T08:18:58,Payment to Nordstrom,Nordstrom,156.56,Web,Luxury Shopping
+TXN-1277,CUST-104,2026-04-05T20:45:30,Payment to Kroger Grocery,Kroger Grocery,110.62,POS,Groceries
+TXN-1262,CUST-104,2026-04-09T09:18:54,Payment to Kroger Grocery,Kroger Grocery,98.23,Web,Groceries
+TXN-1309,CUST-104,2026-04-14T19:28:05,Payment to Walgreens,Walgreens,158.73,Web,Pharmacy
+TXN-1306,CUST-104,2026-04-17T15:33:24,Payment to Delta Air Lines,Delta Air Lines,87.47,POS,Travel
+TXN-1295,CUST-104,2026-04-17T15:44:31,Payment to Walgreens,Walgreens,60.95,POS,Pharmacy
+TXN-1273,CUST-104,2026-04-26T21:28:56,Payment to Kroger Grocery,Kroger Grocery,108.87,Mobile,Groceries
+TXN-1275,CUST-104,2026-04-27T08:20:59,Payment to Walgreens,Walgreens,172.90,POS,Pharmacy
+TXN-1267,CUST-104,2026-04-29T16:15:19,Payment to City Water Board,City Water Board,191.99,Mobile,Utilities
+TXN-1266,CUST-104,2026-04-30T15:39:18,Payment to Chevron,Chevron,101.77,Mobile,Gasoline
+TXN-1280,CUST-104,2026-05-01T14:40:50,Payment to Delta Air Lines,Delta Air Lines,82.30,Mobile,Travel
+TXN-1287,CUST-104,2026-05-01T19:42:40,Payment to Walgreens,Walgreens,162.26,POS,Pharmacy
+TXN-1292,CUST-104,2026-05-04T08:48:41,Payment to City Water Board,City Water Board,101.94,Mobile,Utilities
+TXN-1286,CUST-104,2026-05-04T19:01:22,Payment to Kroger Grocery,Kroger Grocery,105.41,Mobile,Groceries
+TXN-1278,CUST-104,2026-05-05T11:53:09,Payment to Delta Air Lines,Delta Air Lines,116.47,Web,Travel
+TXN-1307,CUST-104,2026-05-07T20:16:45,Payment to Walgreens,Walgreens,5.00,Web,Pharmacy
+TXN-1297,CUST-104,2026-05-15T13:06:05,Payment to Nordstrom,Nordstrom,97.28,Web,Luxury Shopping
+TXN-1311,CUST-104,2026-05-16T21:10:45,Payment to City Water Board,City Water Board,97.44,Mobile,Utilities
+TXN-1261,CUST-104,2026-05-19T10:13:21,Payment to City Water Board,City Water Board,164.16,POS,Utilities
+TXN-1257,CUST-104,2026-05-19T18:44:42,Payment to Kroger Grocery,Kroger Grocery,67.91,Mobile,Groceries
+TXN-1254,CUST-104,2026-05-25T09:21:06,Payment to Delta Air Lines,Delta Air Lines,101.69,Web,Travel
+TXN-1256,CUST-104,2026-05-25T09:37:42,Payment to City Water Board,City Water Board,21.64,Mobile,Utilities
+TXN-1317,CUST-104,2026-05-28T10:56:53,Payment to City Water Board,City Water Board,127.15,POS,Utilities
+TXN-1310,CUST-104,2026-05-28T19:04:35,Payment to Delta Air Lines,Delta Air Lines,5.58,Mobile,Travel
+TXN-1293,CUST-104,2026-05-31T21:49:03,Payment to Kroger Grocery,Kroger Grocery,141.88,Mobile,Groceries
+TXN-1303,CUST-104,2026-06-02T13:24:36,Payment to Nordstrom,Nordstrom,140.44,Mobile,Luxury Shopping
+TXN-1304,CUST-104,2026-06-04T15:48:04,Payment to Delta Air Lines,Delta Air Lines,120.25,POS,Travel
+TXN-1255,CUST-104,2026-06-07T12:16:46,Payment to Delta Air Lines,Delta Air Lines,184.24,POS,Travel
+TXN-1253,CUST-104,2026-06-08T14:49:21,Payment to Chevron,Chevron,108.62,Web,Gasoline
+TXN-1296,CUST-104,2026-06-17T09:27:38,Payment to City Water Board,City Water Board,174.52,Web,Utilities
+TXN-1298,CUST-104,2026-06-18T10:44:28,Payment to Walgreens,Walgreens,148.25,Mobile,Pharmacy
+TXN-1294,CUST-104,2026-06-20T14:47:28,Payment to Nordstrom,Nordstrom,84.82,Mobile,Luxury Shopping
+TXN-1302,CUST-104,2026-06-21T08:08:04,Payment to City Water Board,City Water Board,124.56,Web,Utilities
+TXN-1272,CUST-104,2026-06-24T16:09:53,Payment to Nordstrom,Nordstrom,85.34,POS,Luxury Shopping
+TXN-1290,CUST-104,2026-06-26T08:18:12,Payment to Kroger Grocery,Kroger Grocery,54.46,POS,Groceries
+TXN-1315,CUST-104,2026-07-01T16:26:49,Payment to City Water Board,City Water Board,65.42,Mobile,Utilities
+TXN-1308,CUST-104,2026-07-04T11:07:08,Payment to Kroger Grocery,Kroger Grocery,164.95,Mobile,Groceries
+TXN-1313,CUST-104,2026-07-05T08:23:35,Payment to Delta Air Lines,Delta Air Lines,69.61,POS,Travel
+TXN-1274,CUST-104,2026-07-07T13:15:24,Payment to Kroger Grocery,Kroger Grocery,123.48,Mobile,Groceries
+TXN-1269,CUST-104,2026-07-07T16:26:10,Payment to City Water Board,City Water Board,148.01,Mobile,Utilities
+TXN-1285,CUST-104,2026-07-08T16:01:24,Payment to Nordstrom,Nordstrom,124.39,Mobile,Luxury Shopping
+TXN-1251,CUST-104,2026-07-08T18:11:02,Payment to Nordstrom,Nordstrom,115.68,Web,Luxury Shopping
+TXN-1312,CUST-104,2026-07-09T11:07:12,Payment to City Water Board,City Water Board,47.39,POS,Utilities
+TXN-1301,CUST-104,2026-07-10T20:47:43,Payment to Delta Air Lines,Delta Air Lines,121.07,Web,Travel
+TXN-1252,CUST-104,2026-07-12T17:10:23,Payment to Walgreens,Walgreens,163.29,Mobile,Pharmacy
+TXN-1284,CUST-104,2026-07-13T13:04:33,Payment to Delta Air Lines,Delta Air Lines,102.55,Web,Travel
+TXN-1305,CUST-104,2026-07-14T13:25:20,Payment to Kroger Grocery,Kroger Grocery,94.88,POS,Groceries
+TXN-1263,CUST-104,2026-07-17T21:47:56,Payment to Delta Air Lines,Delta Air Lines,49.64,POS,Travel
+TXN-1258,CUST-104,2026-07-22T14:41:50,Payment to Walgreens,Walgreens,152.99,POS,Pharmacy
+TXN-1282,CUST-104,2026-07-26T11:45:09,Payment to Walgreens,Walgreens,115.06,Mobile,Pharmacy
+TXN-1264,CUST-104,2026-07-31T14:09:10,Payment to City Water Board,City Water Board,104.00,Web,Utilities
+TXN-1279,CUST-104,2026-08-03T16:27:07,Payment to Kroger Grocery,Kroger Grocery,120.43,POS,Groceries
+TXN-1314,CUST-104,2026-08-04T09:04:19,Payment to Nordstrom,Nordstrom,92.84,Web,Luxury Shopping
+TXN-1265,CUST-104,2026-08-07T20:57:10,Payment to Walgreens,Walgreens,112.58,Web,Pharmacy
+TXN-1316,CUST-104,2026-08-12T09:28:29,Payment to Chevron,Chevron,146.72,Web,Gasoline
+TXN-1260,CUST-104,2026-08-19T14:32:23,Payment to Kroger Grocery,Kroger Grocery,113.23,Mobile,Groceries
+TXN-1259,CUST-104,2026-08-19T19:53:47,Payment to Kroger Grocery,Kroger Grocery,214.30,Web,Groceries
+TXN-1268,CUST-104,2026-08-21T17:28:29,Payment to Walgreens,Walgreens,98.09,Mobile,Pharmacy
+TXN-1289,CUST-104,2026-08-23T15:44:30,Payment to Kroger Grocery,Kroger Grocery,59.38,Web,Groceries
+TXN-1318,CUST-104,2026-08-28T14:22:15,High-Value Outbound Wire Transfer,Bavaria Real Estate Holding,14500.00,Wire,Real Estate / Wire
+TXN-1369,CUST-105,2026-03-03T16:36:38,Payment to Sotheby's Realty,Sotheby's Realty,160.22,Mobile,Real Estate
+TXN-1396,CUST-105,2026-03-05T14:13:04,Payment to Apple Store,Apple Store,921.59,Wire,Electronics
+TXN-1389,CUST-105,2026-03-09T16:26:11,Payment to Equinox Fitness,Equinox Fitness,1275.00,Wire,Fitness
+TXN-1367,CUST-105,2026-03-10T12:26:56,Payment to Equinox Fitness,Equinox Fitness,1086.77,Web,Fitness
+TXN-1359,CUST-105,2026-03-11T16:45:05,Payment to Vanguard Investments,Vanguard Investments,81.28,Mobile,Financial Services
+TXN-1388,CUST-105,2026-03-12T20:22:44,Payment to Sotheby's Realty,Sotheby's Realty,1853.50,Mobile,Real Estate
+TXN-1336,CUST-105,2026-03-13T16:31:38,Payment to Ritz-Carlton Club,Ritz-Carlton Club,1216.17,Mobile,Travel
+TXN-1349,CUST-105,2026-03-14T22:10:33,Payment to Apple Store,Apple Store,771.94,Mobile,Electronics
+TXN-1328,CUST-105,2026-03-16T12:28:26,Payment to Apple Store,Apple Store,621.44,Web,Electronics
+TXN-1383,CUST-105,2026-03-16T13:36:34,Payment to Equinox Fitness,Equinox Fitness,793.26,Web,Fitness
+TXN-1391,CUST-105,2026-03-21T11:41:55,Payment to Vanguard Investments,Vanguard Investments,1311.96,Web,Financial Services
+TXN-1321,CUST-105,2026-03-21T15:12:40,Payment to Apple Store,Apple Store,753.11,Mobile,Electronics
+TXN-1363,CUST-105,2026-03-26T20:21:45,Payment to Ritz-Carlton Club,Ritz-Carlton Club,483.55,Web,Travel
+TXN-1395,CUST-105,2026-03-29T08:51:42,Payment to Ritz-Carlton Club,Ritz-Carlton Club,1163.39,Wire,Travel
+TXN-1379,CUST-105,2026-03-31T16:23:39,Payment to Equinox Fitness,Equinox Fitness,838.57,Web,Fitness
+TXN-1358,CUST-105,2026-04-01T19:57:25,Payment to Equinox Fitness,Equinox Fitness,1202.20,Mobile,Fitness
+TXN-1341,CUST-105,2026-04-02T10:25:23,Payment to Vanguard Investments,Vanguard Investments,1854.28,Wire,Financial Services
+TXN-1322,CUST-105,2026-04-02T16:39:34,Payment to Apple Store,Apple Store,1255.19,Wire,Electronics
+TXN-1330,CUST-105,2026-04-03T18:32:35,Payment to Sotheby's Realty,Sotheby's Realty,1048.70,Mobile,Real Estate
+TXN-1380,CUST-105,2026-04-04T22:09:29,Payment to Ritz-Carlton Club,Ritz-Carlton Club,843.40,Wire,Travel
+TXN-1343,CUST-105,2026-04-05T17:51:30,Payment to Apple Store,Apple Store,827.06,Mobile,Electronics
+TXN-1350,CUST-105,2026-04-07T14:02:36,Payment to Sotheby's Realty,Sotheby's Realty,1005.45,Mobile,Real Estate
+TXN-1344,CUST-105,2026-04-08T11:20:59,Payment to Apple Store,Apple Store,696.50,Wire,Electronics
+TXN-1323,CUST-105,2026-04-09T12:42:39,Payment to Apple Store,Apple Store,1119.56,Mobile,Electronics
+TXN-1372,CUST-105,2026-04-11T21:41:16,Payment to Vanguard Investments,Vanguard Investments,838.77,Mobile,Financial Services
+TXN-1392,CUST-105,2026-04-15T19:33:08,Payment to Sotheby's Realty,Sotheby's Realty,816.53,Web,Real Estate
+TXN-1339,CUST-105,2026-04-19T18:35:18,Payment to Sotheby's Realty,Sotheby's Realty,1106.68,Mobile,Real Estate
+TXN-1353,CUST-105,2026-04-23T17:42:30,Payment to Apple Store,Apple Store,728.55,Mobile,Electronics
+TXN-1356,CUST-105,2026-04-27T16:49:18,Payment to Ritz-Carlton Club,Ritz-Carlton Club,704.46,Mobile,Travel
+TXN-1327,CUST-105,2026-05-02T19:19:29,Payment to Sotheby's Realty,Sotheby's Realty,648.47,Wire,Real Estate
+TXN-1387,CUST-105,2026-05-05T07:47:13,Payment to Apple Store,Apple Store,591.84,Web,Electronics
+TXN-1338,CUST-105,2026-05-07T18:48:25,Payment to Apple Store,Apple Store,621.00,Wire,Electronics
+TXN-1370,CUST-105,2026-05-12T21:41:34,Payment to Equinox Fitness,Equinox Fitness,145.03,Wire,Fitness
+TXN-1345,CUST-105,2026-05-16T17:32:53,Payment to Apple Store,Apple Store,717.95,Wire,Electronics
+TXN-1393,CUST-105,2026-05-16T21:43:46,Payment to Apple Store,Apple Store,611.00,Mobile,Electronics
+TXN-1320,CUST-105,2026-05-17T12:10:20,Payment to Apple Store,Apple Store,1072.90,Mobile,Electronics
+TXN-1378,CUST-105,2026-05-18T12:25:43,Payment to Vanguard Investments,Vanguard Investments,128.05,Wire,Financial Services
+TXN-1354,CUST-105,2026-05-20T12:29:58,Payment to Vanguard Investments,Vanguard Investments,431.78,Wire,Financial Services
+TXN-1333,CUST-105,2026-05-20T13:48:10,Payment to Ritz-Carlton Club,Ritz-Carlton Club,491.12,Wire,Travel
+TXN-1329,CUST-105,2026-05-20T17:46:55,Payment to Vanguard Investments,Vanguard Investments,872.69,Mobile,Financial Services
+TXN-1351,CUST-105,2026-05-20T20:09:26,Payment to Equinox Fitness,Equinox Fitness,797.55,Mobile,Fitness
+TXN-1375,CUST-105,2026-05-22T14:00:16,Payment to Ritz-Carlton Club,Ritz-Carlton Club,660.04,Web,Travel
+TXN-1384,CUST-105,2026-05-23T21:07:43,Payment to Sotheby's Realty,Sotheby's Realty,974.40,Wire,Real Estate
+TXN-1377,CUST-105,2026-06-01T14:03:42,Payment to Sotheby's Realty,Sotheby's Realty,630.37,Mobile,Real Estate
+TXN-1342,CUST-105,2026-06-02T11:12:38,Payment to Sotheby's Realty,Sotheby's Realty,450.29,Web,Real Estate
+TXN-1332,CUST-105,2026-06-07T20:15:55,Payment to Apple Store,Apple Store,1359.35,Wire,Electronics
+TXN-1368,CUST-105,2026-06-10T22:11:59,Payment to Vanguard Investments,Vanguard Investments,845.68,Web,Financial Services
+TXN-1385,CUST-105,2026-06-23T08:29:08,Payment to Apple Store,Apple Store,1282.24,Mobile,Electronics
+TXN-1376,CUST-105,2026-06-23T15:21:19,Payment to Vanguard Investments,Vanguard Investments,464.72,Wire,Financial Services
+TXN-1331,CUST-105,2026-06-24T14:09:06,Payment to Sotheby's Realty,Sotheby's Realty,1006.51,Mobile,Real Estate
+TXN-1386,CUST-105,2026-06-25T08:35:29,Payment to Sotheby's Realty,Sotheby's Realty,713.87,Mobile,Real Estate
+TXN-1335,CUST-105,2026-06-26T14:13:37,Payment to Vanguard Investments,Vanguard Investments,852.44,Web,Financial Services
+TXN-1371,CUST-105,2026-06-28T15:12:51,Payment to Sotheby's Realty,Sotheby's Realty,741.44,Mobile,Real Estate
+TXN-1334,CUST-105,2026-06-28T22:56:19,Payment to Ritz-Carlton Club,Ritz-Carlton Club,702.31,Wire,Travel
+TXN-1348,CUST-105,2026-06-30T15:41:50,Payment to Equinox Fitness,Equinox Fitness,1290.04,Wire,Fitness
+TXN-1357,CUST-105,2026-07-01T18:35:59,Payment to Vanguard Investments,Vanguard Investments,350.22,Mobile,Financial Services
+TXN-1355,CUST-105,2026-07-02T13:15:17,Payment to Apple Store,Apple Store,761.67,Mobile,Electronics
+TXN-1346,CUST-105,2026-07-04T16:30:52,Payment to Sotheby's Realty,Sotheby's Realty,1153.32,Mobile,Real Estate
+TXN-1319,CUST-105,2026-07-07T08:53:07,Payment to Apple Store,Apple Store,372.88,Web,Electronics
+TXN-1352,CUST-105,2026-07-07T22:55:54,Payment to Equinox Fitness,Equinox Fitness,839.16,Wire,Fitness
+TXN-1340,CUST-105,2026-07-08T21:48:35,Payment to Apple Store,Apple Store,660.25,Web,Electronics
+TXN-1374,CUST-105,2026-07-10T17:05:25,Payment to Equinox Fitness,Equinox Fitness,744.41,Mobile,Fitness
+TXN-1394,CUST-105,2026-07-15T19:52:14,Payment to Vanguard Investments,Vanguard Investments,854.90,Web,Financial Services
+TXN-1337,CUST-105,2026-07-16T07:54:06,Payment to Ritz-Carlton Club,Ritz-Carlton Club,516.13,Web,Travel
+TXN-1381,CUST-105,2026-07-19T22:48:34,Payment to Equinox Fitness,Equinox Fitness,386.16,Web,Fitness
+TXN-1324,CUST-105,2026-07-23T08:52:55,Payment to Apple Store,Apple Store,952.07,Mobile,Electronics
+TXN-1373,CUST-105,2026-07-24T13:11:39,Payment to Ritz-Carlton Club,Ritz-Carlton Club,793.84,Mobile,Travel
+TXN-1347,CUST-105,2026-07-28T16:50:57,Payment to Sotheby's Realty,Sotheby's Realty,881.82,Wire,Real Estate
+TXN-1362,CUST-105,2026-07-29T14:15:03,Payment to Equinox Fitness,Equinox Fitness,648.04,Web,Fitness
+TXN-1326,CUST-105,2026-08-11T07:31:56,Payment to Vanguard Investments,Vanguard Investments,653.88,Mobile,Financial Services
+TXN-1366,CUST-105,2026-08-13T08:58:49,Payment to Apple Store,Apple Store,1225.90,Wire,Electronics
+TXN-1390,CUST-105,2026-08-13T20:23:57,Payment to Ritz-Carlton Club,Ritz-Carlton Club,342.44,Mobile,Travel
+TXN-1365,CUST-105,2026-08-14T13:48:18,Payment to Vanguard Investments,Vanguard Investments,822.42,Mobile,Financial Services
+TXN-1325,CUST-105,2026-08-14T13:49:36,Payment to Ritz-Carlton Club,Ritz-Carlton Club,868.39,Wire,Travel
+TXN-1360,CUST-105,2026-08-15T15:47:30,Payment to Vanguard Investments,Vanguard Investments,993.11,Wire,Financial Services
+TXN-1382,CUST-105,2026-08-22T09:33:28,Payment to Apple Store,Apple Store,532.81,Web,Electronics
+TXN-1364,CUST-105,2026-08-22T11:00:35,Payment to Ritz-Carlton Club,Ritz-Carlton Club,1047.44,Mobile,Travel
+TXN-1361,CUST-105,2026-08-26T15:08:06,Payment to Apple Store,Apple Store,1471.63,Wire,Electronics
+TXN-1410,CUST-106,2026-03-04T11:59:12,Payment to Liberty Mutual,Liberty Mutual,111.90,POS,Insurance
+TXN-1416,CUST-106,2026-03-05T12:35:59,Payment to Verizon Wireless,Verizon Wireless,35.49,POS,Telecom
+TXN-1473,CUST-106,2026-03-08T19:39:56,Payment to Costco Wholesale,Costco Wholesale,145.74,Mobile,Wholesale
+TXN-1397,CUST-106,2026-03-13T11:47:02,Payment to Liberty Mutual,Liberty Mutual,98.35,Mobile,Insurance
+TXN-1437,CUST-106,2026-03-14T09:27:14,Payment to Home Depot,Home Depot,136.85,Mobile,Home Improvement
+TXN-1405,CUST-106,2026-03-15T16:26:26,Payment to Publix,Publix,121.25,POS,Groceries
+TXN-1430,CUST-106,2026-03-15T18:00:44,Payment to Liberty Mutual,Liberty Mutual,114.88,Mobile,Insurance
+TXN-1469,CUST-106,2026-03-18T12:02:51,Payment to Home Depot,Home Depot,129.76,POS,Home Improvement
+TXN-1435,CUST-106,2026-03-20T12:10:36,Payment to Costco Wholesale,Costco Wholesale,94.74,Mobile,Wholesale
+TXN-1450,CUST-106,2026-03-20T13:16:15,Payment to Publix,Publix,83.28,POS,Groceries
+TXN-1433,CUST-106,2026-03-20T18:59:17,Payment to Publix,Publix,42.42,POS,Groceries
+TXN-1421,CUST-106,2026-03-20T21:42:03,Payment to Home Depot,Home Depot,170.75,Mobile,Home Improvement
+TXN-1447,CUST-106,2026-03-22T19:57:35,Payment to Costco Wholesale,Costco Wholesale,87.12,POS,Wholesale
+TXN-1443,CUST-106,2026-03-24T08:19:28,Payment to Verizon Wireless,Verizon Wireless,125.59,Mobile,Telecom
+TXN-1429,CUST-106,2026-03-24T14:24:24,Payment to Publix,Publix,90.20,Mobile,Groceries
+TXN-1407,CUST-106,2026-03-24T16:46:53,Payment to Costco Wholesale,Costco Wholesale,106.57,POS,Wholesale
+TXN-1414,CUST-106,2026-03-26T20:46:30,Payment to Costco Wholesale,Costco Wholesale,94.63,Mobile,Wholesale
+TXN-1445,CUST-106,2026-03-27T08:05:22,Payment to Publix,Publix,113.98,POS,Groceries
+TXN-1444,CUST-106,2026-03-27T10:05:11,Payment to Publix,Publix,44.53,Mobile,Groceries
+TXN-1462,CUST-106,2026-03-28T20:15:42,Payment to Publix,Publix,79.37,POS,Groceries
+TXN-1426,CUST-106,2026-03-28T22:06:33,Payment to Publix,Publix,107.88,Mobile,Groceries
+TXN-1480,CUST-106,2026-03-30T10:23:44,Payment to Publix,Publix,117.65,POS,Groceries
+TXN-1476,CUST-106,2026-03-30T12:42:55,Payment to Verizon Wireless,Verizon Wireless,5.00,Mobile,Telecom
+TXN-1456,CUST-106,2026-03-30T22:36:12,Payment to Publix,Publix,48.91,POS,Groceries
+TXN-1420,CUST-106,2026-04-05T19:34:31,Payment to Home Depot,Home Depot,126.64,POS,Home Improvement
+TXN-1422,CUST-106,2026-04-05T21:40:14,Payment to Costco Wholesale,Costco Wholesale,113.35,Mobile,Wholesale
+TXN-1467,CUST-106,2026-04-06T13:19:21,Payment to Liberty Mutual,Liberty Mutual,180.54,POS,Insurance
+TXN-1449,CUST-106,2026-04-12T14:17:26,Payment to Verizon Wireless,Verizon Wireless,124.19,Mobile,Telecom
+TXN-1434,CUST-106,2026-04-15T22:54:20,Payment to Costco Wholesale,Costco Wholesale,119.80,Mobile,Wholesale
+TXN-1404,CUST-106,2026-04-17T20:34:30,Payment to Costco Wholesale,Costco Wholesale,93.66,Mobile,Wholesale
+TXN-1417,CUST-106,2026-04-20T13:14:24,Payment to Publix,Publix,59.04,POS,Groceries
+TXN-1432,CUST-106,2026-04-28T11:57:55,Payment to Verizon Wireless,Verizon Wireless,73.19,POS,Telecom
+TXN-1398,CUST-106,2026-04-29T16:13:48,Payment to Publix,Publix,101.16,Mobile,Groceries
+TXN-1472,CUST-106,2026-04-29T20:25:40,Payment to Liberty Mutual,Liberty Mutual,115.48,Mobile,Insurance
+TXN-1399,CUST-106,2026-04-29T21:58:46,Payment to Publix,Publix,81.44,Mobile,Groceries
+TXN-1441,CUST-106,2026-05-03T19:04:05,Payment to Verizon Wireless,Verizon Wireless,77.31,POS,Telecom
+TXN-1413,CUST-106,2026-05-06T13:32:56,Payment to Liberty Mutual,Liberty Mutual,126.51,Mobile,Insurance
+TXN-1408,CUST-106,2026-05-08T14:43:38,Payment to Costco Wholesale,Costco Wholesale,25.45,POS,Wholesale
+TXN-1415,CUST-106,2026-05-20T14:02:36,Payment to Costco Wholesale,Costco Wholesale,56.07,POS,Wholesale
+TXN-1455,CUST-106,2026-05-23T14:17:52,Payment to Liberty Mutual,Liberty Mutual,85.36,Mobile,Insurance
+TXN-1452,CUST-106,2026-05-25T21:39:24,Payment to Verizon Wireless,Verizon Wireless,104.22,Mobile,Telecom
+TXN-1470,CUST-106,2026-05-27T18:06:43,Payment to Costco Wholesale,Costco Wholesale,121.24,POS,Wholesale
+TXN-1466,CUST-106,2026-05-28T08:30:06,Payment to Home Depot,Home Depot,66.02,POS,Home Improvement
+TXN-1427,CUST-106,2026-05-30T12:50:25,Payment to Home Depot,Home Depot,113.55,Mobile,Home Improvement
+TXN-1483,CUST-106,2026-05-31T08:31:08,Payment to Costco Wholesale,Costco Wholesale,119.50,Mobile,Wholesale
+TXN-1423,CUST-106,2026-06-04T08:39:40,Payment to Publix,Publix,101.72,Mobile,Groceries
+TXN-1459,CUST-106,2026-06-05T09:28:38,Payment to Liberty Mutual,Liberty Mutual,69.32,Mobile,Insurance
+TXN-1442,CUST-106,2026-06-06T19:50:40,Payment to Verizon Wireless,Verizon Wireless,115.05,POS,Telecom
+TXN-1406,CUST-106,2026-06-08T11:16:13,Payment to Liberty Mutual,Liberty Mutual,83.96,Mobile,Insurance
+TXN-1428,CUST-106,2026-06-12T15:36:15,Payment to Home Depot,Home Depot,121.28,POS,Home Improvement
+TXN-1458,CUST-106,2026-06-13T18:31:08,Payment to Costco Wholesale,Costco Wholesale,71.58,Mobile,Wholesale
+TXN-1401,CUST-106,2026-06-14T12:17:03,Payment to Publix,Publix,64.59,POS,Groceries
+TXN-1464,CUST-106,2026-06-19T09:00:06,Payment to Publix,Publix,89.31,POS,Groceries
+TXN-1440,CUST-106,2026-06-19T10:43:37,Payment to Publix,Publix,82.76,Mobile,Groceries
+TXN-1465,CUST-106,2026-06-23T13:25:29,Payment to Publix,Publix,140.95,POS,Groceries
+TXN-1439,CUST-106,2026-06-24T15:14:22,Payment to Publix,Publix,134.71,Mobile,Groceries
+TXN-1451,CUST-106,2026-06-26T09:08:19,Payment to Home Depot,Home Depot,44.82,Mobile,Home Improvement
+TXN-1419,CUST-106,2026-06-26T10:46:50,Payment to Verizon Wireless,Verizon Wireless,151.34,POS,Telecom
+TXN-1478,CUST-106,2026-06-26T17:11:52,Payment to Publix,Publix,57.99,POS,Groceries
+TXN-1457,CUST-106,2026-06-27T19:13:28,Payment to Verizon Wireless,Verizon Wireless,63.80,POS,Telecom
+TXN-1409,CUST-106,2026-07-01T11:55:58,Payment to Verizon Wireless,Verizon Wireless,41.75,Mobile,Telecom
+TXN-1454,CUST-106,2026-07-01T13:11:25,Payment to Liberty Mutual,Liberty Mutual,125.38,POS,Insurance
+TXN-1418,CUST-106,2026-07-06T16:41:43,Payment to Liberty Mutual,Liberty Mutual,55.61,Mobile,Insurance
+TXN-1468,CUST-106,2026-07-12T15:22:30,Payment to Liberty Mutual,Liberty Mutual,145.64,Mobile,Insurance
+TXN-1460,CUST-106,2026-07-15T16:59:58,Payment to Home Depot,Home Depot,121.14,Mobile,Home Improvement
+TXN-1475,CUST-106,2026-07-16T10:23:20,Payment to Costco Wholesale,Costco Wholesale,65.29,Mobile,Wholesale
+TXN-1425,CUST-106,2026-07-16T12:01:32,Payment to Liberty Mutual,Liberty Mutual,83.52,POS,Insurance
+TXN-1471,CUST-106,2026-07-20T10:21:35,Payment to Liberty Mutual,Liberty Mutual,5.00,Mobile,Insurance
+TXN-1412,CUST-106,2026-07-20T13:49:18,Payment to Verizon Wireless,Verizon Wireless,54.94,Mobile,Telecom
+TXN-1482,CUST-106,2026-07-21T10:31:18,Payment to Liberty Mutual,Liberty Mutual,114.66,POS,Insurance
+TXN-1463,CUST-106,2026-07-23T18:43:41,Payment to Liberty Mutual,Liberty Mutual,70.74,Mobile,Insurance
+TXN-1431,CUST-106,2026-07-23T21:06:57,Payment to Publix,Publix,134.49,POS,Groceries
+TXN-1481,CUST-106,2026-07-26T14:27:11,Payment to Liberty Mutual,Liberty Mutual,123.55,POS,Insurance
+TXN-1400,CUST-106,2026-07-26T17:49:43,Payment to Costco Wholesale,Costco Wholesale,104.56,POS,Wholesale
+TXN-1474,CUST-106,2026-07-30T14:24:00,Payment to Home Depot,Home Depot,84.19,POS,Home Improvement
+TXN-1446,CUST-106,2026-07-31T17:50:20,Payment to Liberty Mutual,Liberty Mutual,96.23,Mobile,Insurance
+TXN-1438,CUST-106,2026-08-02T20:39:38,Payment to Home Depot,Home Depot,35.70,Mobile,Home Improvement
+TXN-1477,CUST-106,2026-08-04T14:37:07,Payment to Verizon Wireless,Verizon Wireless,99.04,Mobile,Telecom
+TXN-1402,CUST-106,2026-08-08T18:27:35,Payment to Liberty Mutual,Liberty Mutual,5.00,Mobile,Insurance
+TXN-1453,CUST-106,2026-08-14T17:08:19,Payment to Verizon Wireless,Verizon Wireless,57.43,POS,Telecom
+TXN-1424,CUST-106,2026-08-16T15:01:00,Payment to Home Depot,Home Depot,50.65,Mobile,Home Improvement
+TXN-1479,CUST-106,2026-08-20T10:20:07,Payment to Costco Wholesale,Costco Wholesale,26.69,Mobile,Wholesale
+TXN-1436,CUST-106,2026-08-21T22:34:21,Payment to Home Depot,Home Depot,41.86,Mobile,Home Improvement
+TXN-1448,CUST-106,2026-08-23T14:10:08,Payment to Costco Wholesale,Costco Wholesale,88.16,POS,Wholesale
+TXN-1403,CUST-106,2026-08-26T14:26:09,Payment to Verizon Wireless,Verizon Wireless,95.02,Mobile,Telecom
+TXN-1411,CUST-106,2026-08-26T17:45:13,Payment to Liberty Mutual,Liberty Mutual,87.17,POS,Insurance
+TXN-1461,CUST-106,2026-08-27T22:51:34,Payment to Publix,Publix,60.82,POS,Groceries
+TXN-1509,CUST-107,2026-03-01T12:30:04,Payment to Figma Subscription,Figma Subscription,99.90,Web,Software
+TXN-1546,CUST-107,2026-03-01T21:42:24,Payment to Adobe Creative Cloud,Adobe Creative Cloud,206.05,Web,Software
+TXN-1560,CUST-107,2026-03-04T09:53:49,Payment to WeWork Coworking,WeWork Coworking,179.20,Mobile,General
+TXN-1532,CUST-107,2026-03-04T20:08:44,Payment to Apple Store,Apple Store,220.94,Mobile,Electronics
+TXN-1524,CUST-107,2026-03-05T18:04:00,Payment to Adobe Creative Cloud,Adobe Creative Cloud,143.58,Mobile,Software
+TXN-1545,CUST-107,2026-03-07T12:34:22,Payment to Adobe Creative Cloud,Adobe Creative Cloud,96.36,Mobile,Software
+TXN-1534,CUST-107,2026-03-08T14:51:27,Payment to Uber Eats,Uber Eats,141.75,Web,Food & Beverage
+TXN-1572,CUST-107,2026-03-08T23:51:49,Payment to WeWork Coworking,WeWork Coworking,122.17,Mobile,General
+TXN-1486,CUST-107,2026-03-09T13:14:34,Payment to Uber Eats,Uber Eats,117.76,Mobile,Food & Beverage
+TXN-1490,CUST-107,2026-03-09T16:16:22,Payment to Adobe Creative Cloud,Adobe Creative Cloud,162.97,Web,Software
+TXN-1504,CUST-107,2026-03-12T10:40:50,Payment to Figma Subscription,Figma Subscription,151.10,Mobile,Software
+TXN-1501,CUST-107,2026-03-17T21:34:25,Payment to Figma Subscription,Figma Subscription,40.62,Mobile,Software
+TXN-1514,CUST-107,2026-03-18T17:36:00,Payment to Apple Store,Apple Store,115.06,Web,Electronics
+TXN-1562,CUST-107,2026-03-20T09:04:12,Payment to Figma Subscription,Figma Subscription,202.57,Web,Software
+TXN-1540,CUST-107,2026-03-20T18:23:07,Payment to Figma Subscription,Figma Subscription,5.00,Web,Software
+TXN-1527,CUST-107,2026-03-22T13:05:32,Payment to Figma Subscription,Figma Subscription,82.62,Web,Software
+TXN-1512,CUST-107,2026-03-23T20:51:06,Payment to Apple Store,Apple Store,194.59,Web,Electronics
+TXN-1559,CUST-107,2026-03-25T16:06:51,Payment to Figma Subscription,Figma Subscription,107.16,Web,Software
+TXN-1497,CUST-107,2026-04-06T18:40:17,Payment to WeWork Coworking,WeWork Coworking,48.06,Mobile,General
+TXN-1553,CUST-107,2026-04-09T10:10:28,Payment to WeWork Coworking,WeWork Coworking,164.79,Mobile,General
+TXN-1506,CUST-107,2026-04-10T22:59:56,Payment to Apple Store,Apple Store,130.75,Web,Electronics
+TXN-1485,CUST-107,2026-04-12T10:36:01,Payment to Figma Subscription,Figma Subscription,185.87,Mobile,Software
+TXN-1533,CUST-107,2026-04-12T14:08:47,Payment to Apple Store,Apple Store,150.43,Web,Electronics
+TXN-1492,CUST-107,2026-04-12T18:08:50,Payment to Adobe Creative Cloud,Adobe Creative Cloud,156.92,Mobile,Software
+TXN-1544,CUST-107,2026-04-20T20:57:34,Payment to Adobe Creative Cloud,Adobe Creative Cloud,148.21,Mobile,Software
+TXN-1491,CUST-107,2026-04-23T21:47:37,Payment to Apple Store,Apple Store,123.88,Mobile,Electronics
+TXN-1502,CUST-107,2026-04-24T16:17:20,Payment to Uber Eats,Uber Eats,172.89,Web,Food & Beverage
+TXN-1516,CUST-107,2026-04-25T10:57:06,Payment to WeWork Coworking,WeWork Coworking,166.24,Mobile,General
+TXN-1539,CUST-107,2026-04-27T14:15:26,Payment to Apple Store,Apple Store,169.87,Mobile,Electronics
+TXN-1537,CUST-107,2026-04-28T20:32:00,Payment to Adobe Creative Cloud,Adobe Creative Cloud,175.28,Web,Software
+TXN-1576,CUST-107,2026-04-30T18:20:51,Payment to Uber Eats,Uber Eats,140.42,Web,Food & Beverage
+TXN-1538,CUST-107,2026-05-02T09:30:23,Payment to Adobe Creative Cloud,Adobe Creative Cloud,117.51,Mobile,Software
+TXN-1530,CUST-107,2026-05-02T10:59:27,Payment to Adobe Creative Cloud,Adobe Creative Cloud,211.75,Mobile,Software
+TXN-1496,CUST-107,2026-05-03T11:45:20,Payment to WeWork Coworking,WeWork Coworking,197.10,Mobile,General
+TXN-1557,CUST-107,2026-05-03T14:25:32,Payment to Adobe Creative Cloud,Adobe Creative Cloud,270.02,Mobile,Software
+TXN-1558,CUST-107,2026-05-06T22:11:01,Payment to Uber Eats,Uber Eats,266.91,Web,Food & Beverage
+TXN-1555,CUST-107,2026-05-07T22:07:05,Payment to Figma Subscription,Figma Subscription,135.23,Mobile,Software
+TXN-1574,CUST-107,2026-05-08T17:52:50,Payment to Figma Subscription,Figma Subscription,164.14,Mobile,Software
+TXN-1548,CUST-107,2026-05-11T10:02:58,Payment to WeWork Coworking,WeWork Coworking,159.59,Mobile,General
+TXN-1568,CUST-107,2026-05-11T15:08:26,Payment to Uber Eats,Uber Eats,187.18,Web,Food & Beverage
+TXN-1551,CUST-107,2026-05-14T13:54:20,Payment to WeWork Coworking,WeWork Coworking,132.28,Mobile,General
+TXN-1542,CUST-107,2026-05-19T14:05:35,Payment to Apple Store,Apple Store,84.92,Mobile,Electronics
+TXN-1552,CUST-107,2026-05-21T16:17:14,Payment to Uber Eats,Uber Eats,184.02,Web,Food & Beverage
+TXN-1500,CUST-107,2026-05-23T18:00:55,Payment to WeWork Coworking,WeWork Coworking,160.95,Mobile,General
+TXN-1563,CUST-107,2026-05-24T10:02:29,Payment to Adobe Creative Cloud,Adobe Creative Cloud,104.54,Web,Software
+TXN-1565,CUST-107,2026-05-30T12:58:11,Payment to Apple Store,Apple Store,154.75,Mobile,Electronics
+TXN-1575,CUST-107,2026-05-30T23:53:54,Payment to Figma Subscription,Figma Subscription,134.05,Web,Software
+TXN-1570,CUST-107,2026-05-31T16:34:50,Payment to Uber Eats,Uber Eats,5.00,Mobile,Food & Beverage
+TXN-1523,CUST-107,2026-06-02T17:43:11,Payment to WeWork Coworking,WeWork Coworking,131.05,Web,General
+TXN-1507,CUST-107,2026-06-04T19:57:41,Payment to Figma Subscription,Figma Subscription,238.70,Web,Software
+TXN-1513,CUST-107,2026-06-06T21:52:48,Payment to Figma Subscription,Figma Subscription,182.58,Web,Software
+TXN-1521,CUST-107,2026-06-07T10:15:31,Payment to Uber Eats,Uber Eats,32.09,Web,Food & Beverage
+TXN-1571,CUST-107,2026-06-08T13:11:01,Payment to Apple Store,Apple Store,158.80,Web,Electronics
+TXN-1520,CUST-107,2026-06-09T13:41:03,Payment to Figma Subscription,Figma Subscription,169.35,Mobile,Software
+TXN-1508,CUST-107,2026-06-10T19:19:46,Payment to Adobe Creative Cloud,Adobe Creative Cloud,130.17,Web,Software
+TXN-1554,CUST-107,2026-06-13T10:34:22,Payment to Apple Store,Apple Store,188.26,Mobile,Electronics
+TXN-1495,CUST-107,2026-06-14T23:03:17,Payment to Figma Subscription,Figma Subscription,272.67,Web,Software
+TXN-1567,CUST-107,2026-06-14T23:35:30,Payment to Adobe Creative Cloud,Adobe Creative Cloud,85.83,Web,Software
+TXN-1489,CUST-107,2026-06-17T10:47:53,Payment to Figma Subscription,Figma Subscription,127.99,Mobile,Software
+TXN-1526,CUST-107,2026-06-17T20:25:05,Payment to Figma Subscription,Figma Subscription,93.75,Mobile,Software
+TXN-1517,CUST-107,2026-06-18T14:50:08,Payment to Figma Subscription,Figma Subscription,170.68,Mobile,Software
+TXN-1566,CUST-107,2026-06-23T23:09:02,Payment to Apple Store,Apple Store,77.12,Mobile,Electronics
+TXN-1498,CUST-107,2026-06-24T10:40:50,Payment to Uber Eats,Uber Eats,165.96,Mobile,Food & Beverage
+TXN-1505,CUST-107,2026-06-25T09:27:12,Payment to Figma Subscription,Figma Subscription,134.93,Mobile,Software
+TXN-1549,CUST-107,2026-06-26T20:05:37,Payment to Adobe Creative Cloud,Adobe Creative Cloud,269.77,Web,Software
+TXN-1535,CUST-107,2026-07-06T16:32:23,Payment to Adobe Creative Cloud,Adobe Creative Cloud,168.39,Mobile,Software
+TXN-1525,CUST-107,2026-07-08T13:40:45,Payment to Uber Eats,Uber Eats,163.48,Mobile,Food & Beverage
+TXN-1541,CUST-107,2026-07-11T09:25:04,Payment to WeWork Coworking,WeWork Coworking,143.20,Mobile,General
+TXN-1510,CUST-107,2026-07-11T19:28:00,Payment to Adobe Creative Cloud,Adobe Creative Cloud,204.56,Mobile,Software
+TXN-1547,CUST-107,2026-07-14T12:26:31,Payment to Adobe Creative Cloud,Adobe Creative Cloud,59.85,Web,Software
+TXN-1522,CUST-107,2026-07-14T23:00:23,Payment to Uber Eats,Uber Eats,176.65,Mobile,Food & Beverage
+TXN-1493,CUST-107,2026-07-15T13:38:34,Payment to Figma Subscription,Figma Subscription,187.63,Mobile,Software
+TXN-1528,CUST-107,2026-07-16T14:25:37,Payment to Adobe Creative Cloud,Adobe Creative Cloud,63.06,Mobile,Software
+TXN-1488,CUST-107,2026-07-18T22:23:34,Payment to WeWork Coworking,WeWork Coworking,153.35,Web,General
+TXN-1487,CUST-107,2026-07-19T17:07:36,Payment to Adobe Creative Cloud,Adobe Creative Cloud,254.91,Mobile,Software
+TXN-1484,CUST-107,2026-07-22T17:41:31,Payment to WeWork Coworking,WeWork Coworking,81.37,Mobile,General
+TXN-1578,CUST-107,2026-07-23T12:53:51,Payment to Apple Store,Apple Store,200.69,Web,Electronics
+TXN-1503,CUST-107,2026-07-23T22:31:50,Payment to Apple Store,Apple Store,92.99,Web,Electronics
+TXN-1536,CUST-107,2026-07-24T11:23:10,Payment to Uber Eats,Uber Eats,144.03,Web,Food & Beverage
+TXN-1564,CUST-107,2026-07-25T15:52:46,Payment to WeWork Coworking,WeWork Coworking,132.44,Web,General
+TXN-1573,CUST-107,2026-07-28T12:10:06,Payment to Figma Subscription,Figma Subscription,260.98,Web,Software
+TXN-1543,CUST-107,2026-08-07T12:29:23,Payment to Uber Eats,Uber Eats,161.74,Mobile,Food & Beverage
+TXN-1515,CUST-107,2026-08-08T20:09:58,Payment to WeWork Coworking,WeWork Coworking,120.13,Mobile,General
+TXN-1569,CUST-107,2026-08-09T21:34:50,Payment to Adobe Creative Cloud,Adobe Creative Cloud,273.34,Mobile,Software
+TXN-1550,CUST-107,2026-08-11T22:25:04,Payment to Figma Subscription,Figma Subscription,125.47,Web,Software
+TXN-1518,CUST-107,2026-08-13T10:15:35,Payment to Apple Store,Apple Store,61.34,Web,Electronics
+TXN-1519,CUST-107,2026-08-16T23:19:13,Payment to Uber Eats,Uber Eats,83.41,Web,Food & Beverage
+TXN-1531,CUST-107,2026-08-18T20:42:47,Payment to Figma Subscription,Figma Subscription,204.59,Web,Software
+TXN-1561,CUST-107,2026-08-23T19:41:05,Payment to Uber Eats,Uber Eats,141.24,Mobile,Food & Beverage
+TXN-1511,CUST-107,2026-08-25T11:30:04,Payment to Figma Subscription,Figma Subscription,148.02,Mobile,Software
+TXN-1499,CUST-107,2026-08-25T23:56:23,Payment to WeWork Coworking,WeWork Coworking,125.35,Mobile,General
+TXN-1529,CUST-107,2026-08-26T15:46:54,Payment to Figma Subscription,Figma Subscription,52.88,Web,Software
+TXN-1494,CUST-107,2026-08-28T13:18:36,Payment to Adobe Creative Cloud,Adobe Creative Cloud,131.03,Web,Software
+TXN-1577,CUST-107,2026-08-28T20:22:36,Payment to Uber Eats,Uber Eats,83.89,Web,Food & Beverage
+TXN-1556,CUST-107,2026-08-28T20:38:02,Payment to Figma Subscription,Figma Subscription,172.93,Web,Software
+TXN-1582,CUST-108,2026-03-06T10:37:45,Payment to Delta Private Jets,Delta Private Jets,1968.76,Wire,Travel
+TXN-1596,CUST-108,2026-03-06T13:16:06,Payment to Aman Resorts,Aman Resorts,1511.84,Web,Travel
+TXN-1580,CUST-108,2026-03-06T16:30:00,Payment to BMW Financial,BMW Financial,924.57,Wire,Automotive
+TXN-1579,CUST-108,2026-03-10T09:03:14,Payment to Delta Private Jets,Delta Private Jets,871.64,Web,Travel
+TXN-1620,CUST-108,2026-03-10T14:56:56,Payment to Aman Resorts,Aman Resorts,1076.78,Wire,Travel
+TXN-1626,CUST-108,2026-03-17T12:45:32,Payment to Delta Private Jets,Delta Private Jets,563.41,Web,Travel
+TXN-1583,CUST-108,2026-03-19T13:45:42,Payment to Aman Resorts,Aman Resorts,838.37,Web,Travel
+TXN-1597,CUST-108,2026-03-20T16:57:05,Payment to Hermes Paris,Hermes Paris,1381.76,Wire,Luxury Goods
+TXN-1599,CUST-108,2026-03-26T13:13:12,Payment to Aman Resorts,Aman Resorts,2117.63,Wire,Travel
+TXN-1650,CUST-108,2026-03-31T15:03:55,Payment to Delta Private Jets,Delta Private Jets,829.91,Web,Travel
+TXN-1611,CUST-108,2026-03-31T20:28:11,Payment to BMW Financial,BMW Financial,1743.29,Web,Automotive
+TXN-1642,CUST-108,2026-04-08T16:48:15,Payment to Delta Private Jets,Delta Private Jets,1951.64,Wire,Travel
+TXN-1607,CUST-108,2026-04-08T20:44:42,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1324.87,Web,Financial Services
+TXN-1601,CUST-108,2026-04-09T08:23:00,Payment to Aman Resorts,Aman Resorts,1521.83,Web,Travel
+TXN-1593,CUST-108,2026-04-12T14:31:56,Payment to Aman Resorts,Aman Resorts,1101.81,Wire,Travel
+TXN-1603,CUST-108,2026-04-13T18:18:05,Payment to Aman Resorts,Aman Resorts,1061.34,Web,Travel
+TXN-1627,CUST-108,2026-04-14T11:56:53,Payment to BMW Financial,BMW Financial,1726.86,Web,Automotive
+TXN-1587,CUST-108,2026-04-15T19:00:44,Payment to Delta Private Jets,Delta Private Jets,1616.56,Wire,Travel
+TXN-1581,CUST-108,2026-04-15T20:54:55,Payment to Hermes Paris,Hermes Paris,1826.97,Web,Luxury Goods
+TXN-1605,CUST-108,2026-04-17T13:56:24,Payment to Hermes Paris,Hermes Paris,1298.33,Web,Luxury Goods
+TXN-1612,CUST-108,2026-04-19T10:02:27,Payment to BMW Financial,BMW Financial,1891.26,Web,Automotive
+TXN-1655,CUST-108,2026-04-23T20:49:10,Payment to Delta Private Jets,Delta Private Jets,1402.95,Web,Travel
+TXN-1586,CUST-108,2026-04-27T18:37:52,Payment to Hermes Paris,Hermes Paris,1435.75,Web,Luxury Goods
+TXN-1630,CUST-108,2026-05-01T13:31:38,Payment to Aman Resorts,Aman Resorts,98.94,Wire,Travel
+TXN-1628,CUST-108,2026-05-03T08:29:03,Payment to Hermes Paris,Hermes Paris,1902.40,Wire,Luxury Goods
+TXN-1636,CUST-108,2026-05-04T17:51:19,Payment to Hermes Paris,Hermes Paris,1074.95,Wire,Luxury Goods
+TXN-1641,CUST-108,2026-05-06T18:45:57,Payment to Hermes Paris,Hermes Paris,1809.30,Web,Luxury Goods
+TXN-1619,CUST-108,2026-05-10T14:09:39,Payment to Delta Private Jets,Delta Private Jets,1309.50,Wire,Travel
+TXN-1622,CUST-108,2026-05-11T21:31:54,Payment to BMW Financial,BMW Financial,1177.59,Web,Automotive
+TXN-1632,CUST-108,2026-05-12T08:24:03,Payment to BMW Financial,BMW Financial,1575.49,Web,Automotive
+TXN-1647,CUST-108,2026-05-15T09:30:08,Payment to Hermes Paris,Hermes Paris,490.50,Web,Luxury Goods
+TXN-1644,CUST-108,2026-05-15T12:58:26,Payment to Delta Private Jets,Delta Private Jets,602.51,Web,Travel
+TXN-1602,CUST-108,2026-05-15T21:42:40,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,991.07,Web,Financial Services
+TXN-1640,CUST-108,2026-05-16T18:06:30,Payment to Hermes Paris,Hermes Paris,2568.83,Wire,Luxury Goods
+TXN-1623,CUST-108,2026-05-16T19:28:49,Payment to Hermes Paris,Hermes Paris,1044.10,Wire,Luxury Goods
+TXN-1604,CUST-108,2026-05-18T20:25:30,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,545.59,Wire,Financial Services
+TXN-1649,CUST-108,2026-05-24T13:16:37,Payment to Hermes Paris,Hermes Paris,1586.09,Wire,Luxury Goods
+TXN-1590,CUST-108,2026-05-24T19:04:15,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1009.32,Wire,Financial Services
+TXN-1584,CUST-108,2026-05-26T12:20:08,Payment to Aman Resorts,Aman Resorts,2020.39,Wire,Travel
+TXN-1645,CUST-108,2026-05-27T19:45:14,Payment to Delta Private Jets,Delta Private Jets,1692.42,Wire,Travel
+TXN-1631,CUST-108,2026-05-28T10:53:57,Payment to Hermes Paris,Hermes Paris,1655.41,Web,Luxury Goods
+TXN-1592,CUST-108,2026-05-29T12:50:06,Payment to Aman Resorts,Aman Resorts,1222.13,Wire,Travel
+TXN-1621,CUST-108,2026-06-04T08:21:52,Payment to Hermes Paris,Hermes Paris,1558.20,Wire,Luxury Goods
+TXN-1658,CUST-108,2026-06-04T08:57:20,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1275.41,Web,Financial Services
+TXN-1637,CUST-108,2026-06-05T21:22:29,Payment to Hermes Paris,Hermes Paris,515.99,Web,Luxury Goods
+TXN-1614,CUST-108,2026-06-08T16:25:35,Payment to Aman Resorts,Aman Resorts,1072.36,Web,Travel
+TXN-1609,CUST-108,2026-06-08T21:33:26,Payment to Delta Private Jets,Delta Private Jets,1665.09,Wire,Travel
+TXN-1652,CUST-108,2026-06-14T08:55:54,Payment to Hermes Paris,Hermes Paris,2124.83,Wire,Luxury Goods
+TXN-1618,CUST-108,2026-06-14T12:24:41,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,594.92,Web,Financial Services
+TXN-1616,CUST-108,2026-06-15T10:09:36,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,561.35,Web,Financial Services
+TXN-1624,CUST-108,2026-06-15T17:41:05,Payment to Aman Resorts,Aman Resorts,1375.76,Wire,Travel
+TXN-1657,CUST-108,2026-06-18T15:24:00,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1598.20,Web,Financial Services
+TXN-1591,CUST-108,2026-06-23T08:16:13,Payment to BMW Financial,BMW Financial,1595.63,Web,Automotive
+TXN-1606,CUST-108,2026-06-23T08:16:28,Payment to Hermes Paris,Hermes Paris,914.46,Web,Luxury Goods
+TXN-1595,CUST-108,2026-06-24T09:51:54,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1373.24,Wire,Financial Services
+TXN-1629,CUST-108,2026-06-27T16:25:40,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,880.76,Web,Financial Services
+TXN-1638,CUST-108,2026-06-28T12:43:33,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1467.37,Web,Financial Services
+TXN-1651,CUST-108,2026-06-29T11:32:07,Payment to Aman Resorts,Aman Resorts,777.12,Wire,Travel
+TXN-1654,CUST-108,2026-07-03T13:40:11,Payment to Aman Resorts,Aman Resorts,1185.61,Wire,Travel
+TXN-1656,CUST-108,2026-07-04T20:48:49,Payment to Aman Resorts,Aman Resorts,1813.89,Wire,Travel
+TXN-1639,CUST-108,2026-07-09T18:53:53,Payment to Hermes Paris,Hermes Paris,818.77,Wire,Luxury Goods
+TXN-1634,CUST-108,2026-07-10T08:55:49,Payment to Aman Resorts,Aman Resorts,1961.36,Web,Travel
+TXN-1625,CUST-108,2026-07-11T21:23:52,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1555.97,Web,Financial Services
+TXN-1594,CUST-108,2026-07-18T14:06:53,Payment to BMW Financial,BMW Financial,299.04,Web,Automotive
+TXN-1617,CUST-108,2026-07-23T20:06:50,Payment to Hermes Paris,Hermes Paris,825.41,Wire,Luxury Goods
+TXN-1588,CUST-108,2026-07-24T08:11:38,Payment to Delta Private Jets,Delta Private Jets,887.11,Web,Travel
+TXN-1653,CUST-108,2026-07-24T15:09:20,Payment to BMW Financial,BMW Financial,2466.57,Web,Automotive
+TXN-1610,CUST-108,2026-07-25T11:30:19,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,2161.41,Web,Financial Services
+TXN-1613,CUST-108,2026-07-31T12:20:58,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1594.03,Web,Financial Services
+TXN-1589,CUST-108,2026-08-11T17:06:59,Payment to Aman Resorts,Aman Resorts,2044.16,Web,Travel
+TXN-1635,CUST-108,2026-08-13T10:38:51,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,1101.00,Web,Financial Services
+TXN-1633,CUST-108,2026-08-13T11:43:13,Payment to Hermes Paris,Hermes Paris,1784.21,Wire,Luxury Goods
+TXN-1585,CUST-108,2026-08-14T13:11:45,Payment to Delta Private Jets,Delta Private Jets,1132.25,Wire,Travel
+TXN-1600,CUST-108,2026-08-17T12:19:15,Payment to Delta Private Jets,Delta Private Jets,1645.07,Wire,Travel
+TXN-1643,CUST-108,2026-08-17T13:43:08,Payment to Morgan Stanley Wealth,Morgan Stanley Wealth,738.12,Wire,Financial Services
+TXN-1646,CUST-108,2026-08-19T13:32:19,Payment to Delta Private Jets,Delta Private Jets,1769.09,Web,Travel
+TXN-1608,CUST-108,2026-08-19T13:51:34,Payment to BMW Financial,BMW Financial,558.22,Web,Automotive
+TXN-1648,CUST-108,2026-08-22T13:41:05,Payment to Hermes Paris,Hermes Paris,1309.19,Wire,Luxury Goods
+TXN-1615,CUST-108,2026-08-27T17:37:33,Payment to Aman Resorts,Aman Resorts,1592.63,Web,Travel
+TXN-1598,CUST-108,2026-08-28T08:27:41,Payment to BMW Financial,BMW Financial,1763.13,Web,Automotive
+TXN-1675,CUST-109,2026-03-01T08:42:05,Payment to AWS Cloud Services,AWS Cloud Services,253.43,POS,Cloud Services
+TXN-1680,CUST-109,2026-03-03T21:08:42,Payment to Best Buy,Best Buy,100.45,POS,Electronics
+TXN-1674,CUST-109,2026-03-11T16:31:58,Payment to Chipotle,Chipotle,163.61,Web,Food & Beverage
+TXN-1678,CUST-109,2026-03-13T09:52:11,Payment to Chipotle,Chipotle,205.64,POS,Food & Beverage
+TXN-1709,CUST-109,2026-03-13T16:59:27,Payment to Blue Bottle Coffee,Blue Bottle Coffee,178.40,Mobile,Food & Beverage
+TXN-1688,CUST-109,2026-03-17T12:41:20,Payment to Blue Bottle Coffee,Blue Bottle Coffee,240.42,POS,Food & Beverage
+TXN-1734,CUST-109,2026-03-19T20:45:20,Payment to Blue Bottle Coffee,Blue Bottle Coffee,5.00,Web,Food & Beverage
+TXN-1696,CUST-109,2026-03-23T21:31:28,Payment to AWS Cloud Services,AWS Cloud Services,67.69,Web,Cloud Services
+TXN-1736,CUST-109,2026-03-24T13:14:56,Payment to Chipotle,Chipotle,141.27,Mobile,Food & Beverage
+TXN-1698,CUST-109,2026-03-24T20:38:39,Payment to Blue Bottle Coffee,Blue Bottle Coffee,54.95,Web,Food & Beverage
+TXN-1671,CUST-109,2026-03-27T16:46:39,Payment to AWS Cloud Services,AWS Cloud Services,204.44,Mobile,Cloud Services
+TXN-1667,CUST-109,2026-03-28T18:53:01,Payment to AWS Cloud Services,AWS Cloud Services,78.40,POS,Cloud Services
+TXN-1740,CUST-109,2026-03-30T14:16:34,Payment to Blue Bottle Coffee,Blue Bottle Coffee,128.00,Mobile,Food & Beverage
+TXN-1668,CUST-109,2026-03-30T14:28:24,Payment to GitHub Enterprise,GitHub Enterprise,159.95,Web,Cloud Services
+TXN-1672,CUST-109,2026-03-30T20:06:31,Payment to Chipotle,Chipotle,141.64,POS,Food & Beverage
+TXN-1665,CUST-109,2026-04-01T13:45:41,Payment to AWS Cloud Services,AWS Cloud Services,141.24,Mobile,Cloud Services
+TXN-1660,CUST-109,2026-04-03T09:24:32,Payment to AWS Cloud Services,AWS Cloud Services,101.78,Mobile,Cloud Services
+TXN-1684,CUST-109,2026-04-03T19:46:03,Payment to AWS Cloud Services,AWS Cloud Services,235.37,Mobile,Cloud Services
+TXN-1732,CUST-109,2026-04-09T08:09:59,Payment to Blue Bottle Coffee,Blue Bottle Coffee,122.17,POS,Food & Beverage
+TXN-1729,CUST-109,2026-04-15T18:04:11,Payment to GitHub Enterprise,GitHub Enterprise,5.00,POS,Cloud Services
+TXN-1682,CUST-109,2026-04-16T09:25:25,Payment to Best Buy,Best Buy,172.59,POS,Electronics
+TXN-1663,CUST-109,2026-04-18T10:58:58,Payment to Best Buy,Best Buy,128.57,Web,Electronics
+TXN-1705,CUST-109,2026-04-20T11:07:59,Payment to Best Buy,Best Buy,73.63,Web,Electronics
+TXN-1673,CUST-109,2026-04-21T13:45:26,Payment to Chipotle,Chipotle,164.82,Web,Food & Beverage
+TXN-1737,CUST-109,2026-04-25T20:39:33,Payment to Best Buy,Best Buy,178.09,POS,Electronics
+TXN-1700,CUST-109,2026-04-27T21:29:21,Payment to Best Buy,Best Buy,58.91,POS,Electronics
+TXN-1727,CUST-109,2026-04-27T22:40:45,Payment to Chipotle,Chipotle,133.41,POS,Food & Beverage
+TXN-1664,CUST-109,2026-04-28T11:46:08,Payment to Blue Bottle Coffee,Blue Bottle Coffee,132.80,Web,Food & Beverage
+TXN-1695,CUST-109,2026-04-30T09:29:28,Payment to Blue Bottle Coffee,Blue Bottle Coffee,126.97,Mobile,Food & Beverage
+TXN-1694,CUST-109,2026-05-01T13:17:03,Payment to Best Buy,Best Buy,60.51,Mobile,Electronics
+TXN-1739,CUST-109,2026-05-02T08:43:56,Payment to Chipotle,Chipotle,163.58,Mobile,Food & Beverage
+TXN-1659,CUST-109,2026-05-03T11:44:56,Payment to Chipotle,Chipotle,62.38,Mobile,Food & Beverage
+TXN-1681,CUST-109,2026-05-08T22:46:05,Payment to Chipotle,Chipotle,90.79,Mobile,Food & Beverage
+TXN-1661,CUST-109,2026-05-14T15:46:33,Payment to Blue Bottle Coffee,Blue Bottle Coffee,112.42,POS,Food & Beverage
+TXN-1716,CUST-109,2026-05-14T18:22:58,Payment to GitHub Enterprise,GitHub Enterprise,57.27,POS,Cloud Services
+TXN-1722,CUST-109,2026-05-15T11:48:34,Payment to AWS Cloud Services,AWS Cloud Services,228.81,POS,Cloud Services
+TXN-1713,CUST-109,2026-05-15T15:51:08,Payment to GitHub Enterprise,GitHub Enterprise,91.13,Mobile,Cloud Services
+TXN-1742,CUST-109,2026-05-15T22:41:12,Payment to AWS Cloud Services,AWS Cloud Services,120.25,Web,Cloud Services
+TXN-1733,CUST-109,2026-05-17T15:50:36,Payment to Blue Bottle Coffee,Blue Bottle Coffee,145.95,Mobile,Food & Beverage
+TXN-1679,CUST-109,2026-05-20T14:47:07,Payment to AWS Cloud Services,AWS Cloud Services,53.53,Web,Cloud Services
+TXN-1662,CUST-109,2026-05-26T14:56:43,Payment to Best Buy,Best Buy,180.37,Mobile,Electronics
+TXN-1691,CUST-109,2026-05-28T18:43:41,Payment to Best Buy,Best Buy,175.62,Web,Electronics
+TXN-1720,CUST-109,2026-06-06T10:03:42,Payment to GitHub Enterprise,GitHub Enterprise,170.63,Mobile,Cloud Services
+TXN-1712,CUST-109,2026-06-07T14:38:58,Payment to Best Buy,Best Buy,115.32,Mobile,Electronics
+TXN-1711,CUST-109,2026-06-08T18:38:38,Payment to Chipotle,Chipotle,194.87,POS,Food & Beverage
+TXN-1697,CUST-109,2026-06-12T14:02:35,Payment to Blue Bottle Coffee,Blue Bottle Coffee,271.39,Web,Food & Beverage
+TXN-1719,CUST-109,2026-06-17T20:00:33,Payment to AWS Cloud Services,AWS Cloud Services,99.49,Web,Cloud Services
+TXN-1708,CUST-109,2026-06-26T18:37:32,Payment to Blue Bottle Coffee,Blue Bottle Coffee,172.86,POS,Food & Beverage
+TXN-1706,CUST-109,2026-06-26T21:50:12,Payment to Best Buy,Best Buy,124.56,Web,Electronics
+TXN-1683,CUST-109,2026-07-01T20:26:41,Payment to GitHub Enterprise,GitHub Enterprise,119.72,Web,Cloud Services
+TXN-1687,CUST-109,2026-07-03T09:56:26,Payment to Best Buy,Best Buy,59.43,Web,Electronics
+TXN-1704,CUST-109,2026-07-05T10:52:45,Payment to Chipotle,Chipotle,127.35,POS,Food & Beverage
+TXN-1693,CUST-109,2026-07-05T21:10:04,Payment to Best Buy,Best Buy,139.38,Mobile,Electronics
+TXN-1735,CUST-109,2026-07-08T10:26:34,Payment to Blue Bottle Coffee,Blue Bottle Coffee,108.08,Mobile,Food & Beverage
+TXN-1710,CUST-109,2026-07-09T20:58:58,Payment to GitHub Enterprise,GitHub Enterprise,161.93,Web,Cloud Services
+TXN-1730,CUST-109,2026-07-10T09:24:02,Payment to GitHub Enterprise,GitHub Enterprise,66.81,Web,Cloud Services
+TXN-1741,CUST-109,2026-07-10T20:32:28,Payment to Best Buy,Best Buy,117.86,Web,Electronics
+TXN-1703,CUST-109,2026-07-12T13:44:06,Payment to AWS Cloud Services,AWS Cloud Services,191.55,Web,Cloud Services
+TXN-1690,CUST-109,2026-07-12T19:44:39,Payment to GitHub Enterprise,GitHub Enterprise,196.91,Mobile,Cloud Services
+TXN-1743,CUST-109,2026-07-16T16:00:40,Payment to AWS Cloud Services,AWS Cloud Services,150.61,Web,Cloud Services
+TXN-1717,CUST-109,2026-07-17T19:40:20,Payment to AWS Cloud Services,AWS Cloud Services,5.00,Mobile,Cloud Services
+TXN-1728,CUST-109,2026-07-18T19:38:12,Payment to Chipotle,Chipotle,153.22,Mobile,Food & Beverage
+TXN-1715,CUST-109,2026-07-20T18:13:12,Payment to GitHub Enterprise,GitHub Enterprise,121.83,POS,Cloud Services
+TXN-1692,CUST-109,2026-07-21T22:39:03,Payment to Blue Bottle Coffee,Blue Bottle Coffee,258.03,Mobile,Food & Beverage
+TXN-1718,CUST-109,2026-07-22T15:37:36,Payment to Blue Bottle Coffee,Blue Bottle Coffee,211.00,Mobile,Food & Beverage
+TXN-1689,CUST-109,2026-07-26T19:36:14,Payment to Chipotle,Chipotle,138.59,POS,Food & Beverage
+TXN-1731,CUST-109,2026-07-28T21:16:00,Payment to Chipotle,Chipotle,160.46,Mobile,Food & Beverage
+TXN-1685,CUST-109,2026-07-30T15:51:36,Payment to Best Buy,Best Buy,117.74,Web,Electronics
+TXN-1714,CUST-109,2026-08-02T19:56:47,Payment to Blue Bottle Coffee,Blue Bottle Coffee,24.46,Mobile,Food & Beverage
+TXN-1686,CUST-109,2026-08-04T14:49:22,Payment to GitHub Enterprise,GitHub Enterprise,46.17,Mobile,Cloud Services
+TXN-1707,CUST-109,2026-08-10T21:43:37,Payment to AWS Cloud Services,AWS Cloud Services,104.30,Mobile,Cloud Services
+TXN-1666,CUST-109,2026-08-11T12:49:34,Payment to AWS Cloud Services,AWS Cloud Services,77.18,POS,Cloud Services
+TXN-1677,CUST-109,2026-08-12T11:29:18,Payment to Chipotle,Chipotle,108.65,Mobile,Food & Beverage
+TXN-1724,CUST-109,2026-08-13T16:24:15,Payment to Chipotle,Chipotle,32.04,POS,Food & Beverage
+TXN-1738,CUST-109,2026-08-14T08:07:42,Payment to Blue Bottle Coffee,Blue Bottle Coffee,106.86,POS,Food & Beverage
+TXN-1699,CUST-109,2026-08-15T18:29:21,Payment to Chipotle,Chipotle,42.09,Web,Food & Beverage
+TXN-1702,CUST-109,2026-08-16T11:00:21,Payment to Chipotle,Chipotle,82.17,POS,Food & Beverage
+TXN-1701,CUST-109,2026-08-16T13:45:28,Payment to AWS Cloud Services,AWS Cloud Services,101.78,Web,Cloud Services
+TXN-1670,CUST-109,2026-08-17T09:42:33,Payment to GitHub Enterprise,GitHub Enterprise,120.61,Mobile,Cloud Services
+TXN-1725,CUST-109,2026-08-18T08:59:24,Payment to Best Buy,Best Buy,123.27,Mobile,Electronics
+TXN-1676,CUST-109,2026-08-19T15:09:05,Payment to AWS Cloud Services,AWS Cloud Services,134.01,Mobile,Cloud Services
+TXN-1723,CUST-109,2026-08-20T19:35:55,Payment to GitHub Enterprise,GitHub Enterprise,150.34,POS,Cloud Services
+TXN-1721,CUST-109,2026-08-22T12:09:53,Payment to AWS Cloud Services,AWS Cloud Services,145.09,POS,Cloud Services
+TXN-1726,CUST-109,2026-08-23T13:35:03,Payment to Blue Bottle Coffee,Blue Bottle Coffee,171.71,Mobile,Food & Beverage
+TXN-1669,CUST-109,2026-08-25T18:40:00,Payment to Chipotle,Chipotle,159.42,Mobile,Food & Beverage
+TXN-1744,CUST-109,2026-08-29T11:40:00,Express Crypto Settlement Tranche #1,NovaDex Crypto Settlement,2450.00,Web,Cryptocurrency
+TXN-1745,CUST-109,2026-08-29T13:26:00,Express Crypto Settlement Tranche #2,NovaDex Crypto Settlement,3200.00,Web,Cryptocurrency
+TXN-1746,CUST-109,2026-08-29T15:33:00,Express Crypto Settlement Tranche #3,NovaDex Crypto Settlement,4150.00,Web,Cryptocurrency
+TXN-1803,CUST-110,2026-03-02T18:47:50,Payment to Shell,Shell,134.16,POS,Gasoline
+TXN-1771,CUST-110,2026-03-05T20:32:40,Payment to AT&T,AT&T,137.22,POS,Telecom
+TXN-1816,CUST-110,2026-03-09T19:38:32,Payment to Shell,Shell,30.82,POS,Gasoline
+TXN-1772,CUST-110,2026-03-10T15:16:34,Payment to Shell,Shell,97.77,Mobile,Gasoline
+TXN-1799,CUST-110,2026-03-12T18:33:27,Payment to AT&T,AT&T,96.79,Mobile,Telecom
+TXN-1836,CUST-110,2026-03-14T15:51:27,Payment to AT&T,AT&T,85.32,POS,Telecom
+TXN-1785,CUST-110,2026-03-20T15:41:17,Payment to Wegmans,Wegmans,93.85,POS,Groceries
+TXN-1833,CUST-110,2026-03-21T17:42:31,Payment to Shell,Shell,39.23,POS,Gasoline
+TXN-1749,CUST-110,2026-03-23T08:03:11,Payment to Shell,Shell,101.32,POS,Gasoline
+TXN-1812,CUST-110,2026-03-23T08:16:14,Payment to Wegmans,Wegmans,21.34,POS,Groceries
+TXN-1763,CUST-110,2026-03-26T10:46:37,Payment to CVS Pharmacy,CVS Pharmacy,54.05,POS,Pharmacy
+TXN-1764,CUST-110,2026-03-26T11:39:04,Payment to CVS Pharmacy,CVS Pharmacy,90.74,Mobile,Pharmacy
+TXN-1747,CUST-110,2026-03-27T10:34:53,Payment to AT&T,AT&T,57.60,POS,Telecom
+TXN-1826,CUST-110,2026-03-30T11:04:24,Payment to CVS Pharmacy,CVS Pharmacy,100.34,POS,Pharmacy
+TXN-1774,CUST-110,2026-04-04T14:32:32,Payment to Safeway,Safeway,138.07,Mobile,Groceries
+TXN-1789,CUST-110,2026-04-04T17:32:02,Payment to CVS Pharmacy,CVS Pharmacy,104.57,Mobile,Pharmacy
+TXN-1796,CUST-110,2026-04-08T16:06:11,Payment to AT&T,AT&T,159.95,POS,Telecom
+TXN-1755,CUST-110,2026-04-10T15:14:08,Payment to Shell,Shell,86.62,Mobile,Gasoline
+TXN-1811,CUST-110,2026-04-11T13:40:00,Payment to AT&T,AT&T,111.70,Mobile,Telecom
+TXN-1792,CUST-110,2026-04-13T10:53:26,Payment to Shell,Shell,138.76,POS,Gasoline
+TXN-1790,CUST-110,2026-04-16T15:25:38,Payment to Shell,Shell,74.43,POS,Gasoline
+TXN-1830,CUST-110,2026-04-16T18:43:59,Payment to CVS Pharmacy,CVS Pharmacy,112.57,Mobile,Pharmacy
+TXN-1831,CUST-110,2026-04-21T10:47:15,Payment to CVS Pharmacy,CVS Pharmacy,106.03,POS,Pharmacy
+TXN-1759,CUST-110,2026-04-24T13:57:41,Payment to CVS Pharmacy,CVS Pharmacy,100.54,POS,Pharmacy
+TXN-1810,CUST-110,2026-04-24T15:25:50,Payment to Wegmans,Wegmans,107.40,POS,Groceries
+TXN-1767,CUST-110,2026-04-26T18:47:41,Payment to CVS Pharmacy,CVS Pharmacy,21.02,Mobile,Pharmacy
+TXN-1821,CUST-110,2026-04-27T16:12:29,Payment to Wegmans,Wegmans,132.94,POS,Groceries
+TXN-1778,CUST-110,2026-04-29T07:42:13,Payment to Shell,Shell,60.48,Mobile,Gasoline
+TXN-1788,CUST-110,2026-05-02T07:08:36,Payment to Shell,Shell,109.85,POS,Gasoline
+TXN-1808,CUST-110,2026-05-04T11:36:22,Payment to AT&T,AT&T,92.02,POS,Telecom
+TXN-1750,CUST-110,2026-05-06T13:24:28,Payment to AT&T,AT&T,41.30,Mobile,Telecom
+TXN-1770,CUST-110,2026-05-07T18:56:40,Payment to Safeway,Safeway,42.69,POS,Groceries
+TXN-1818,CUST-110,2026-05-10T19:25:22,Payment to AT&T,AT&T,130.77,Mobile,Telecom
+TXN-1828,CUST-110,2026-05-13T08:25:43,Payment to Wegmans,Wegmans,74.89,POS,Groceries
+TXN-1751,CUST-110,2026-05-20T07:24:43,Payment to Shell,Shell,91.04,POS,Gasoline
+TXN-1766,CUST-110,2026-05-20T13:10:00,Payment to Wegmans,Wegmans,38.77,POS,Groceries
+TXN-1827,CUST-110,2026-05-20T13:22:33,Payment to Wegmans,Wegmans,30.44,POS,Groceries
+TXN-1825,CUST-110,2026-05-26T19:29:43,Payment to Safeway,Safeway,39.01,Mobile,Groceries
+TXN-1823,CUST-110,2026-05-27T08:51:32,Payment to Shell,Shell,162.81,Mobile,Gasoline
+TXN-1783,CUST-110,2026-05-30T20:55:22,Payment to Shell,Shell,44.56,POS,Gasoline
+TXN-1805,CUST-110,2026-06-01T08:09:27,Payment to Shell,Shell,71.15,Mobile,Gasoline
+TXN-1775,CUST-110,2026-06-02T15:00:42,Payment to Shell,Shell,94.84,POS,Gasoline
+TXN-1804,CUST-110,2026-06-05T17:13:44,Payment to Wegmans,Wegmans,90.06,Mobile,Groceries
+TXN-1754,CUST-110,2026-06-06T13:52:42,Payment to Safeway,Safeway,40.25,Mobile,Groceries
+TXN-1795,CUST-110,2026-06-07T09:06:01,Payment to Shell,Shell,110.21,Mobile,Gasoline
+TXN-1779,CUST-110,2026-06-08T14:58:29,Payment to Wegmans,Wegmans,95.98,POS,Groceries
+TXN-1822,CUST-110,2026-06-13T15:06:35,Payment to Safeway,Safeway,66.76,Mobile,Groceries
+TXN-1807,CUST-110,2026-06-14T15:50:35,Payment to Shell,Shell,51.68,Mobile,Gasoline
+TXN-1801,CUST-110,2026-06-17T09:16:30,Payment to Safeway,Safeway,96.30,Mobile,Groceries
+TXN-1815,CUST-110,2026-06-21T07:12:54,Payment to Wegmans,Wegmans,50.12,POS,Groceries
+TXN-1794,CUST-110,2026-06-25T16:37:04,Payment to CVS Pharmacy,CVS Pharmacy,56.23,Mobile,Pharmacy
+TXN-1768,CUST-110,2026-07-01T14:28:22,Payment to Wegmans,Wegmans,116.43,Mobile,Groceries
+TXN-1777,CUST-110,2026-07-02T12:02:14,Payment to Wegmans,Wegmans,89.99,Mobile,Groceries
+TXN-1834,CUST-110,2026-07-02T12:39:20,Payment to AT&T,AT&T,45.64,Mobile,Telecom
+TXN-1787,CUST-110,2026-07-02T17:30:30,Payment to AT&T,AT&T,93.51,POS,Telecom
+TXN-1765,CUST-110,2026-07-03T14:21:39,Payment to CVS Pharmacy,CVS Pharmacy,56.51,Mobile,Pharmacy
+TXN-1835,CUST-110,2026-07-04T09:48:58,Payment to Shell,Shell,49.82,POS,Gasoline
+TXN-1753,CUST-110,2026-07-07T08:18:50,Payment to Wegmans,Wegmans,67.65,Mobile,Groceries
+TXN-1837,CUST-110,2026-07-07T12:25:55,Payment to Safeway,Safeway,78.83,Mobile,Groceries
+TXN-1784,CUST-110,2026-07-07T21:08:28,Payment to CVS Pharmacy,CVS Pharmacy,91.59,POS,Pharmacy
+TXN-1776,CUST-110,2026-07-10T09:28:10,Payment to CVS Pharmacy,CVS Pharmacy,185.74,POS,Pharmacy
+TXN-1782,CUST-110,2026-07-11T11:24:58,Payment to CVS Pharmacy,CVS Pharmacy,113.93,Mobile,Pharmacy
+TXN-1797,CUST-110,2026-07-15T15:48:07,Payment to Shell,Shell,134.48,POS,Gasoline
+TXN-1758,CUST-110,2026-07-16T15:05:19,Payment to CVS Pharmacy,CVS Pharmacy,90.67,Mobile,Pharmacy
+TXN-1769,CUST-110,2026-07-20T08:11:41,Payment to CVS Pharmacy,CVS Pharmacy,30.80,POS,Pharmacy
+TXN-1757,CUST-110,2026-07-20T20:35:09,Payment to Shell,Shell,90.73,Mobile,Gasoline
+TXN-1829,CUST-110,2026-07-20T21:11:30,Payment to Shell,Shell,77.57,Mobile,Gasoline
+TXN-1820,CUST-110,2026-07-22T21:37:22,Payment to Wegmans,Wegmans,73.72,Mobile,Groceries
+TXN-1806,CUST-110,2026-07-23T12:39:17,Payment to AT&T,AT&T,64.32,POS,Telecom
+TXN-1781,CUST-110,2026-07-27T15:36:11,Payment to Shell,Shell,61.52,POS,Gasoline
+TXN-1752,CUST-110,2026-07-28T07:44:54,Payment to Safeway,Safeway,90.80,Mobile,Groceries
+TXN-1793,CUST-110,2026-07-28T20:49:11,Payment to CVS Pharmacy,CVS Pharmacy,55.51,Mobile,Pharmacy
+TXN-1819,CUST-110,2026-07-29T10:33:00,Payment to Safeway,Safeway,86.82,Mobile,Groceries
+TXN-1800,CUST-110,2026-07-29T19:47:58,Payment to Shell,Shell,155.85,POS,Gasoline
+TXN-1814,CUST-110,2026-07-31T07:49:52,Payment to CVS Pharmacy,CVS Pharmacy,71.78,Mobile,Pharmacy
+TXN-1802,CUST-110,2026-08-01T21:34:26,Payment to Wegmans,Wegmans,5.01,POS,Groceries
+TXN-1813,CUST-110,2026-08-03T07:46:24,Payment to Shell,Shell,122.86,Mobile,Gasoline
+TXN-1817,CUST-110,2026-08-05T09:43:02,Payment to CVS Pharmacy,CVS Pharmacy,52.73,POS,Pharmacy
+TXN-1760,CUST-110,2026-08-05T20:16:12,Payment to Safeway,Safeway,71.07,POS,Groceries
+TXN-1832,CUST-110,2026-08-06T12:09:49,Payment to Safeway,Safeway,69.45,POS,Groceries
+TXN-1756,CUST-110,2026-08-10T09:19:43,Payment to Wegmans,Wegmans,20.18,POS,Groceries
+TXN-1762,CUST-110,2026-08-13T15:04:18,Payment to Safeway,Safeway,109.24,Mobile,Groceries
+TXN-1773,CUST-110,2026-08-15T19:09:23,Payment to Shell,Shell,25.50,Mobile,Gasoline
+TXN-1809,CUST-110,2026-08-16T08:47:14,Payment to CVS Pharmacy,CVS Pharmacy,32.38,POS,Pharmacy
+TXN-1786,CUST-110,2026-08-17T10:26:51,Payment to Wegmans,Wegmans,111.73,POS,Groceries
+TXN-1791,CUST-110,2026-08-17T20:18:05,Payment to AT&T,AT&T,98.81,Mobile,Telecom
+TXN-1761,CUST-110,2026-08-19T19:36:54,Payment to Shell,Shell,147.71,Mobile,Gasoline
+TXN-1798,CUST-110,2026-08-21T17:27:33,Payment to AT&T,AT&T,118.82,Mobile,Telecom
+TXN-1748,CUST-110,2026-08-23T09:01:29,Payment to Wegmans,Wegmans,5.00,POS,Groceries
+TXN-1824,CUST-110,2026-08-25T14:24:36,Payment to AT&T,AT&T,67.14,POS,Telecom
+TXN-1780,CUST-110,2026-08-28T15:40:53,Payment to Wegmans,Wegmans,80.65,Mobile,Groceries
+TXN-1845,CUST-111,2026-03-03T13:26:31,Payment to Lyft,Lyft,258.29,POS,Transportation
+TXN-1887,CUST-111,2026-03-04T13:50:17,Payment to DoorDash,DoorDash,99.45,Mobile,Food & Beverage
+TXN-1888,CUST-111,2026-03-11T23:44:38,Payment to DoorDash,DoorDash,124.34,Web,Food & Beverage
+TXN-1876,CUST-111,2026-03-13T08:11:06,Payment to Costco,Costco,128.53,Web,Wholesale
+TXN-1847,CUST-111,2026-03-13T20:06:44,Payment to Costco,Costco,185.26,Web,Wholesale
+TXN-1899,CUST-111,2026-03-17T20:12:33,Payment to DoorDash,DoorDash,111.42,POS,Food & Beverage
+TXN-1896,CUST-111,2026-03-18T12:28:18,Payment to Costco,Costco,290.40,POS,Wholesale
+TXN-1874,CUST-111,2026-03-18T13:08:18,Payment to Google Fiber,Google Fiber,32.79,POS,Telecom
+TXN-1860,CUST-111,2026-03-22T11:16:39,Payment to DoorDash,DoorDash,163.90,Mobile,Food & Beverage
+TXN-1889,CUST-111,2026-03-23T15:10:31,Payment to Google Fiber,Google Fiber,241.61,Mobile,Telecom
+TXN-1901,CUST-111,2026-03-25T10:02:53,Payment to Google Fiber,Google Fiber,200.60,Mobile,Telecom
+TXN-1859,CUST-111,2026-03-25T10:59:56,Payment to Steam Games,Steam Games,137.04,POS,Entertainment
+TXN-1908,CUST-111,2026-03-25T11:46:14,Payment to Lyft,Lyft,135.68,Web,Transportation
+TXN-1883,CUST-111,2026-03-25T14:30:24,Payment to Costco,Costco,134.72,Mobile,Wholesale
+TXN-1902,CUST-111,2026-03-28T23:12:06,Payment to Google Fiber,Google Fiber,143.27,POS,Telecom
+TXN-1885,CUST-111,2026-04-01T16:30:40,Payment to Google Fiber,Google Fiber,140.02,POS,Telecom
+TXN-1850,CUST-111,2026-04-01T19:55:43,Payment to Lyft,Lyft,137.56,Mobile,Transportation
+TXN-1877,CUST-111,2026-04-02T22:46:00,Payment to Steam Games,Steam Games,164.31,Mobile,Entertainment
+TXN-1893,CUST-111,2026-04-04T16:57:02,Payment to Costco,Costco,85.23,POS,Wholesale
+TXN-1855,CUST-111,2026-04-11T18:14:20,Payment to Costco,Costco,136.30,POS,Wholesale
+TXN-1841,CUST-111,2026-04-17T23:27:13,Payment to Costco,Costco,57.86,Web,Wholesale
+TXN-1909,CUST-111,2026-04-18T14:33:42,Payment to DoorDash,DoorDash,160.76,POS,Food & Beverage
+TXN-1892,CUST-111,2026-04-19T08:44:24,Payment to Costco,Costco,45.74,POS,Wholesale
+TXN-1905,CUST-111,2026-04-23T23:59:56,Payment to Google Fiber,Google Fiber,198.79,Web,Telecom
+TXN-1886,CUST-111,2026-04-25T11:15:40,Payment to Steam Games,Steam Games,223.09,Web,Entertainment
+TXN-1840,CUST-111,2026-04-30T16:30:39,Payment to Costco,Costco,124.67,Web,Wholesale
+TXN-1858,CUST-111,2026-05-04T10:13:10,Payment to Steam Games,Steam Games,173.85,Mobile,Entertainment
+TXN-1881,CUST-111,2026-05-04T20:53:00,Payment to DoorDash,DoorDash,246.23,Web,Food & Beverage
+TXN-1872,CUST-111,2026-05-07T10:27:40,Payment to DoorDash,DoorDash,90.66,POS,Food & Beverage
+TXN-1907,CUST-111,2026-05-08T09:46:04,Payment to DoorDash,DoorDash,174.27,POS,Food & Beverage
+TXN-1842,CUST-111,2026-05-11T22:11:36,Payment to DoorDash,DoorDash,216.91,POS,Food & Beverage
+TXN-1900,CUST-111,2026-05-12T18:26:41,Payment to Costco,Costco,51.08,Mobile,Wholesale
+TXN-1868,CUST-111,2026-05-13T23:34:00,Payment to Steam Games,Steam Games,160.90,Web,Entertainment
+TXN-1869,CUST-111,2026-05-16T08:49:27,Payment to Google Fiber,Google Fiber,188.01,POS,Telecom
+TXN-1846,CUST-111,2026-05-20T23:19:16,Payment to Lyft,Lyft,270.75,POS,Transportation
+TXN-1878,CUST-111,2026-05-27T21:19:50,Payment to Steam Games,Steam Games,199.77,Web,Entertainment
+TXN-1895,CUST-111,2026-05-29T18:46:29,Payment to Lyft,Lyft,139.07,Mobile,Transportation
+TXN-1890,CUST-111,2026-05-31T12:44:34,Payment to Google Fiber,Google Fiber,212.80,Mobile,Telecom
+TXN-1849,CUST-111,2026-06-01T19:35:35,Payment to Google Fiber,Google Fiber,209.16,Web,Telecom
+TXN-1904,CUST-111,2026-06-02T15:38:45,Payment to Google Fiber,Google Fiber,142.42,Mobile,Telecom
+TXN-1867,CUST-111,2026-06-02T21:16:09,Payment to DoorDash,DoorDash,159.69,Web,Food & Beverage
+TXN-1897,CUST-111,2026-06-02T22:00:49,Payment to DoorDash,DoorDash,115.79,Mobile,Food & Beverage
+TXN-1870,CUST-111,2026-06-04T14:26:56,Payment to Lyft,Lyft,69.88,Web,Transportation
+TXN-1844,CUST-111,2026-06-06T14:09:51,Payment to DoorDash,DoorDash,35.73,Web,Food & Beverage
+TXN-1880,CUST-111,2026-06-09T10:34:30,Payment to DoorDash,DoorDash,16.62,Mobile,Food & Beverage
+TXN-1871,CUST-111,2026-06-10T15:10:45,Payment to Steam Games,Steam Games,154.38,Mobile,Entertainment
+TXN-1912,CUST-111,2026-06-11T18:42:10,Payment to Lyft,Lyft,174.52,POS,Transportation
+TXN-1882,CUST-111,2026-06-22T15:47:02,Payment to DoorDash,DoorDash,243.00,Web,Food & Beverage
+TXN-1852,CUST-111,2026-06-23T10:24:39,Payment to Costco,Costco,242.68,Web,Wholesale
+TXN-1875,CUST-111,2026-06-25T22:17:44,Payment to Google Fiber,Google Fiber,127.63,Mobile,Telecom
+TXN-1879,CUST-111,2026-06-27T09:21:05,Payment to Google Fiber,Google Fiber,255.54,Web,Telecom
+TXN-1863,CUST-111,2026-06-30T22:55:34,Payment to DoorDash,DoorDash,240.99,POS,Food & Beverage
+TXN-1891,CUST-111,2026-07-03T15:20:35,Payment to Steam Games,Steam Games,188.24,POS,Entertainment
+TXN-1862,CUST-111,2026-07-13T13:01:02,Payment to Costco,Costco,217.23,Web,Wholesale
+TXN-1864,CUST-111,2026-07-17T13:37:38,Payment to Steam Games,Steam Games,124.87,POS,Entertainment
+TXN-1866,CUST-111,2026-07-17T15:51:05,Payment to Steam Games,Steam Games,113.68,Web,Entertainment
+TXN-1910,CUST-111,2026-07-21T21:47:06,Payment to Lyft,Lyft,258.08,Web,Transportation
+TXN-1906,CUST-111,2026-07-21T21:52:23,Payment to Google Fiber,Google Fiber,91.58,POS,Telecom
+TXN-1851,CUST-111,2026-07-26T13:49:18,Payment to Steam Games,Steam Games,95.78,POS,Entertainment
+TXN-1839,CUST-111,2026-07-27T11:20:23,Payment to Lyft,Lyft,118.78,Web,Transportation
+TXN-1857,CUST-111,2026-07-29T22:26:10,Payment to DoorDash,DoorDash,166.11,POS,Food & Beverage
+TXN-1873,CUST-111,2026-08-04T16:18:41,Payment to Steam Games,Steam Games,154.34,Mobile,Entertainment
+TXN-1854,CUST-111,2026-08-04T20:54:58,Payment to Google Fiber,Google Fiber,35.72,Mobile,Telecom
+TXN-1898,CUST-111,2026-08-06T19:49:39,Payment to DoorDash,DoorDash,107.89,Web,Food & Beverage
+TXN-1884,CUST-111,2026-08-09T09:47:59,Payment to Lyft,Lyft,104.98,POS,Transportation
+TXN-1848,CUST-111,2026-08-09T11:28:47,Payment to Costco,Costco,201.71,Web,Wholesale
+TXN-1853,CUST-111,2026-08-09T12:55:10,Payment to Steam Games,Steam Games,57.94,POS,Entertainment
+TXN-1865,CUST-111,2026-08-10T21:33:40,Payment to Costco,Costco,121.45,Web,Wholesale
+TXN-1903,CUST-111,2026-08-12T20:42:31,Payment to Costco,Costco,52.61,Mobile,Wholesale
+TXN-1856,CUST-111,2026-08-13T20:17:56,Payment to Steam Games,Steam Games,213.04,Web,Entertainment
+TXN-1861,CUST-111,2026-08-15T20:19:14,Payment to DoorDash,DoorDash,160.94,Mobile,Food & Beverage
+TXN-1911,CUST-111,2026-08-20T22:44:42,Payment to DoorDash,DoorDash,130.56,POS,Food & Beverage
+TXN-1843,CUST-111,2026-08-23T15:52:06,Payment to Lyft,Lyft,136.95,Web,Transportation
+TXN-1838,CUST-111,2026-08-24T08:00:43,Payment to DoorDash,DoorDash,120.03,Web,Food & Beverage
+TXN-1894,CUST-111,2026-08-26T23:12:36,Payment to DoorDash,DoorDash,166.92,POS,Food & Beverage
+TXN-1989,CUST-112,2026-03-02T17:56:31,Payment to Starbucks,Starbucks,192.61,POS,Food & Beverage
+TXN-1946,CUST-112,2026-03-03T09:24:42,Payment to Hertz Car Rental,Hertz Car Rental,128.67,Web,Travel
+TXN-1988,CUST-112,2026-03-04T15:31:54,Payment to Starbucks,Starbucks,222.15,Web,Food & Beverage
+TXN-1917,CUST-112,2026-03-05T16:08:56,Payment to United Airlines,United Airlines,164.72,Mobile,Travel
+TXN-1950,CUST-112,2026-03-06T08:15:59,Payment to Nordstrom,Nordstrom,370.71,POS,Luxury Shopping
+TXN-1937,CUST-112,2026-03-07T20:19:10,Payment to Starbucks,Starbucks,288.49,Web,Food & Beverage
+TXN-1984,CUST-112,2026-03-12T20:10:58,Payment to Hertz Car Rental,Hertz Car Rental,156.34,Web,Travel
+TXN-1929,CUST-112,2026-03-13T18:46:25,Payment to Nordstrom,Nordstrom,308.33,Web,Luxury Shopping
+TXN-1945,CUST-112,2026-03-16T12:12:50,Payment to Starbucks,Starbucks,165.33,Web,Food & Beverage
+TXN-1969,CUST-112,2026-03-17T10:59:28,Payment to Hertz Car Rental,Hertz Car Rental,243.42,POS,Travel
+TXN-1922,CUST-112,2026-03-20T19:20:50,Payment to Starbucks,Starbucks,226.37,Mobile,Food & Beverage
+TXN-1925,CUST-112,2026-03-21T20:03:58,Payment to Starbucks,Starbucks,194.08,POS,Food & Beverage
+TXN-1932,CUST-112,2026-03-22T14:32:27,Payment to United Airlines,United Airlines,174.65,Mobile,Travel
+TXN-1930,CUST-112,2026-03-24T11:27:18,Payment to Starbucks,Starbucks,162.31,Mobile,Food & Beverage
+TXN-1973,CUST-112,2026-03-28T15:29:52,Payment to United Airlines,United Airlines,295.61,Web,Travel
+TXN-1926,CUST-112,2026-03-31T21:49:14,Payment to Nordstrom,Nordstrom,116.24,Mobile,Luxury Shopping
+TXN-1931,CUST-112,2026-04-03T13:05:30,Payment to Starbucks,Starbucks,163.51,POS,Food & Beverage
+TXN-1955,CUST-112,2026-04-05T09:46:24,Payment to United Airlines,United Airlines,73.05,POS,Travel
+TXN-1938,CUST-112,2026-04-07T15:02:59,Payment to United Airlines,United Airlines,176.95,Mobile,Travel
+TXN-1961,CUST-112,2026-04-07T19:01:48,Payment to Starbucks,Starbucks,100.72,POS,Food & Beverage
+TXN-1920,CUST-112,2026-04-09T10:16:23,Payment to Nordstrom,Nordstrom,170.48,Mobile,Luxury Shopping
+TXN-1963,CUST-112,2026-04-18T09:08:11,Payment to Nordstrom,Nordstrom,401.10,POS,Luxury Shopping
+TXN-1980,CUST-112,2026-04-21T15:05:16,Payment to Hertz Car Rental,Hertz Car Rental,200.08,Web,Travel
+TXN-1958,CUST-112,2026-04-21T21:08:19,Payment to Nordstrom,Nordstrom,224.46,Mobile,Luxury Shopping
+TXN-1921,CUST-112,2026-04-29T12:51:19,Payment to United Airlines,United Airlines,248.49,Web,Travel
+TXN-1965,CUST-112,2026-04-29T18:01:22,Payment to United Airlines,United Airlines,299.55,Web,Travel
+TXN-1956,CUST-112,2026-05-01T17:09:27,Payment to Hertz Car Rental,Hertz Car Rental,170.34,Web,Travel
+TXN-1991,CUST-112,2026-05-02T16:17:39,Payment to United Airlines,United Airlines,89.04,Mobile,Travel
+TXN-1970,CUST-112,2026-05-03T14:25:49,Payment to Marriott Hotels,Marriott Hotels,120.50,Web,Travel
+TXN-1968,CUST-112,2026-05-09T14:14:47,Payment to United Airlines,United Airlines,231.03,Mobile,Travel
+TXN-1954,CUST-112,2026-05-11T11:09:21,Payment to Starbucks,Starbucks,97.46,Web,Food & Beverage
+TXN-1986,CUST-112,2026-05-18T12:46:49,Payment to Starbucks,Starbucks,150.44,POS,Food & Beverage
+TXN-1918,CUST-112,2026-05-20T08:49:52,Payment to Hertz Car Rental,Hertz Car Rental,245.05,Web,Travel
+TXN-1914,CUST-112,2026-05-22T17:15:36,Payment to Nordstrom,Nordstrom,121.00,Mobile,Luxury Shopping
+TXN-1935,CUST-112,2026-05-22T18:59:36,Payment to Starbucks,Starbucks,279.67,POS,Food & Beverage
+TXN-1957,CUST-112,2026-05-24T15:34:08,Payment to Nordstrom,Nordstrom,195.99,Web,Luxury Shopping
+TXN-1951,CUST-112,2026-05-25T15:25:47,Payment to Hertz Car Rental,Hertz Car Rental,223.18,POS,Travel
+TXN-1941,CUST-112,2026-05-27T19:51:07,Payment to Hertz Car Rental,Hertz Car Rental,156.26,Mobile,Travel
+TXN-1936,CUST-112,2026-05-29T11:20:22,Payment to Nordstrom,Nordstrom,244.74,Web,Luxury Shopping
+TXN-1913,CUST-112,2026-05-30T13:35:20,Payment to Starbucks,Starbucks,228.41,Web,Food & Beverage
+TXN-1915,CUST-112,2026-06-05T20:35:59,Payment to Starbucks,Starbucks,182.59,POS,Food & Beverage
+TXN-1948,CUST-112,2026-06-06T16:45:06,Payment to Hertz Car Rental,Hertz Car Rental,203.03,POS,Travel
+TXN-1971,CUST-112,2026-06-06T19:20:25,Payment to Nordstrom,Nordstrom,90.56,Web,Luxury Shopping
+TXN-1983,CUST-112,2026-06-07T19:50:32,Payment to Nordstrom,Nordstrom,151.26,POS,Luxury Shopping
+TXN-1967,CUST-112,2026-06-08T15:30:08,Payment to Starbucks,Starbucks,212.70,Mobile,Food & Beverage
+TXN-1916,CUST-112,2026-06-10T08:46:02,Payment to Hertz Car Rental,Hertz Car Rental,114.18,Web,Travel
+TXN-1990,CUST-112,2026-06-13T15:05:38,Payment to Nordstrom,Nordstrom,284.71,Mobile,Luxury Shopping
+TXN-1959,CUST-112,2026-06-19T20:09:41,Payment to Hertz Car Rental,Hertz Car Rental,337.78,Mobile,Travel
+TXN-1962,CUST-112,2026-06-22T19:59:52,Payment to Hertz Car Rental,Hertz Car Rental,368.00,Mobile,Travel
+TXN-1982,CUST-112,2026-06-24T18:23:05,Payment to Nordstrom,Nordstrom,147.24,Web,Luxury Shopping
+TXN-1976,CUST-112,2026-06-27T10:27:18,Payment to Nordstrom,Nordstrom,260.01,Mobile,Luxury Shopping
+TXN-1933,CUST-112,2026-07-02T16:12:31,Payment to Nordstrom,Nordstrom,107.75,Web,Luxury Shopping
+TXN-1923,CUST-112,2026-07-03T21:57:44,Payment to Marriott Hotels,Marriott Hotels,144.48,Web,Travel
+TXN-1978,CUST-112,2026-07-07T09:11:49,Payment to Nordstrom,Nordstrom,209.52,Web,Luxury Shopping
+TXN-1919,CUST-112,2026-07-09T16:36:59,Payment to Starbucks,Starbucks,154.94,POS,Food & Beverage
+TXN-1975,CUST-112,2026-07-11T20:40:03,Payment to Hertz Car Rental,Hertz Car Rental,214.78,POS,Travel
+TXN-1934,CUST-112,2026-07-13T11:15:04,Payment to Hertz Car Rental,Hertz Car Rental,244.68,POS,Travel
+TXN-1972,CUST-112,2026-07-13T18:56:45,Payment to Marriott Hotels,Marriott Hotels,105.36,Web,Travel
+TXN-1942,CUST-112,2026-07-16T11:13:34,Payment to Nordstrom,Nordstrom,264.64,POS,Luxury Shopping
+TXN-1974,CUST-112,2026-07-16T14:47:02,Payment to Nordstrom,Nordstrom,78.17,POS,Luxury Shopping
+TXN-1979,CUST-112,2026-07-18T10:25:26,Payment to Starbucks,Starbucks,177.50,Web,Food & Beverage
+TXN-1943,CUST-112,2026-07-19T15:39:46,Payment to Marriott Hotels,Marriott Hotels,300.46,POS,Travel
+TXN-1960,CUST-112,2026-07-21T16:46:07,Payment to United Airlines,United Airlines,116.63,POS,Travel
+TXN-1928,CUST-112,2026-07-23T10:20:32,Payment to United Airlines,United Airlines,215.50,Mobile,Travel
+TXN-1944,CUST-112,2026-07-28T18:33:02,Payment to Hertz Car Rental,Hertz Car Rental,179.41,Mobile,Travel
+TXN-1949,CUST-112,2026-07-31T16:05:11,Payment to Nordstrom,Nordstrom,246.79,Web,Luxury Shopping
+TXN-1966,CUST-112,2026-08-02T15:45:41,Payment to Hertz Car Rental,Hertz Car Rental,247.48,Mobile,Travel
+TXN-1964,CUST-112,2026-08-03T17:39:14,Payment to Nordstrom,Nordstrom,220.90,Mobile,Luxury Shopping
+TXN-1940,CUST-112,2026-08-06T10:55:53,Payment to Hertz Car Rental,Hertz Car Rental,153.52,Mobile,Travel
+TXN-1987,CUST-112,2026-08-08T10:07:57,Payment to Nordstrom,Nordstrom,219.21,POS,Luxury Shopping
+TXN-1952,CUST-112,2026-08-08T12:15:32,Payment to Hertz Car Rental,Hertz Car Rental,242.73,Mobile,Travel
+TXN-1953,CUST-112,2026-08-08T12:56:24,Payment to Marriott Hotels,Marriott Hotels,291.36,Web,Travel
+TXN-1927,CUST-112,2026-08-10T20:40:24,Payment to Hertz Car Rental,Hertz Car Rental,271.20,Web,Travel
+TXN-1924,CUST-112,2026-08-12T12:02:46,Payment to Nordstrom,Nordstrom,52.26,POS,Luxury Shopping
+TXN-1981,CUST-112,2026-08-14T19:50:10,Payment to Marriott Hotels,Marriott Hotels,177.40,Web,Travel
+TXN-1947,CUST-112,2026-08-16T13:55:06,Payment to Starbucks,Starbucks,334.68,Mobile,Food & Beverage
+TXN-1985,CUST-112,2026-08-16T21:09:10,Payment to Marriott Hotels,Marriott Hotels,216.98,POS,Travel
+TXN-1939,CUST-112,2026-08-23T13:09:48,Payment to Marriott Hotels,Marriott Hotels,180.72,Mobile,Travel
+TXN-1977,CUST-112,2026-08-24T16:57:09,Payment to Marriott Hotels,Marriott Hotels,79.72,Web,Travel
+TXN-1992,CUST-112,2026-08-30T03:15:22,Overnight Immediate Mobile Transfer,QuickCash Remittance Services,1850.00,Mobile,Remittance
+TXN-1993,CUST-112,2026-08-30T04:20:45,Overnight Immediate Mobile Transfer,QuickCash Remittance Services,2250.00,Mobile,Remittance
+TXN-2008,CUST-113,2026-03-02T08:43:21,Payment to Fastenal Co,Fastenal Co,432.46,POS,Industrial
+TXN-1995,CUST-113,2026-03-09T17:36:53,Payment to Grainger Industrial,Grainger Industrial,279.97,Web,Industrial
+TXN-2022,CUST-113,2026-03-10T14:24:45,Payment to Grainger Industrial,Grainger Industrial,83.16,Web,Industrial
+TXN-2006,CUST-113,2026-03-12T12:22:35,Payment to FedEx Express,FedEx Express,175.16,Web,Shipping
+TXN-2030,CUST-113,2026-03-13T09:01:30,Payment to Grainger Industrial,Grainger Industrial,433.80,Web,Industrial
+TXN-2012,CUST-113,2026-03-15T15:19:36,Payment to Fastenal Co,Fastenal Co,156.88,Web,Industrial
+TXN-2017,CUST-113,2026-03-23T14:56:15,Payment to Fastenal Co,Fastenal Co,197.85,Web,Industrial
+TXN-2024,CUST-113,2026-03-27T15:49:42,Payment to Fastenal Co,Fastenal Co,346.63,Web,Industrial
+TXN-1996,CUST-113,2026-03-28T13:11:10,Payment to Fastenal Co,Fastenal Co,304.12,Web,Industrial
+TXN-2047,CUST-113,2026-04-05T16:57:48,Payment to FedEx Express,FedEx Express,378.24,Web,Shipping
+TXN-2021,CUST-113,2026-04-06T19:55:06,Payment to FedEx Express,FedEx Express,524.58,Web,Shipping
+TXN-1994,CUST-113,2026-04-07T07:41:22,Payment to Grainger Industrial,Grainger Industrial,192.49,Web,Industrial
+TXN-2014,CUST-113,2026-04-08T11:53:01,Payment to Fastenal Co,Fastenal Co,101.11,POS,Industrial
+TXN-2055,CUST-113,2026-04-09T11:55:42,Payment to Grainger Industrial,Grainger Industrial,395.07,Web,Industrial
+TXN-2011,CUST-113,2026-04-09T17:29:57,Payment to State Farm Business,State Farm Business,577.27,POS,Insurance
+TXN-2045,CUST-113,2026-04-15T11:25:04,Payment to State Farm Business,State Farm Business,206.36,POS,Insurance
+TXN-2036,CUST-113,2026-04-16T18:58:42,Payment to Fastenal Co,Fastenal Co,314.08,POS,Industrial
+TXN-2054,CUST-113,2026-04-18T15:24:53,Payment to Fastenal Co,Fastenal Co,322.28,POS,Industrial
+TXN-2019,CUST-113,2026-04-21T08:28:32,Payment to FedEx Express,FedEx Express,538.76,Web,Shipping
+TXN-2049,CUST-113,2026-04-22T17:56:20,Payment to Fastenal Co,Fastenal Co,303.45,POS,Industrial
+TXN-2013,CUST-113,2026-04-23T16:43:21,Payment to Fastenal Co,Fastenal Co,469.72,Web,Industrial
+TXN-2035,CUST-113,2026-04-29T10:09:55,Payment to Fastenal Co,Fastenal Co,465.76,POS,Industrial
+TXN-2027,CUST-113,2026-05-09T09:10:17,Payment to Grainger Industrial,Grainger Industrial,645.51,Web,Industrial
+TXN-2026,CUST-113,2026-05-10T15:20:49,Payment to State Farm Business,State Farm Business,302.77,Web,Insurance
+TXN-2052,CUST-113,2026-05-12T07:15:27,Payment to State Farm Business,State Farm Business,366.01,POS,Insurance
+TXN-2038,CUST-113,2026-05-12T19:22:38,Payment to FedEx Express,FedEx Express,400.11,Web,Shipping
+TXN-2004,CUST-113,2026-05-14T10:00:07,Payment to Grainger Industrial,Grainger Industrial,217.10,POS,Industrial
+TXN-1999,CUST-113,2026-05-14T14:08:07,Payment to State Farm Business,State Farm Business,341.76,Web,Insurance
+TXN-2051,CUST-113,2026-05-15T07:23:57,Payment to Fastenal Co,Fastenal Co,335.91,Web,Industrial
+TXN-2023,CUST-113,2026-05-19T07:43:54,Payment to State Farm Business,State Farm Business,330.42,Web,Insurance
+TXN-2032,CUST-113,2026-05-19T12:52:12,Payment to Grainger Industrial,Grainger Industrial,517.34,POS,Industrial
+TXN-2034,CUST-113,2026-05-19T17:41:45,Payment to State Farm Business,State Farm Business,174.80,POS,Insurance
+TXN-2020,CUST-113,2026-05-27T14:46:55,Payment to Fastenal Co,Fastenal Co,405.08,POS,Industrial
+TXN-2050,CUST-113,2026-05-28T08:37:00,Payment to State Farm Business,State Farm Business,616.93,Web,Insurance
+TXN-2059,CUST-113,2026-05-30T10:11:27,Payment to FedEx Express,FedEx Express,234.40,POS,Shipping
+TXN-1998,CUST-113,2026-06-03T13:52:04,Payment to State Farm Business,State Farm Business,354.17,Web,Insurance
+TXN-2053,CUST-113,2026-06-06T13:24:27,Payment to State Farm Business,State Farm Business,181.89,Web,Insurance
+TXN-2031,CUST-113,2026-06-07T07:05:27,Payment to State Farm Business,State Farm Business,209.85,POS,Insurance
+TXN-2040,CUST-113,2026-06-11T16:26:15,Payment to FedEx Express,FedEx Express,560.11,Web,Shipping
+TXN-2039,CUST-113,2026-06-12T18:50:06,Payment to Fastenal Co,Fastenal Co,286.99,POS,Industrial
+TXN-2060,CUST-113,2026-06-14T15:36:23,Payment to Grainger Industrial,Grainger Industrial,267.68,Web,Industrial
+TXN-2048,CUST-113,2026-06-24T15:18:24,Payment to State Farm Business,State Farm Business,377.97,Web,Insurance
+TXN-2037,CUST-113,2026-06-25T14:01:04,Payment to State Farm Business,State Farm Business,251.28,Web,Insurance
+TXN-2058,CUST-113,2026-06-25T15:27:35,Payment to State Farm Business,State Farm Business,447.36,POS,Insurance
+TXN-1997,CUST-113,2026-06-25T18:37:23,Payment to Fastenal Co,Fastenal Co,436.25,POS,Industrial
+TXN-2010,CUST-113,2026-06-30T19:02:41,Payment to FedEx Express,FedEx Express,491.97,POS,Shipping
+TXN-2041,CUST-113,2026-07-02T13:04:21,Payment to State Farm Business,State Farm Business,435.89,POS,Insurance
+TXN-2001,CUST-113,2026-07-02T18:44:38,Payment to Fastenal Co,Fastenal Co,755.16,POS,Industrial
+TXN-2056,CUST-113,2026-07-03T17:27:08,Payment to Grainger Industrial,Grainger Industrial,395.18,Web,Industrial
+TXN-2046,CUST-113,2026-07-05T17:42:03,Payment to Grainger Industrial,Grainger Industrial,256.72,Web,Industrial
+TXN-2063,CUST-113,2026-07-12T16:05:15,Payment to Grainger Industrial,Grainger Industrial,153.09,POS,Industrial
+TXN-2018,CUST-113,2026-07-13T11:11:07,Payment to Fastenal Co,Fastenal Co,570.15,Web,Industrial
+TXN-2062,CUST-113,2026-07-13T19:49:17,Payment to State Farm Business,State Farm Business,484.72,Web,Insurance
+TXN-2028,CUST-113,2026-07-17T12:35:20,Payment to Fastenal Co,Fastenal Co,612.49,Web,Industrial
+TXN-2033,CUST-113,2026-07-24T09:05:52,Payment to Grainger Industrial,Grainger Industrial,450.04,POS,Industrial
+TXN-2061,CUST-113,2026-07-24T14:45:23,Payment to Grainger Industrial,Grainger Industrial,501.58,Web,Industrial
+TXN-2009,CUST-113,2026-07-24T16:01:53,Payment to Fastenal Co,Fastenal Co,436.49,POS,Industrial
+TXN-2042,CUST-113,2026-07-24T19:21:34,Payment to FedEx Express,FedEx Express,588.09,Web,Shipping
+TXN-2025,CUST-113,2026-07-26T19:19:40,Payment to FedEx Express,FedEx Express,475.94,POS,Shipping
+TXN-2044,CUST-113,2026-07-30T16:29:20,Payment to Grainger Industrial,Grainger Industrial,303.01,POS,Industrial
+TXN-2002,CUST-113,2026-08-03T12:16:33,Payment to Fastenal Co,Fastenal Co,214.54,Web,Industrial
+TXN-2003,CUST-113,2026-08-05T16:31:33,Payment to FedEx Express,FedEx Express,358.57,Web,Shipping
+TXN-2015,CUST-113,2026-08-08T15:53:10,Payment to Grainger Industrial,Grainger Industrial,254.51,POS,Industrial
+TXN-2005,CUST-113,2026-08-08T19:07:47,Payment to State Farm Business,State Farm Business,525.06,POS,Insurance
+TXN-2007,CUST-113,2026-08-11T10:44:18,Payment to Fastenal Co,Fastenal Co,378.54,POS,Industrial
+TXN-2057,CUST-113,2026-08-12T19:26:55,Payment to State Farm Business,State Farm Business,142.43,Web,Insurance
+TXN-2043,CUST-113,2026-08-17T17:04:47,Payment to State Farm Business,State Farm Business,545.95,Web,Insurance
+TXN-2000,CUST-113,2026-08-26T10:39:03,Payment to Grainger Industrial,Grainger Industrial,274.58,Web,Industrial
+TXN-2016,CUST-113,2026-08-28T12:45:02,Payment to Fastenal Co,Fastenal Co,320.00,POS,Industrial
+TXN-2029,CUST-113,2026-08-28T19:18:36,Payment to Fastenal Co,Fastenal Co,381.75,POS,Industrial
+TXN-2099,CUST-114,2026-03-01T15:44:52,Payment to Venmo,Venmo,29.83,POS,P2P Transfer
+TXN-2119,CUST-114,2026-03-02T11:59:05,Payment to Subway,Subway,23.46,POS,Food & Beverage
+TXN-2110,CUST-114,2026-03-04T11:40:03,Payment to Subway,Subway,17.80,Mobile,Food & Beverage
+TXN-2078,CUST-114,2026-03-04T13:59:51,Payment to Amazon Prime,Amazon Prime,13.23,POS,Shopping
+TXN-2106,CUST-114,2026-03-05T09:21:03,Payment to Subway,Subway,25.47,Mobile,Food & Beverage
+TXN-2064,CUST-114,2026-03-14T23:21:34,Payment to Campus Coffee,Campus Coffee,32.47,POS,Food & Beverage
+TXN-2092,CUST-114,2026-03-18T16:59:12,Payment to Venmo,Venmo,54.09,POS,P2P Transfer
+TXN-2095,CUST-114,2026-03-19T18:46:16,Payment to Amazon Prime,Amazon Prime,28.96,Mobile,Shopping
+TXN-2073,CUST-114,2026-03-22T11:38:59,Payment to Amazon Prime,Amazon Prime,40.13,POS,Shopping
+TXN-2129,CUST-114,2026-03-27T20:03:59,Payment to Campus Coffee,Campus Coffee,20.51,POS,Food & Beverage
+TXN-2132,CUST-114,2026-03-29T14:14:06,Payment to Chegg Textbooks,Chegg Textbooks,48.46,POS,Education
+TXN-2088,CUST-114,2026-03-29T20:11:16,Payment to Subway,Subway,43.41,POS,Food & Beverage
+TXN-2087,CUST-114,2026-03-31T10:54:38,Payment to Venmo,Venmo,42.52,Mobile,P2P Transfer
+TXN-2124,CUST-114,2026-03-31T17:06:39,Payment to Subway,Subway,29.59,Mobile,Food & Beverage
+TXN-2114,CUST-114,2026-03-31T19:36:34,Payment to Chegg Textbooks,Chegg Textbooks,8.84,POS,Education
+TXN-2134,CUST-114,2026-04-07T12:59:39,Payment to Amazon Prime,Amazon Prime,36.78,Mobile,Shopping
+TXN-2118,CUST-114,2026-04-10T09:56:31,Payment to Campus Coffee,Campus Coffee,30.13,Mobile,Food & Beverage
+TXN-2127,CUST-114,2026-04-10T19:59:02,Payment to Chegg Textbooks,Chegg Textbooks,41.06,POS,Education
+TXN-2076,CUST-114,2026-04-12T16:25:30,Payment to Subway,Subway,32.17,POS,Food & Beverage
+TXN-2102,CUST-114,2026-04-15T17:02:24,Payment to Chegg Textbooks,Chegg Textbooks,36.02,POS,Education
+TXN-2093,CUST-114,2026-04-15T19:31:06,Payment to Chegg Textbooks,Chegg Textbooks,43.32,Mobile,Education
+TXN-2104,CUST-114,2026-04-18T11:02:12,Payment to Campus Coffee,Campus Coffee,18.84,Mobile,Food & Beverage
+TXN-2113,CUST-114,2026-04-21T15:21:51,Payment to Amazon Prime,Amazon Prime,40.27,POS,Shopping
+TXN-2133,CUST-114,2026-04-21T15:57:14,Payment to Campus Coffee,Campus Coffee,45.12,POS,Food & Beverage
+TXN-2121,CUST-114,2026-04-22T11:40:17,Payment to Chegg Textbooks,Chegg Textbooks,14.22,Mobile,Education
+TXN-2115,CUST-114,2026-04-24T21:02:37,Payment to Subway,Subway,30.84,Mobile,Food & Beverage
+TXN-2085,CUST-114,2026-04-26T20:18:16,Payment to Campus Coffee,Campus Coffee,29.57,Mobile,Food & Beverage
+TXN-2074,CUST-114,2026-04-30T19:28:46,Payment to Chegg Textbooks,Chegg Textbooks,5.00,Mobile,Education
+TXN-2128,CUST-114,2026-05-04T14:39:51,Payment to Amazon Prime,Amazon Prime,32.94,Mobile,Shopping
+TXN-2070,CUST-114,2026-05-05T09:47:07,Payment to Venmo,Venmo,35.85,Mobile,P2P Transfer
+TXN-2090,CUST-114,2026-05-05T11:49:04,Payment to Subway,Subway,41.70,Mobile,Food & Beverage
+TXN-2097,CUST-114,2026-05-08T11:44:21,Payment to Venmo,Venmo,43.62,POS,P2P Transfer
+TXN-2081,CUST-114,2026-05-09T13:51:06,Payment to Amazon Prime,Amazon Prime,27.88,Mobile,Shopping
+TXN-2137,CUST-114,2026-05-11T11:07:54,Payment to Subway,Subway,14.27,Mobile,Food & Beverage
+TXN-2066,CUST-114,2026-05-14T11:02:44,Payment to Venmo,Venmo,22.87,POS,P2P Transfer
+TXN-2138,CUST-114,2026-05-15T18:10:50,Payment to Venmo,Venmo,31.63,Mobile,P2P Transfer
+TXN-2136,CUST-114,2026-05-25T11:02:44,Payment to Venmo,Venmo,9.06,Mobile,P2P Transfer
+TXN-2100,CUST-114,2026-05-25T19:19:25,Payment to Campus Coffee,Campus Coffee,21.51,Mobile,Food & Beverage
+TXN-2101,CUST-114,2026-06-02T17:54:21,Payment to Subway,Subway,42.09,Mobile,Food & Beverage
+TXN-2091,CUST-114,2026-06-06T15:21:03,Payment to Chegg Textbooks,Chegg Textbooks,27.17,POS,Education
+TXN-2135,CUST-114,2026-06-08T14:08:29,Payment to Subway,Subway,24.77,Mobile,Food & Beverage
+TXN-2107,CUST-114,2026-06-12T10:13:51,Payment to Venmo,Venmo,18.82,Mobile,P2P Transfer
+TXN-2084,CUST-114,2026-06-14T10:33:06,Payment to Amazon Prime,Amazon Prime,22.33,POS,Shopping
+TXN-2116,CUST-114,2026-06-15T11:44:23,Payment to Venmo,Venmo,32.99,Mobile,P2P Transfer
+TXN-2141,CUST-114,2026-06-18T20:55:15,Payment to Chegg Textbooks,Chegg Textbooks,28.70,Mobile,Education
+TXN-2080,CUST-114,2026-06-19T18:58:41,Payment to Subway,Subway,26.77,POS,Food & Beverage
+TXN-2117,CUST-114,2026-06-21T12:59:37,Payment to Venmo,Venmo,34.72,POS,P2P Transfer
+TXN-2094,CUST-114,2026-06-22T20:16:06,Payment to Campus Coffee,Campus Coffee,47.32,Mobile,Food & Beverage
+TXN-2144,CUST-114,2026-06-24T16:15:05,Payment to Venmo,Venmo,32.11,Mobile,P2P Transfer
+TXN-2147,CUST-114,2026-06-25T16:49:08,Payment to Subway,Subway,38.54,POS,Food & Beverage
+TXN-2065,CUST-114,2026-06-25T17:57:30,Payment to Subway,Subway,17.27,POS,Food & Beverage
+TXN-2111,CUST-114,2026-06-25T18:10:53,Payment to Campus Coffee,Campus Coffee,6.78,Mobile,Food & Beverage
+TXN-2125,CUST-114,2026-06-27T21:40:42,Payment to Campus Coffee,Campus Coffee,29.70,Mobile,Food & Beverage
+TXN-2143,CUST-114,2026-06-29T20:49:32,Payment to Amazon Prime,Amazon Prime,45.35,Mobile,Shopping
+TXN-2098,CUST-114,2026-07-01T15:25:54,Payment to Campus Coffee,Campus Coffee,18.17,Mobile,Food & Beverage
+TXN-2146,CUST-114,2026-07-01T19:19:10,Payment to Amazon Prime,Amazon Prime,37.18,Mobile,Shopping
+TXN-2072,CUST-114,2026-07-03T11:51:33,Payment to Campus Coffee,Campus Coffee,36.86,POS,Food & Beverage
+TXN-2105,CUST-114,2026-07-04T15:04:50,Payment to Venmo,Venmo,16.88,POS,P2P Transfer
+TXN-2109,CUST-114,2026-07-04T19:01:30,Payment to Chegg Textbooks,Chegg Textbooks,44.72,Mobile,Education
+TXN-2112,CUST-114,2026-07-06T18:51:39,Payment to Chegg Textbooks,Chegg Textbooks,14.51,Mobile,Education
+TXN-2069,CUST-114,2026-07-08T10:54:50,Payment to Subway,Subway,27.20,POS,Food & Beverage
+TXN-2130,CUST-114,2026-07-10T10:04:57,Payment to Chegg Textbooks,Chegg Textbooks,26.59,POS,Education
+TXN-2077,CUST-114,2026-07-15T12:24:43,Payment to Chegg Textbooks,Chegg Textbooks,24.13,POS,Education
+TXN-2067,CUST-114,2026-07-23T13:03:40,Payment to Campus Coffee,Campus Coffee,20.10,POS,Food & Beverage
+TXN-2142,CUST-114,2026-07-25T23:00:26,Payment to Campus Coffee,Campus Coffee,43.44,Mobile,Food & Beverage
+TXN-2139,CUST-114,2026-07-26T17:54:14,Payment to Amazon Prime,Amazon Prime,52.13,Mobile,Shopping
+TXN-2075,CUST-114,2026-07-26T20:53:22,Payment to Campus Coffee,Campus Coffee,38.84,Mobile,Food & Beverage
+TXN-2108,CUST-114,2026-07-27T12:59:04,Payment to Campus Coffee,Campus Coffee,14.48,Mobile,Food & Beverage
+TXN-2140,CUST-114,2026-07-30T16:53:29,Payment to Subway,Subway,42.77,Mobile,Food & Beverage
+TXN-2131,CUST-114,2026-07-30T18:20:26,Payment to Subway,Subway,35.16,Mobile,Food & Beverage
+TXN-2071,CUST-114,2026-07-30T20:09:42,Payment to Subway,Subway,5.00,Mobile,Food & Beverage
+TXN-2122,CUST-114,2026-07-31T11:45:31,Payment to Venmo,Venmo,26.41,Mobile,P2P Transfer
+TXN-2086,CUST-114,2026-07-31T19:57:53,Payment to Chegg Textbooks,Chegg Textbooks,31.37,Mobile,Education
+TXN-2068,CUST-114,2026-08-07T09:18:31,Payment to Campus Coffee,Campus Coffee,29.93,Mobile,Food & Beverage
+TXN-2123,CUST-114,2026-08-08T22:50:19,Payment to Chegg Textbooks,Chegg Textbooks,27.73,Mobile,Education
+TXN-2096,CUST-114,2026-08-15T19:00:59,Payment to Campus Coffee,Campus Coffee,25.81,POS,Food & Beverage
+TXN-2089,CUST-114,2026-08-17T23:04:40,Payment to Amazon Prime,Amazon Prime,5.00,POS,Shopping
+TXN-2082,CUST-114,2026-08-20T18:49:12,Payment to Venmo,Venmo,47.04,POS,P2P Transfer
+TXN-2079,CUST-114,2026-08-21T14:33:43,Payment to Venmo,Venmo,34.59,POS,P2P Transfer
+TXN-2083,CUST-114,2026-08-21T20:11:20,Payment to Campus Coffee,Campus Coffee,8.50,Mobile,Food & Beverage
+TXN-2126,CUST-114,2026-08-23T22:58:30,Payment to Amazon Prime,Amazon Prime,32.96,Mobile,Shopping
+TXN-2145,CUST-114,2026-08-25T20:26:13,Payment to Campus Coffee,Campus Coffee,36.38,Mobile,Food & Beverage
+TXN-2120,CUST-114,2026-08-25T21:50:49,Payment to Amazon Prime,Amazon Prime,10.40,Mobile,Shopping
+TXN-2103,CUST-114,2026-08-26T15:57:06,Payment to Campus Coffee,Campus Coffee,19.49,POS,Food & Beverage
+TXN-2187,CUST-115,2026-03-02T14:40:58,Payment to Waste Pro,Waste Pro,280.04,Web,Sanitation
+TXN-2210,CUST-115,2026-03-05T20:30:48,Payment to Waste Pro,Waste Pro,374.95,POS,Sanitation
+TXN-2179,CUST-115,2026-03-06T09:34:54,Payment to Local Goods Distribution,Local Goods Distribution,135.40,Web,Wholesale
+TXN-2233,CUST-115,2026-03-14T09:31:43,Payment to Square Terminal Pay,Square Terminal Pay,358.13,POS,Payment Processing
+TXN-2225,CUST-115,2026-03-18T20:30:43,Payment to Waste Pro,Waste Pro,278.13,Web,Sanitation
+TXN-2159,CUST-115,2026-03-20T09:10:17,Payment to Stripe Merchant Fees,Stripe Merchant Fees,337.45,POS,Payment Processing
+TXN-2150,CUST-115,2026-03-21T17:56:21,Payment to Local Goods Distribution,Local Goods Distribution,466.10,Web,Wholesale
+TXN-2183,CUST-115,2026-03-23T11:46:56,Payment to Waste Pro,Waste Pro,5.00,Mobile,Sanitation
+TXN-2214,CUST-115,2026-03-24T10:54:47,Payment to Square Terminal Pay,Square Terminal Pay,249.09,Web,Payment Processing
+TXN-2218,CUST-115,2026-03-26T11:58:32,Payment to Waste Pro,Waste Pro,452.42,Mobile,Sanitation
+TXN-2226,CUST-115,2026-03-27T14:28:33,Payment to Local Goods Distribution,Local Goods Distribution,303.06,POS,Wholesale
+TXN-2193,CUST-115,2026-03-31T20:17:31,Payment to Square Terminal Pay,Square Terminal Pay,330.85,Web,Payment Processing
+TXN-2213,CUST-115,2026-04-01T17:13:37,Payment to Square Terminal Pay,Square Terminal Pay,347.19,POS,Payment Processing
+TXN-2209,CUST-115,2026-04-02T11:08:05,Payment to Local Goods Distribution,Local Goods Distribution,123.79,POS,Wholesale
+TXN-2208,CUST-115,2026-04-02T19:09:44,Payment to Stripe Merchant Fees,Stripe Merchant Fees,264.27,Mobile,Payment Processing
+TXN-2202,CUST-115,2026-04-05T16:18:23,Payment to Waste Pro,Waste Pro,372.07,Mobile,Sanitation
+TXN-2227,CUST-115,2026-04-06T14:25:44,Payment to Stripe Merchant Fees,Stripe Merchant Fees,247.08,POS,Payment Processing
+TXN-2171,CUST-115,2026-04-07T13:28:34,Payment to Local Goods Distribution,Local Goods Distribution,424.26,POS,Wholesale
+TXN-2173,CUST-115,2026-04-09T08:47:34,Payment to Square Terminal Pay,Square Terminal Pay,387.52,Mobile,Payment Processing
+TXN-2191,CUST-115,2026-04-09T12:19:40,Payment to Square Terminal Pay,Square Terminal Pay,352.82,Mobile,Payment Processing
+TXN-2196,CUST-115,2026-04-11T17:03:09,Payment to Square Terminal Pay,Square Terminal Pay,380.02,Mobile,Payment Processing
+TXN-2184,CUST-115,2026-04-11T20:46:57,Payment to Waste Pro,Waste Pro,408.30,Web,Sanitation
+TXN-2168,CUST-115,2026-04-14T19:44:57,Payment to Stripe Merchant Fees,Stripe Merchant Fees,245.82,POS,Payment Processing
+TXN-2192,CUST-115,2026-04-15T15:58:44,Payment to Stripe Merchant Fees,Stripe Merchant Fees,182.61,POS,Payment Processing
+TXN-2162,CUST-115,2026-04-18T09:01:55,Payment to Stripe Merchant Fees,Stripe Merchant Fees,376.57,Web,Payment Processing
+TXN-2199,CUST-115,2026-04-19T20:40:11,Payment to Stripe Merchant Fees,Stripe Merchant Fees,303.70,Web,Payment Processing
+TXN-2211,CUST-115,2026-04-20T09:02:50,Payment to Waste Pro,Waste Pro,210.78,POS,Sanitation
+TXN-2153,CUST-115,2026-04-22T10:21:15,Payment to Stripe Merchant Fees,Stripe Merchant Fees,135.73,Web,Payment Processing
+TXN-2170,CUST-115,2026-04-22T16:45:02,Payment to Square Terminal Pay,Square Terminal Pay,236.46,Mobile,Payment Processing
+TXN-2217,CUST-115,2026-04-25T19:12:18,Payment to Local Goods Distribution,Local Goods Distribution,376.95,Web,Wholesale
+TXN-2177,CUST-115,2026-04-26T15:22:05,Payment to Stripe Merchant Fees,Stripe Merchant Fees,220.49,Web,Payment Processing
+TXN-2154,CUST-115,2026-04-27T13:22:57,Payment to Square Terminal Pay,Square Terminal Pay,250.77,Web,Payment Processing
+TXN-2229,CUST-115,2026-04-29T14:46:31,Payment to Square Terminal Pay,Square Terminal Pay,259.00,Web,Payment Processing
+TXN-2232,CUST-115,2026-04-29T18:08:01,Payment to Local Goods Distribution,Local Goods Distribution,305.79,Web,Wholesale
+TXN-2169,CUST-115,2026-04-30T09:02:20,Payment to Square Terminal Pay,Square Terminal Pay,184.15,POS,Payment Processing
+TXN-2212,CUST-115,2026-05-04T08:04:19,Payment to Local Goods Distribution,Local Goods Distribution,165.54,POS,Wholesale
+TXN-2182,CUST-115,2026-05-12T13:22:19,Payment to Waste Pro,Waste Pro,206.02,Web,Sanitation
+TXN-2222,CUST-115,2026-05-13T16:46:02,Payment to Local Goods Distribution,Local Goods Distribution,274.08,Mobile,Wholesale
+TXN-2198,CUST-115,2026-05-14T12:33:40,Payment to Local Goods Distribution,Local Goods Distribution,323.97,Web,Wholesale
+TXN-2174,CUST-115,2026-05-14T20:36:42,Payment to Stripe Merchant Fees,Stripe Merchant Fees,274.93,Web,Payment Processing
+TXN-2165,CUST-115,2026-05-17T17:08:57,Payment to Square Terminal Pay,Square Terminal Pay,306.53,POS,Payment Processing
+TXN-2234,CUST-115,2026-05-17T17:39:06,Payment to Local Goods Distribution,Local Goods Distribution,301.56,Web,Wholesale
+TXN-2221,CUST-115,2026-05-20T09:29:07,Payment to Square Terminal Pay,Square Terminal Pay,162.25,Web,Payment Processing
+TXN-2200,CUST-115,2026-05-22T13:52:54,Payment to Square Terminal Pay,Square Terminal Pay,141.97,Mobile,Payment Processing
+TXN-2203,CUST-115,2026-05-27T10:06:13,Payment to Stripe Merchant Fees,Stripe Merchant Fees,333.89,Web,Payment Processing
+TXN-2215,CUST-115,2026-05-29T13:10:54,Payment to Stripe Merchant Fees,Stripe Merchant Fees,112.36,Web,Payment Processing
+TXN-2167,CUST-115,2026-05-30T12:29:10,Payment to Square Terminal Pay,Square Terminal Pay,242.14,POS,Payment Processing
+TXN-2181,CUST-115,2026-06-01T14:09:45,Payment to Square Terminal Pay,Square Terminal Pay,354.14,POS,Payment Processing
+TXN-2152,CUST-115,2026-06-02T10:41:35,Payment to Local Goods Distribution,Local Goods Distribution,357.38,Web,Wholesale
+TXN-2228,CUST-115,2026-06-02T11:21:12,Payment to Waste Pro,Waste Pro,262.55,POS,Sanitation
+TXN-2189,CUST-115,2026-06-06T12:35:31,Payment to Square Terminal Pay,Square Terminal Pay,488.60,Mobile,Payment Processing
+TXN-2180,CUST-115,2026-06-09T11:31:20,Payment to Local Goods Distribution,Local Goods Distribution,345.16,Web,Wholesale
+TXN-2230,CUST-115,2026-06-11T13:30:42,Payment to Waste Pro,Waste Pro,461.14,Mobile,Sanitation
+TXN-2172,CUST-115,2026-06-12T15:49:09,Payment to Waste Pro,Waste Pro,269.14,Mobile,Sanitation
+TXN-2185,CUST-115,2026-06-15T10:53:37,Payment to Square Terminal Pay,Square Terminal Pay,239.98,Mobile,Payment Processing
+TXN-2220,CUST-115,2026-06-17T11:32:14,Payment to Waste Pro,Waste Pro,243.52,POS,Sanitation
+TXN-2175,CUST-115,2026-06-22T13:44:07,Payment to Stripe Merchant Fees,Stripe Merchant Fees,262.82,Web,Payment Processing
+TXN-2158,CUST-115,2026-06-26T09:05:25,Payment to Stripe Merchant Fees,Stripe Merchant Fees,222.65,Mobile,Payment Processing
+TXN-2205,CUST-115,2026-06-26T09:07:52,Payment to Square Terminal Pay,Square Terminal Pay,303.98,Mobile,Payment Processing
+TXN-2166,CUST-115,2026-07-02T13:18:49,Payment to Local Goods Distribution,Local Goods Distribution,224.53,POS,Wholesale
+TXN-2194,CUST-115,2026-07-02T17:27:55,Payment to Square Terminal Pay,Square Terminal Pay,288.54,Web,Payment Processing
+TXN-2223,CUST-115,2026-07-05T09:24:18,Payment to Waste Pro,Waste Pro,116.96,POS,Sanitation
+TXN-2231,CUST-115,2026-07-09T12:09:49,Payment to Waste Pro,Waste Pro,236.11,Mobile,Sanitation
+TXN-2160,CUST-115,2026-07-12T18:01:18,Payment to Waste Pro,Waste Pro,330.29,Web,Sanitation
+TXN-2207,CUST-115,2026-07-12T20:21:11,Payment to Local Goods Distribution,Local Goods Distribution,283.37,POS,Wholesale
+TXN-2156,CUST-115,2026-07-13T09:30:45,Payment to Square Terminal Pay,Square Terminal Pay,329.25,Mobile,Payment Processing
+TXN-2178,CUST-115,2026-07-13T11:50:59,Payment to Square Terminal Pay,Square Terminal Pay,423.57,POS,Payment Processing
+TXN-2186,CUST-115,2026-07-13T13:04:59,Payment to Waste Pro,Waste Pro,254.64,POS,Sanitation
+TXN-2161,CUST-115,2026-07-17T10:30:22,Payment to Local Goods Distribution,Local Goods Distribution,132.23,Mobile,Wholesale
+TXN-2176,CUST-115,2026-07-20T09:19:01,Payment to Waste Pro,Waste Pro,55.42,Web,Sanitation
+TXN-2224,CUST-115,2026-07-20T14:18:54,Payment to Waste Pro,Waste Pro,337.99,POS,Sanitation
+TXN-2190,CUST-115,2026-07-22T19:29:14,Payment to Local Goods Distribution,Local Goods Distribution,343.97,POS,Wholesale
+TXN-2216,CUST-115,2026-07-24T09:06:52,Payment to Local Goods Distribution,Local Goods Distribution,289.29,Web,Wholesale
+TXN-2188,CUST-115,2026-07-24T20:58:08,Payment to Stripe Merchant Fees,Stripe Merchant Fees,357.48,POS,Payment Processing
+TXN-2164,CUST-115,2026-07-30T18:44:33,Payment to Waste Pro,Waste Pro,422.35,Mobile,Sanitation
+TXN-2204,CUST-115,2026-08-05T19:53:33,Payment to Local Goods Distribution,Local Goods Distribution,354.20,Mobile,Wholesale
+TXN-2157,CUST-115,2026-08-06T13:51:43,Payment to Local Goods Distribution,Local Goods Distribution,478.42,POS,Wholesale
+TXN-2148,CUST-115,2026-08-10T08:55:40,Payment to Local Goods Distribution,Local Goods Distribution,210.30,Mobile,Wholesale
+TXN-2163,CUST-115,2026-08-13T13:26:37,Payment to Square Terminal Pay,Square Terminal Pay,202.72,Mobile,Payment Processing
+TXN-2151,CUST-115,2026-08-20T13:56:03,Payment to Local Goods Distribution,Local Goods Distribution,370.45,Mobile,Wholesale
+TXN-2155,CUST-115,2026-08-22T14:17:03,Payment to Waste Pro,Waste Pro,383.31,Web,Sanitation
+TXN-2195,CUST-115,2026-08-23T15:44:52,Payment to Local Goods Distribution,Local Goods Distribution,386.36,Mobile,Wholesale
+TXN-2201,CUST-115,2026-08-23T19:44:23,Payment to Stripe Merchant Fees,Stripe Merchant Fees,409.42,POS,Payment Processing
+TXN-2206,CUST-115,2026-08-24T13:08:52,Payment to Waste Pro,Waste Pro,305.12,Web,Sanitation
+TXN-2149,CUST-115,2026-08-24T13:33:02,Payment to Stripe Merchant Fees,Stripe Merchant Fees,236.92,Web,Payment Processing
+TXN-2197,CUST-115,2026-08-25T10:22:10,Payment to Square Terminal Pay,Square Terminal Pay,388.44,POS,Payment Processing
+TXN-2219,CUST-115,2026-08-26T17:11:28,Payment to Square Terminal Pay,Square Terminal Pay,265.77,Mobile,Payment Processing
+TXN-2235,CUST-115,2026-08-27T10:30:00,International Commercial SWIFT Wire #1,Global Trade Logistics HK,4800.00,Wire,International Wire
+TXN-2236,CUST-115,2026-08-28T10:30:00,International Commercial SWIFT Wire #2,Global Trade Logistics HK,5400.00,Wire,International Wire
+TXN-2237,CUST-115,2026-08-29T10:30:00,International Commercial SWIFT Wire #3,Global Trade Logistics HK,6000.00,Wire,International Wire
+TXN-2324,CUST-116,2026-03-06T13:10:24,Payment to Duke Energy,Duke Energy,76.38,POS,Utilities
+TXN-2293,CUST-116,2026-03-06T14:58:05,Payment to Walgreens,Walgreens,23.08,POS,Pharmacy
+TXN-2252,CUST-116,2026-03-06T17:24:36,Payment to Walgreens,Walgreens,42.82,POS,Pharmacy
+TXN-2246,CUST-116,2026-03-08T08:08:53,Payment to Walmart Supercenter,Walmart Supercenter,36.72,Mobile,Groceries
+TXN-2319,CUST-116,2026-03-08T09:29:53,Payment to Walgreens,Walgreens,33.68,ATM,Pharmacy
+TXN-2300,CUST-116,2026-03-08T16:16:15,Payment to McDonald's,McDonald's,25.26,Mobile,Food & Beverage
+TXN-2241,CUST-116,2026-03-09T12:35:42,Payment to McDonald's,McDonald's,97.89,Mobile,Food & Beverage
+TXN-2269,CUST-116,2026-03-11T22:50:01,Payment to Walmart Supercenter,Walmart Supercenter,124.24,POS,Groceries
+TXN-2286,CUST-116,2026-03-17T18:26:38,Payment to McDonald's,McDonald's,67.25,ATM,Food & Beverage
+TXN-2249,CUST-116,2026-03-22T09:55:19,Payment to Walmart Supercenter,Walmart Supercenter,93.19,ATM,Groceries
+TXN-2307,CUST-116,2026-03-23T17:45:33,Payment to Walgreens,Walgreens,73.19,POS,Pharmacy
+TXN-2273,CUST-116,2026-03-24T14:38:07,Payment to McDonald's,McDonald's,9.65,ATM,Food & Beverage
+TXN-2303,CUST-116,2026-03-25T08:03:21,Payment to Duke Energy,Duke Energy,27.67,ATM,Utilities
+TXN-2275,CUST-116,2026-03-28T12:13:17,Payment to Walgreens,Walgreens,5.00,ATM,Pharmacy
+TXN-2272,CUST-116,2026-03-29T10:33:42,Payment to McDonald's,McDonald's,105.76,ATM,Food & Beverage
+TXN-2289,CUST-116,2026-04-10T14:33:45,Payment to Duke Energy,Duke Energy,95.56,Mobile,Utilities
+TXN-2268,CUST-116,2026-04-10T15:08:01,Payment to Duke Energy,Duke Energy,69.24,Mobile,Utilities
+TXN-2242,CUST-116,2026-04-12T22:27:08,Payment to Walmart Supercenter,Walmart Supercenter,60.99,Mobile,Groceries
+TXN-2250,CUST-116,2026-04-13T07:34:20,Payment to Walgreens,Walgreens,113.30,Mobile,Pharmacy
+TXN-2291,CUST-116,2026-04-14T17:51:18,Payment to Duke Energy,Duke Energy,89.70,POS,Utilities
+TXN-2306,CUST-116,2026-04-15T15:10:32,Payment to Walgreens,Walgreens,45.63,POS,Pharmacy
+TXN-2258,CUST-116,2026-04-23T18:50:04,Payment to McDonald's,McDonald's,57.74,ATM,Food & Beverage
+TXN-2255,CUST-116,2026-04-24T16:16:03,Payment to McDonald's,McDonald's,111.32,Mobile,Food & Beverage
+TXN-2297,CUST-116,2026-04-27T13:12:55,Payment to McDonald's,McDonald's,48.33,ATM,Food & Beverage
+TXN-2312,CUST-116,2026-04-28T12:02:30,Payment to Walgreens,Walgreens,69.09,POS,Pharmacy
+TXN-2281,CUST-116,2026-04-30T21:24:00,Payment to Walgreens,Walgreens,64.90,ATM,Pharmacy
+TXN-2266,CUST-116,2026-05-01T10:09:12,Payment to McDonald's,McDonald's,123.01,ATM,Food & Beverage
+TXN-2317,CUST-116,2026-05-03T22:43:06,Payment to McDonald's,McDonald's,65.86,POS,Food & Beverage
+TXN-2276,CUST-116,2026-05-05T08:31:34,Payment to McDonald's,McDonald's,22.11,Mobile,Food & Beverage
+TXN-2308,CUST-116,2026-05-06T10:20:02,Payment to McDonald's,McDonald's,105.80,Mobile,Food & Beverage
+TXN-2239,CUST-116,2026-05-06T17:51:55,Payment to Walmart Supercenter,Walmart Supercenter,112.79,POS,Groceries
+TXN-2294,CUST-116,2026-05-07T12:03:25,Payment to Duke Energy,Duke Energy,43.03,POS,Utilities
+TXN-2310,CUST-116,2026-05-07T17:27:57,Payment to Walgreens,Walgreens,96.13,POS,Pharmacy
+TXN-2284,CUST-116,2026-05-10T09:52:49,Payment to Walgreens,Walgreens,102.47,ATM,Pharmacy
+TXN-2318,CUST-116,2026-05-12T10:25:23,Payment to McDonald's,McDonald's,11.90,POS,Food & Beverage
+TXN-2315,CUST-116,2026-05-12T12:53:10,Payment to McDonald's,McDonald's,60.94,Mobile,Food & Beverage
+TXN-2322,CUST-116,2026-05-12T17:51:03,Payment to Walgreens,Walgreens,70.58,POS,Pharmacy
+TXN-2265,CUST-116,2026-05-13T12:16:43,Payment to Duke Energy,Duke Energy,50.22,ATM,Utilities
+TXN-2325,CUST-116,2026-05-16T22:51:27,Payment to McDonald's,McDonald's,48.66,Mobile,Food & Beverage
+TXN-2282,CUST-116,2026-05-17T09:59:52,Payment to Duke Energy,Duke Energy,73.02,ATM,Utilities
+TXN-2270,CUST-116,2026-05-20T16:55:04,Payment to McDonald's,McDonald's,96.05,Mobile,Food & Beverage
+TXN-2302,CUST-116,2026-05-22T19:43:13,Payment to McDonald's,McDonald's,61.60,POS,Food & Beverage
+TXN-2257,CUST-116,2026-05-26T15:04:36,Payment to Walgreens,Walgreens,59.95,ATM,Pharmacy
+TXN-2247,CUST-116,2026-05-27T19:06:27,Payment to McDonald's,McDonald's,111.31,ATM,Food & Beverage
+TXN-2304,CUST-116,2026-05-30T08:00:16,Payment to Walgreens,Walgreens,43.61,Mobile,Pharmacy
+TXN-2309,CUST-116,2026-06-01T20:18:57,Payment to McDonald's,McDonald's,67.41,Mobile,Food & Beverage
+TXN-2278,CUST-116,2026-06-01T22:45:23,Payment to Walmart Supercenter,Walmart Supercenter,74.59,Mobile,Groceries
+TXN-2305,CUST-116,2026-06-03T11:57:35,Payment to Walmart Supercenter,Walmart Supercenter,71.19,Mobile,Groceries
+TXN-2295,CUST-116,2026-06-03T12:36:07,Payment to Walmart Supercenter,Walmart Supercenter,45.47,Mobile,Groceries
+TXN-2256,CUST-116,2026-06-11T14:39:47,Payment to Walmart Supercenter,Walmart Supercenter,116.52,Mobile,Groceries
+TXN-2323,CUST-116,2026-06-11T15:11:15,Payment to Walgreens,Walgreens,35.52,POS,Pharmacy
+TXN-2264,CUST-116,2026-06-14T17:55:53,Payment to Walgreens,Walgreens,106.87,ATM,Pharmacy
+TXN-2248,CUST-116,2026-06-14T18:03:42,Payment to McDonald's,McDonald's,72.77,Mobile,Food & Beverage
+TXN-2292,CUST-116,2026-06-15T18:11:25,Payment to Duke Energy,Duke Energy,121.78,POS,Utilities
+TXN-2285,CUST-116,2026-06-17T10:52:10,Payment to McDonald's,McDonald's,60.05,Mobile,Food & Beverage
+TXN-2277,CUST-116,2026-06-17T22:43:15,Payment to McDonald's,McDonald's,122.07,POS,Food & Beverage
+TXN-2240,CUST-116,2026-06-19T10:24:28,Payment to Walgreens,Walgreens,60.88,POS,Pharmacy
+TXN-2288,CUST-116,2026-06-22T11:00:25,Payment to Walmart Supercenter,Walmart Supercenter,79.64,POS,Groceries
+TXN-2263,CUST-116,2026-06-27T11:15:09,Payment to McDonald's,McDonald's,61.92,ATM,Food & Beverage
+TXN-2267,CUST-116,2026-07-03T20:27:41,Payment to Walmart Supercenter,Walmart Supercenter,80.97,POS,Groceries
+TXN-2313,CUST-116,2026-07-05T08:28:22,Payment to Walgreens,Walgreens,117.28,ATM,Pharmacy
+TXN-2314,CUST-116,2026-07-05T10:54:46,Payment to Walmart Supercenter,Walmart Supercenter,81.98,POS,Groceries
+TXN-2298,CUST-116,2026-07-05T19:08:27,Payment to McDonald's,McDonald's,96.32,Mobile,Food & Beverage
+TXN-2261,CUST-116,2026-07-06T13:42:52,Payment to Walgreens,Walgreens,54.39,ATM,Pharmacy
+TXN-2251,CUST-116,2026-07-10T20:17:01,Payment to Walgreens,Walgreens,81.88,Mobile,Pharmacy
+TXN-2238,CUST-116,2026-07-12T22:50:29,Payment to Walgreens,Walgreens,84.71,Mobile,Pharmacy
+TXN-2296,CUST-116,2026-07-13T20:49:58,Payment to Walgreens,Walgreens,120.92,POS,Pharmacy
+TXN-2280,CUST-116,2026-07-20T19:19:40,Payment to Walmart Supercenter,Walmart Supercenter,98.60,Mobile,Groceries
+TXN-2311,CUST-116,2026-07-21T21:03:12,Payment to Duke Energy,Duke Energy,112.79,POS,Utilities
+TXN-2244,CUST-116,2026-07-22T12:32:03,Payment to Walgreens,Walgreens,45.71,Mobile,Pharmacy
+TXN-2321,CUST-116,2026-07-24T11:13:55,Payment to Walmart Supercenter,Walmart Supercenter,74.80,Mobile,Groceries
+TXN-2274,CUST-116,2026-07-28T19:51:47,Payment to Duke Energy,Duke Energy,69.42,POS,Utilities
+TXN-2326,CUST-116,2026-08-02T11:22:42,Payment to Duke Energy,Duke Energy,94.85,ATM,Utilities
+TXN-2254,CUST-116,2026-08-05T16:23:27,Payment to Walmart Supercenter,Walmart Supercenter,84.30,Mobile,Groceries
+TXN-2260,CUST-116,2026-08-07T21:42:48,Payment to Duke Energy,Duke Energy,14.83,Mobile,Utilities
+TXN-2320,CUST-116,2026-08-08T15:38:42,Payment to Walgreens,Walgreens,148.66,ATM,Pharmacy
+TXN-2283,CUST-116,2026-08-09T17:56:51,Payment to Walgreens,Walgreens,47.65,POS,Pharmacy
+TXN-2262,CUST-116,2026-08-11T20:59:36,Payment to Duke Energy,Duke Energy,70.51,ATM,Utilities
+TXN-2271,CUST-116,2026-08-16T09:25:53,Payment to Duke Energy,Duke Energy,54.66,POS,Utilities
+TXN-2279,CUST-116,2026-08-17T08:44:58,Payment to Duke Energy,Duke Energy,66.61,ATM,Utilities
+TXN-2316,CUST-116,2026-08-17T13:37:00,Payment to Walgreens,Walgreens,34.78,POS,Pharmacy
+TXN-2259,CUST-116,2026-08-17T17:12:26,Payment to Walgreens,Walgreens,51.97,ATM,Pharmacy
+TXN-2243,CUST-116,2026-08-20T22:42:35,Payment to Walgreens,Walgreens,98.60,ATM,Pharmacy
+TXN-2299,CUST-116,2026-08-21T13:26:11,Payment to Walgreens,Walgreens,41.18,POS,Pharmacy
+TXN-2245,CUST-116,2026-08-21T18:49:18,Payment to McDonald's,McDonald's,93.37,POS,Food & Beverage
+TXN-2290,CUST-116,2026-08-23T20:50:20,Payment to Duke Energy,Duke Energy,15.75,ATM,Utilities
+TXN-2301,CUST-116,2026-08-23T21:05:00,Payment to Walgreens,Walgreens,29.38,POS,Pharmacy
+TXN-2253,CUST-116,2026-08-24T13:21:31,Payment to McDonald's,McDonald's,96.05,POS,Food & Beverage
+TXN-2287,CUST-116,2026-08-25T07:48:03,Payment to Duke Energy,Duke Energy,35.78,Mobile,Utilities
+TXN-2339,CUST-117,2026-03-02T14:07:00,Payment to Target,Target,167.73,Mobile,Shopping
+TXN-2373,CUST-117,2026-03-08T15:09:49,Payment to Macy's,Macy's,127.31,POS,Shopping
+TXN-2375,CUST-117,2026-03-10T18:59:41,Payment to Target,Target,102.15,POS,Shopping
+TXN-2329,CUST-117,2026-03-11T16:21:29,Payment to Target,Target,124.87,POS,Shopping
+TXN-2402,CUST-117,2026-03-12T14:30:36,Payment to Sephora,Sephora,88.11,Mobile,Beauty
+TXN-2386,CUST-117,2026-03-13T20:41:07,Payment to Macy's,Macy's,53.07,Mobile,Shopping
+TXN-2391,CUST-117,2026-03-16T14:56:08,Payment to Trader Joe's,Trader Joe's,28.42,POS,Groceries
+TXN-2351,CUST-117,2026-03-16T16:01:27,Payment to Lyft,Lyft,73.74,Mobile,Transportation
+TXN-2361,CUST-117,2026-03-17T13:27:07,Payment to Lyft,Lyft,81.67,POS,Transportation
+TXN-2381,CUST-117,2026-03-22T08:34:21,Payment to Trader Joe's,Trader Joe's,63.07,POS,Groceries
+TXN-2374,CUST-117,2026-03-22T13:20:25,Payment to Macy's,Macy's,130.00,Mobile,Shopping
+TXN-2342,CUST-117,2026-03-23T10:08:00,Payment to Target,Target,133.08,POS,Shopping
+TXN-2405,CUST-117,2026-03-23T20:39:42,Payment to Lyft,Lyft,42.86,Mobile,Transportation
+TXN-2328,CUST-117,2026-03-24T20:27:51,Payment to Trader Joe's,Trader Joe's,86.75,POS,Groceries
+TXN-2368,CUST-117,2026-03-26T10:41:23,Payment to Target,Target,93.41,Mobile,Shopping
+TXN-2362,CUST-117,2026-03-31T16:14:31,Payment to Sephora,Sephora,103.12,POS,Beauty
+TXN-2397,CUST-117,2026-03-31T17:54:26,Payment to Macy's,Macy's,109.99,POS,Shopping
+TXN-2358,CUST-117,2026-04-03T10:12:10,Payment to Trader Joe's,Trader Joe's,89.75,Mobile,Groceries
+TXN-2356,CUST-117,2026-04-03T22:18:46,Payment to Sephora,Sephora,79.42,Mobile,Beauty
+TXN-2404,CUST-117,2026-04-05T16:40:29,Payment to Target,Target,109.57,Mobile,Shopping
+TXN-2354,CUST-117,2026-04-11T12:46:12,Payment to Lyft,Lyft,60.74,POS,Transportation
+TXN-2357,CUST-117,2026-04-11T17:13:18,Payment to Macy's,Macy's,5.00,Mobile,Shopping
+TXN-2335,CUST-117,2026-04-16T21:25:02,Payment to Macy's,Macy's,97.45,Mobile,Shopping
+TXN-2338,CUST-117,2026-04-17T09:47:38,Payment to Trader Joe's,Trader Joe's,101.32,POS,Groceries
+TXN-2343,CUST-117,2026-04-23T15:41:09,Payment to Target,Target,176.99,Mobile,Shopping
+TXN-2372,CUST-117,2026-04-28T10:51:27,Payment to Trader Joe's,Trader Joe's,68.13,Mobile,Groceries
+TXN-2384,CUST-117,2026-05-01T21:49:19,Payment to Macy's,Macy's,86.80,POS,Shopping
+TXN-2393,CUST-117,2026-05-07T17:31:40,Payment to Trader Joe's,Trader Joe's,95.81,Mobile,Groceries
+TXN-2367,CUST-117,2026-05-14T19:28:48,Payment to Lyft,Lyft,124.24,Mobile,Transportation
+TXN-2347,CUST-117,2026-05-15T17:53:53,Payment to Trader Joe's,Trader Joe's,110.65,POS,Groceries
+TXN-2359,CUST-117,2026-05-17T11:13:35,Payment to Macy's,Macy's,93.06,POS,Shopping
+TXN-2399,CUST-117,2026-05-17T12:31:01,Payment to Target,Target,102.00,POS,Shopping
+TXN-2348,CUST-117,2026-05-25T08:06:40,Payment to Trader Joe's,Trader Joe's,130.71,Mobile,Groceries
+TXN-2387,CUST-117,2026-05-26T11:51:47,Payment to Lyft,Lyft,122.33,POS,Transportation
+TXN-2370,CUST-117,2026-05-27T12:32:10,Payment to Trader Joe's,Trader Joe's,139.87,Mobile,Groceries
+TXN-2337,CUST-117,2026-05-27T22:55:51,Payment to Target,Target,35.25,POS,Shopping
+TXN-2378,CUST-117,2026-05-28T08:52:17,Payment to Target,Target,151.70,Mobile,Shopping
+TXN-2388,CUST-117,2026-05-29T12:18:42,Payment to Target,Target,119.43,Mobile,Shopping
+TXN-2334,CUST-117,2026-05-30T12:37:05,Payment to Trader Joe's,Trader Joe's,105.89,POS,Groceries
+TXN-2360,CUST-117,2026-05-31T22:16:22,Payment to Lyft,Lyft,93.47,POS,Transportation
+TXN-2390,CUST-117,2026-06-01T15:06:09,Payment to Macy's,Macy's,86.18,POS,Shopping
+TXN-2398,CUST-117,2026-06-03T17:18:02,Payment to Sephora,Sephora,84.19,Mobile,Beauty
+TXN-2385,CUST-117,2026-06-04T12:40:32,Payment to Sephora,Sephora,5.00,POS,Beauty
+TXN-2327,CUST-117,2026-06-08T15:17:36,Payment to Lyft,Lyft,127.83,Mobile,Transportation
+TXN-2369,CUST-117,2026-06-15T20:49:00,Payment to Target,Target,124.71,Mobile,Shopping
+TXN-2392,CUST-117,2026-06-23T09:23:43,Payment to Lyft,Lyft,49.81,Mobile,Transportation
+TXN-2379,CUST-117,2026-06-23T18:13:56,Payment to Lyft,Lyft,71.16,Mobile,Transportation
+TXN-2340,CUST-117,2026-06-26T19:25:55,Payment to Trader Joe's,Trader Joe's,67.00,Mobile,Groceries
+TXN-2345,CUST-117,2026-06-30T14:01:07,Payment to Target,Target,138.12,POS,Shopping
+TXN-2403,CUST-117,2026-06-30T21:46:53,Payment to Lyft,Lyft,147.89,POS,Transportation
+TXN-2331,CUST-117,2026-07-01T12:09:08,Payment to Sephora,Sephora,99.62,POS,Beauty
+TXN-2350,CUST-117,2026-07-03T14:31:32,Payment to Trader Joe's,Trader Joe's,56.44,POS,Groceries
+TXN-2395,CUST-117,2026-07-03T19:29:08,Payment to Lyft,Lyft,91.92,POS,Transportation
+TXN-2401,CUST-117,2026-07-04T08:07:35,Payment to Sephora,Sephora,50.69,POS,Beauty
+TXN-2330,CUST-117,2026-07-05T16:40:41,Payment to Trader Joe's,Trader Joe's,70.61,POS,Groceries
+TXN-2366,CUST-117,2026-07-08T09:10:40,Payment to Sephora,Sephora,126.00,POS,Beauty
+TXN-2333,CUST-117,2026-07-09T14:26:06,Payment to Trader Joe's,Trader Joe's,109.95,Mobile,Groceries
+TXN-2332,CUST-117,2026-07-12T14:18:36,Payment to Macy's,Macy's,121.01,POS,Shopping
+TXN-2382,CUST-117,2026-07-12T16:18:13,Payment to Lyft,Lyft,149.41,Mobile,Transportation
+TXN-2389,CUST-117,2026-07-12T19:15:06,Payment to Sephora,Sephora,40.05,POS,Beauty
+TXN-2352,CUST-117,2026-07-20T09:17:57,Payment to Macy's,Macy's,52.46,Mobile,Shopping
+TXN-2363,CUST-117,2026-07-21T12:57:09,Payment to Lyft,Lyft,143.26,POS,Transportation
+TXN-2349,CUST-117,2026-07-27T17:46:35,Payment to Sephora,Sephora,68.48,POS,Beauty
+TXN-2400,CUST-117,2026-07-29T14:03:59,Payment to Target,Target,174.34,POS,Shopping
+TXN-2355,CUST-117,2026-07-29T22:43:21,Payment to Lyft,Lyft,113.66,Mobile,Transportation
+TXN-2365,CUST-117,2026-08-04T17:50:54,Payment to Macy's,Macy's,5.00,POS,Shopping
+TXN-2341,CUST-117,2026-08-06T21:39:23,Payment to Trader Joe's,Trader Joe's,46.98,Mobile,Groceries
+TXN-2353,CUST-117,2026-08-07T18:22:28,Payment to Trader Joe's,Trader Joe's,34.29,POS,Groceries
+TXN-2344,CUST-117,2026-08-08T21:50:34,Payment to Trader Joe's,Trader Joe's,117.89,POS,Groceries
+TXN-2371,CUST-117,2026-08-09T18:15:09,Payment to Lyft,Lyft,125.69,Mobile,Transportation
+TXN-2376,CUST-117,2026-08-09T19:51:42,Payment to Trader Joe's,Trader Joe's,185.09,Mobile,Groceries
+TXN-2383,CUST-117,2026-08-10T10:01:01,Payment to Lyft,Lyft,134.30,Mobile,Transportation
+TXN-2377,CUST-117,2026-08-22T19:35:55,Payment to Sephora,Sephora,25.72,Mobile,Beauty
+TXN-2394,CUST-117,2026-08-24T22:31:46,Payment to Target,Target,182.16,POS,Shopping
+TXN-2396,CUST-117,2026-08-25T11:29:30,Payment to Lyft,Lyft,129.02,Mobile,Transportation
+TXN-2380,CUST-117,2026-08-26T13:56:51,Payment to Target,Target,113.43,Mobile,Shopping
+TXN-2346,CUST-117,2026-08-27T15:31:30,Payment to Target,Target,150.54,POS,Shopping
+TXN-2364,CUST-117,2026-08-28T08:59:28,Payment to Macy's,Macy's,137.63,POS,Shopping
+TXN-2336,CUST-117,2026-08-28T12:20:37,Payment to Trader Joe's,Trader Joe's,93.55,Mobile,Groceries
+TXN-2443,CUST-118,2026-03-02T10:52:40,Payment to Starbucks,Starbucks,232.70,Web,Food & Beverage
+TXN-2480,CUST-118,2026-03-03T08:22:01,Payment to Starbucks,Starbucks,165.64,Web,Food & Beverage
+TXN-2466,CUST-118,2026-03-04T16:45:04,Payment to Tesla Supercharger,Tesla Supercharger,74.03,Web,Automotive
+TXN-2414,CUST-118,2026-03-06T12:27:11,Payment to Whole Foods,Whole Foods,65.05,Mobile,General
+TXN-2408,CUST-118,2026-03-07T16:40:50,Payment to MedSupply Direct,MedSupply Direct,219.88,POS,Medical Supplies
+TXN-2455,CUST-118,2026-03-07T16:51:40,Payment to Whole Foods,Whole Foods,182.72,Mobile,General
+TXN-2482,CUST-118,2026-03-08T10:12:18,Payment to AMA Membership,AMA Membership,291.16,Mobile,Professional
+TXN-2410,CUST-118,2026-03-14T16:33:12,Payment to MedSupply Direct,MedSupply Direct,210.35,Web,Medical Supplies
+TXN-2418,CUST-118,2026-03-15T11:24:06,Payment to Whole Foods,Whole Foods,172.63,Mobile,General
+TXN-2460,CUST-118,2026-03-16T21:51:28,Payment to Starbucks,Starbucks,319.91,Web,Food & Beverage
+TXN-2430,CUST-118,2026-03-18T11:05:25,Payment to Tesla Supercharger,Tesla Supercharger,159.01,Mobile,Automotive
+TXN-2441,CUST-118,2026-03-24T20:39:40,Payment to Whole Foods,Whole Foods,398.05,POS,General
+TXN-2458,CUST-118,2026-03-25T17:28:37,Payment to MedSupply Direct,MedSupply Direct,373.02,Mobile,Medical Supplies
+TXN-2461,CUST-118,2026-03-27T17:03:35,Payment to MedSupply Direct,MedSupply Direct,249.41,Mobile,Medical Supplies
+TXN-2421,CUST-118,2026-03-30T11:03:20,Payment to Starbucks,Starbucks,310.96,POS,Food & Beverage
+TXN-2446,CUST-118,2026-04-02T18:04:08,Payment to AMA Membership,AMA Membership,203.33,POS,Professional
+TXN-2434,CUST-118,2026-04-04T17:59:00,Payment to MedSupply Direct,MedSupply Direct,203.90,POS,Medical Supplies
+TXN-2425,CUST-118,2026-04-06T12:34:10,Payment to AMA Membership,AMA Membership,171.59,POS,Professional
+TXN-2454,CUST-118,2026-04-12T12:19:04,Payment to Starbucks,Starbucks,183.06,Mobile,Food & Beverage
+TXN-2417,CUST-118,2026-04-13T07:39:20,Payment to AMA Membership,AMA Membership,161.13,Web,Professional
+TXN-2435,CUST-118,2026-04-14T13:35:57,Payment to Starbucks,Starbucks,205.03,Mobile,Food & Beverage
+TXN-2412,CUST-118,2026-04-22T10:53:45,Payment to MedSupply Direct,MedSupply Direct,269.31,POS,Medical Supplies
+TXN-2433,CUST-118,2026-04-23T14:38:21,Payment to MedSupply Direct,MedSupply Direct,144.50,POS,Medical Supplies
+TXN-2442,CUST-118,2026-04-26T10:31:23,Payment to Tesla Supercharger,Tesla Supercharger,306.41,Web,Automotive
+TXN-2440,CUST-118,2026-04-26T18:01:48,Payment to Whole Foods,Whole Foods,172.74,Web,General
+TXN-2477,CUST-118,2026-04-26T21:00:40,Payment to AMA Membership,AMA Membership,316.34,POS,Professional
+TXN-2451,CUST-118,2026-04-27T07:17:58,Payment to Starbucks,Starbucks,198.59,POS,Food & Beverage
+TXN-2453,CUST-118,2026-04-27T18:27:04,Payment to AMA Membership,AMA Membership,243.01,Web,Professional
+TXN-2478,CUST-118,2026-04-28T14:39:13,Payment to Whole Foods,Whole Foods,219.54,POS,General
+TXN-2406,CUST-118,2026-04-29T21:25:21,Payment to Starbucks,Starbucks,5.00,POS,Food & Beverage
+TXN-2457,CUST-118,2026-04-30T08:49:38,Payment to Tesla Supercharger,Tesla Supercharger,168.87,Mobile,Automotive
+TXN-2420,CUST-118,2026-05-01T19:38:37,Payment to Tesla Supercharger,Tesla Supercharger,218.59,Mobile,Automotive
+TXN-2456,CUST-118,2026-05-03T08:30:15,Payment to Whole Foods,Whole Foods,365.33,POS,General
+TXN-2415,CUST-118,2026-05-05T08:07:06,Payment to Tesla Supercharger,Tesla Supercharger,295.80,Web,Automotive
+TXN-2447,CUST-118,2026-05-10T10:54:43,Payment to MedSupply Direct,MedSupply Direct,320.22,POS,Medical Supplies
+TXN-2444,CUST-118,2026-05-11T16:32:31,Payment to Tesla Supercharger,Tesla Supercharger,236.73,POS,Automotive
+TXN-2407,CUST-118,2026-05-11T17:05:55,Payment to AMA Membership,AMA Membership,155.46,POS,Professional
+TXN-2416,CUST-118,2026-05-13T09:11:16,Payment to Starbucks,Starbucks,215.65,POS,Food & Beverage
+TXN-2471,CUST-118,2026-05-14T12:00:33,Payment to Tesla Supercharger,Tesla Supercharger,285.86,POS,Automotive
+TXN-2476,CUST-118,2026-05-16T13:21:10,Payment to MedSupply Direct,MedSupply Direct,347.36,Mobile,Medical Supplies
+TXN-2459,CUST-118,2026-05-20T21:54:44,Payment to MedSupply Direct,MedSupply Direct,372.66,Web,Medical Supplies
+TXN-2475,CUST-118,2026-05-24T20:37:36,Payment to Whole Foods,Whole Foods,5.00,POS,General
+TXN-2474,CUST-118,2026-05-27T10:42:30,Payment to Tesla Supercharger,Tesla Supercharger,128.12,POS,Automotive
+TXN-2432,CUST-118,2026-05-27T17:16:48,Payment to Whole Foods,Whole Foods,192.19,Mobile,General
+TXN-2473,CUST-118,2026-05-28T10:12:40,Payment to AMA Membership,AMA Membership,202.79,Web,Professional
+TXN-2438,CUST-118,2026-05-31T13:11:53,Payment to MedSupply Direct,MedSupply Direct,224.80,Web,Medical Supplies
+TXN-2479,CUST-118,2026-06-05T10:25:11,Payment to MedSupply Direct,MedSupply Direct,348.12,Mobile,Medical Supplies
+TXN-2419,CUST-118,2026-06-05T20:57:07,Payment to MedSupply Direct,MedSupply Direct,289.36,Web,Medical Supplies
+TXN-2462,CUST-118,2026-06-06T13:06:39,Payment to Tesla Supercharger,Tesla Supercharger,210.76,POS,Automotive
+TXN-2422,CUST-118,2026-06-13T08:30:01,Payment to MedSupply Direct,MedSupply Direct,158.16,Mobile,Medical Supplies
+TXN-2450,CUST-118,2026-06-13T11:07:43,Payment to Tesla Supercharger,Tesla Supercharger,111.21,Web,Automotive
+TXN-2426,CUST-118,2026-06-17T21:35:28,Payment to Tesla Supercharger,Tesla Supercharger,360.23,Mobile,Automotive
+TXN-2431,CUST-118,2026-06-19T10:39:32,Payment to Whole Foods,Whole Foods,58.19,POS,General
+TXN-2437,CUST-118,2026-06-22T17:07:22,Payment to Starbucks,Starbucks,182.49,POS,Food & Beverage
+TXN-2452,CUST-118,2026-06-23T12:00:25,Payment to Tesla Supercharger,Tesla Supercharger,221.98,Web,Automotive
+TXN-2439,CUST-118,2026-06-27T12:59:12,Payment to Starbucks,Starbucks,79.48,Web,Food & Beverage
+TXN-2429,CUST-118,2026-07-09T11:02:10,Payment to Tesla Supercharger,Tesla Supercharger,264.09,POS,Automotive
+TXN-2465,CUST-118,2026-07-11T12:37:12,Payment to MedSupply Direct,MedSupply Direct,106.36,Web,Medical Supplies
+TXN-2436,CUST-118,2026-07-16T08:50:56,Payment to MedSupply Direct,MedSupply Direct,189.77,POS,Medical Supplies
+TXN-2423,CUST-118,2026-07-20T16:43:06,Payment to AMA Membership,AMA Membership,244.06,POS,Professional
+TXN-2409,CUST-118,2026-07-22T08:12:39,Payment to Tesla Supercharger,Tesla Supercharger,137.61,POS,Automotive
+TXN-2469,CUST-118,2026-07-28T13:32:41,Payment to Whole Foods,Whole Foods,229.42,Mobile,General
+TXN-2470,CUST-118,2026-07-28T21:34:49,Payment to Tesla Supercharger,Tesla Supercharger,268.37,Mobile,Automotive
+TXN-2428,CUST-118,2026-08-01T11:53:43,Payment to AMA Membership,AMA Membership,152.29,POS,Professional
+TXN-2413,CUST-118,2026-08-03T12:25:37,Payment to MedSupply Direct,MedSupply Direct,115.12,Mobile,Medical Supplies
+TXN-2468,CUST-118,2026-08-06T14:11:15,Payment to AMA Membership,AMA Membership,226.55,Mobile,Professional
+TXN-2464,CUST-118,2026-08-06T16:06:21,Payment to MedSupply Direct,MedSupply Direct,135.61,Mobile,Medical Supplies
+TXN-2463,CUST-118,2026-08-07T07:29:24,Payment to Starbucks,Starbucks,148.08,Mobile,Food & Beverage
+TXN-2481,CUST-118,2026-08-09T16:58:48,Payment to Whole Foods,Whole Foods,194.13,Web,General
+TXN-2467,CUST-118,2026-08-11T15:16:22,Payment to Starbucks,Starbucks,120.21,Mobile,Food & Beverage
+TXN-2449,CUST-118,2026-08-12T17:41:03,Payment to Whole Foods,Whole Foods,50.33,Mobile,General
+TXN-2424,CUST-118,2026-08-14T19:08:19,Payment to Tesla Supercharger,Tesla Supercharger,125.99,Web,Automotive
+TXN-2427,CUST-118,2026-08-15T09:00:03,Payment to Starbucks,Starbucks,250.38,Mobile,Food & Beverage
+TXN-2411,CUST-118,2026-08-16T21:34:11,Payment to MedSupply Direct,MedSupply Direct,109.54,Mobile,Medical Supplies
+TXN-2472,CUST-118,2026-08-21T09:03:15,Payment to MedSupply Direct,MedSupply Direct,48.76,Mobile,Medical Supplies
+TXN-2448,CUST-118,2026-08-21T15:39:16,Payment to MedSupply Direct,MedSupply Direct,135.70,Mobile,Medical Supplies
+TXN-2445,CUST-118,2026-08-22T16:36:11,Payment to MedSupply Direct,MedSupply Direct,258.97,POS,Medical Supplies
+TXN-2483,CUST-118,2026-08-30T02:40:10,Urgent Offshore Capital Liquidation,Apex Offshore Settlement Ltd,9850.00,Wire,Offshore Transfer

@@ -1,0 +1,501 @@
+[
+  {
+    "customer_id": "CUST-101",
+    "name": "Alexander Hayes",
+    "account_type": "Standard Checking",
+    "account_number": "ACC-88120491",
+    "baseline_avg_amount": 78.5,
+    "baseline_std_amount": 32.1,
+    "baseline_max_normal": 220.0,
+    "baseline_active_hours": [
+      7,
+      22
+    ],
+    "known_payees": [
+      "Whole Foods Market",
+      "Metro Transit",
+      "ConEd Utility",
+      "Netflix",
+      "Amazon.com",
+      "Starbucks",
+      "Trader Joe's",
+      "Shell Gas Station"
+    ],
+    "common_channels": [
+      "POS",
+      "Mobile",
+      "Web"
+    ],
+    "total_transactions": 85,
+    "total_volume": 6782.62
+  },
+  {
+    "customer_id": "CUST-102",
+    "name": "Brianna Taylor",
+    "account_type": "Student Account",
+    "account_number": "ACC-44910283",
+    "baseline_avg_amount": 34.2,
+    "baseline_std_amount": 18.5,
+    "baseline_max_normal": 110.0,
+    "baseline_active_hours": [
+      9,
+      23
+    ],
+    "known_payees": [
+      "Campus Dining",
+      "University Bookstore",
+      "Spotify",
+      "Uber",
+      "Target",
+      "Venmo"
+    ],
+    "common_channels": [
+      "Mobile",
+      "POS"
+    ],
+    "total_transactions": 75,
+    "total_volume": 2662.46
+  },
+  {
+    "customer_id": "CUST-103",
+    "name": "Carlos Mendez",
+    "account_type": "Small Business",
+    "account_number": "ACC-33918274",
+    "baseline_avg_amount": 420.0,
+    "baseline_std_amount": 160.0,
+    "baseline_max_normal": 1200.0,
+    "baseline_active_hours": [
+      6,
+      20
+    ],
+    "known_payees": [
+      "Sysco Food Services",
+      "Office Depot",
+      "Square Terminal Pay",
+      "Waste Management",
+      "Local Produce Wholesale"
+    ],
+    "common_channels": [
+      "Web",
+      "POS",
+      "Wire"
+    ],
+    "total_transactions": 90,
+    "total_volume": 36976.68
+  },
+  {
+    "customer_id": "CUST-104",
+    "name": "Elena Rostova",
+    "account_type": "Personal Checking",
+    "account_number": "ACC-77291048",
+    "baseline_avg_amount": 115.0,
+    "baseline_std_amount": 45.0,
+    "baseline_max_normal": 380.0,
+    "baseline_active_hours": [
+      8,
+      21
+    ],
+    "known_payees": [
+      "Kroger Grocery",
+      "City Water Board",
+      "Walgreens",
+      "Nordstrom",
+      "Delta Air Lines",
+      "Chevron"
+    ],
+    "common_channels": [
+      "POS",
+      "Mobile",
+      "Web"
+    ],
+    "total_transactions": 68,
+    "total_volume": 21835.54
+  },
+  {
+    "customer_id": "CUST-105",
+    "name": "Fiona Gallagher",
+    "account_type": "Premium Wealth",
+    "account_number": "ACC-99281034",
+    "baseline_avg_amount": 850.0,
+    "baseline_std_amount": 340.0,
+    "baseline_max_normal": 2800.0,
+    "baseline_active_hours": [
+      7,
+      22
+    ],
+    "known_payees": [
+      "Sotheby's Realty",
+      "Equinox Fitness",
+      "Vanguard Investments",
+      "Ritz-Carlton Club",
+      "Apple Store"
+    ],
+    "common_channels": [
+      "Web",
+      "Mobile",
+      "Wire"
+    ],
+    "total_transactions": 78,
+    "total_volume": 64355.05
+  },
+  {
+    "customer_id": "CUST-106",
+    "name": "George Washington",
+    "account_type": "Standard Checking",
+    "account_number": "ACC-11029384",
+    "baseline_avg_amount": 92.0,
+    "baseline_std_amount": 41.0,
+    "baseline_max_normal": 260.0,
+    "baseline_active_hours": [
+      8,
+      22
+    ],
+    "known_payees": [
+      "Home Depot",
+      "Costco Wholesale",
+      "Verizon Wireless",
+      "Liberty Mutual",
+      "Publix"
+    ],
+    "common_channels": [
+      "POS",
+      "Mobile"
+    ],
+    "total_transactions": 87,
+    "total_volume": 7857.97
+  },
+  {
+    "customer_id": "CUST-107",
+    "name": "Hannah Abbott",
+    "account_type": "Freelance Designer",
+    "account_number": "ACC-55918230",
+    "baseline_avg_amount": 145.0,
+    "baseline_std_amount": 65.0,
+    "baseline_max_normal": 450.0,
+    "baseline_active_hours": [
+      9,
+      23
+    ],
+    "known_payees": [
+      "Adobe Creative Cloud",
+      "Figma Subscription",
+      "Apple Store",
+      "WeWork Coworking",
+      "Uber Eats"
+    ],
+    "common_channels": [
+      "Web",
+      "Mobile"
+    ],
+    "total_transactions": 95,
+    "total_volume": 13995.59
+  },
+  {
+    "customer_id": "CUST-108",
+    "name": "Ian Sterling",
+    "account_type": "High Net Worth",
+    "account_number": "ACC-66192847",
+    "baseline_avg_amount": 1250.0,
+    "baseline_std_amount": 480.0,
+    "baseline_max_normal": 3500.0,
+    "baseline_active_hours": [
+      8,
+      21
+    ],
+    "known_payees": [
+      "Morgan Stanley Wealth",
+      "BMW Financial",
+      "Hermes Paris",
+      "Aman Resorts",
+      "Delta Private Jets"
+    ],
+    "common_channels": [
+      "Web",
+      "Wire"
+    ],
+    "total_transactions": 80,
+    "total_volume": 106721.59
+  },
+  {
+    "customer_id": "CUST-109",
+    "name": "Marcus Vance",
+    "account_type": "Tech Contractor",
+    "account_number": "ACC-22910385",
+    "baseline_avg_amount": 130.0,
+    "baseline_std_amount": 55.0,
+    "baseline_max_normal": 420.0,
+    "baseline_active_hours": [
+      8,
+      22
+    ],
+    "known_payees": [
+      "AWS Cloud Services",
+      "GitHub Enterprise",
+      "Chipotle",
+      "Best Buy",
+      "Blue Bottle Coffee"
+    ],
+    "common_channels": [
+      "Web",
+      "Mobile",
+      "POS"
+    ],
+    "total_transactions": 88,
+    "total_volume": 20726.02
+  },
+  {
+    "customer_id": "CUST-110",
+    "name": "Julia Roberts",
+    "account_type": "Personal Checking",
+    "account_number": "ACC-88392019",
+    "baseline_avg_amount": 88.0,
+    "baseline_std_amount": 38.0,
+    "baseline_max_normal": 240.0,
+    "baseline_active_hours": [
+      7,
+      21
+    ],
+    "known_payees": [
+      "Safeway",
+      "CVS Pharmacy",
+      "Wegmans",
+      "AT&T",
+      "Shell"
+    ],
+    "common_channels": [
+      "POS",
+      "Mobile"
+    ],
+    "total_transactions": 91,
+    "total_volume": 7529.85
+  },
+  {
+    "customer_id": "CUST-111",
+    "name": "Kevin Zhang",
+    "account_type": "Tech Professional",
+    "account_number": "ACC-33190284",
+    "baseline_avg_amount": 160.0,
+    "baseline_std_amount": 70.0,
+    "baseline_max_normal": 480.0,
+    "baseline_active_hours": [
+      8,
+      23
+    ],
+    "known_payees": [
+      "Google Fiber",
+      "DoorDash",
+      "Costco",
+      "Steam Games",
+      "Lyft"
+    ],
+    "common_channels": [
+      "Mobile",
+      "Web",
+      "POS"
+    ],
+    "total_transactions": 75,
+    "total_volume": 11313.39
+  },
+  {
+    "customer_id": "CUST-112",
+    "name": "Aisha Patel",
+    "account_type": "Senior Consultant",
+    "account_number": "ACC-55291049",
+    "baseline_avg_amount": 185.0,
+    "baseline_std_amount": 75.0,
+    "baseline_max_normal": 550.0,
+    "baseline_active_hours": [
+      8,
+      21
+    ],
+    "known_payees": [
+      "Marriott Hotels",
+      "United Airlines",
+      "Hertz Car Rental",
+      "Starbucks",
+      "Nordstrom"
+    ],
+    "common_channels": [
+      "Mobile",
+      "POS",
+      "Web"
+    ],
+    "total_transactions": 81,
+    "total_volume": 19922.36
+  },
+  {
+    "customer_id": "CUST-113",
+    "name": "Liam O'Connor",
+    "account_type": "Small Business",
+    "account_number": "ACC-77491028",
+    "baseline_avg_amount": 380.0,
+    "baseline_std_amount": 140.0,
+    "baseline_max_normal": 950.0,
+    "baseline_active_hours": [
+      7,
+      19
+    ],
+    "known_payees": [
+      "Grainger Industrial",
+      "FedEx Express",
+      "Fastenal Co",
+      "State Farm Business"
+    ],
+    "common_channels": [
+      "Web",
+      "POS"
+    ],
+    "total_transactions": 70,
+    "total_volume": 25767.34
+  },
+  {
+    "customer_id": "CUST-114",
+    "name": "Maya Lin",
+    "account_type": "Student Account",
+    "account_number": "ACC-11928374",
+    "baseline_avg_amount": 28.5,
+    "baseline_std_amount": 14.0,
+    "baseline_max_normal": 90.0,
+    "baseline_active_hours": [
+      9,
+      23
+    ],
+    "known_payees": [
+      "Campus Coffee",
+      "Chegg Textbooks",
+      "Subway",
+      "Amazon Prime",
+      "Venmo"
+    ],
+    "common_channels": [
+      "Mobile",
+      "POS"
+    ],
+    "total_transactions": 84,
+    "total_volume": 2452.64
+  },
+  {
+    "customer_id": "CUST-115",
+    "name": "David Chen",
+    "account_type": "Retail Store Owner",
+    "account_number": "ACC-66391029",
+    "baseline_avg_amount": 290.0,
+    "baseline_std_amount": 110.0,
+    "baseline_max_normal": 750.0,
+    "baseline_active_hours": [
+      8,
+      20
+    ],
+    "known_payees": [
+      "Local Goods Distribution",
+      "Stripe Merchant Fees",
+      "Square Terminal Pay",
+      "Waste Pro"
+    ],
+    "common_channels": [
+      "POS",
+      "Mobile",
+      "Web"
+    ],
+    "total_transactions": 90,
+    "total_volume": 41440.48
+  },
+  {
+    "customer_id": "CUST-116",
+    "name": "Noah Smith",
+    "account_type": "Standard Checking",
+    "account_number": "ACC-44102938",
+    "baseline_avg_amount": 72.0,
+    "baseline_std_amount": 29.0,
+    "baseline_max_normal": 190.0,
+    "baseline_active_hours": [
+      7,
+      22
+    ],
+    "known_payees": [
+      "Walmart Supercenter",
+      "Duke Energy",
+      "McDonald's",
+      "Walgreens"
+    ],
+    "common_channels": [
+      "POS",
+      "ATM",
+      "Mobile"
+    ],
+    "total_transactions": 89,
+    "total_volume": 6322.0
+  },
+  {
+    "customer_id": "CUST-117",
+    "name": "Olivia Brown",
+    "account_type": "Retail Professional",
+    "account_number": "ACC-99102948",
+    "baseline_avg_amount": 105.0,
+    "baseline_std_amount": 42.0,
+    "baseline_max_normal": 310.0,
+    "baseline_active_hours": [
+      8,
+      22
+    ],
+    "known_payees": [
+      "Macy's",
+      "Target",
+      "Sephora",
+      "Trader Joe's",
+      "Lyft"
+    ],
+    "common_channels": [
+      "POS",
+      "Mobile"
+    ],
+    "total_transactions": 79,
+    "total_volume": 7760.01
+  },
+  {
+    "customer_id": "CUST-118",
+    "name": "Sophia Morales",
+    "account_type": "Medical Specialist",
+    "account_number": "ACC-33019284",
+    "baseline_avg_amount": 210.0,
+    "baseline_std_amount": 85.0,
+    "baseline_max_normal": 650.0,
+    "baseline_active_hours": [
+      7,
+      21
+    ],
+    "known_payees": [
+      "MedSupply Direct",
+      "AMA Membership",
+      "Whole Foods",
+      "Starbucks",
+      "Tesla Supercharger"
+    ],
+    "common_channels": [
+      "Web",
+      "Mobile",
+      "POS"
+    ],
+    "total_transactions": 78,
+    "total_volume": 25544.75
+  },
+  {
+    "customer_id": "CUST-199",
+    "name": "Lucas Vance",
+    "account_type": "New Checking Account",
+    "account_number": "ACC-00192834",
+    "baseline_avg_amount": 0.0,
+    "baseline_std_amount": 0.0,
+    "baseline_max_normal": 0.0,
+    "baseline_active_hours": [
+      8,
+      22
+    ],
+    "known_payees": [],
+    "common_channels": [
+      "Mobile"
+    ],
+    "total_transactions": 0,
+    "total_volume": 0.0
+  }
+]
