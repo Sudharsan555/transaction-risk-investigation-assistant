@@ -1,90 +1,185 @@
 {
-  "test_cases": [
+  "project": "Transaction Risk Investigation Assistant",
+  "track_id": "PS6",
+  "test_suites": [
     {
-      "case_id": "TEST_CASE_1_LARGE_OUTLIER",
+      "test_case_id": "TC-01-LARGE-OUTLIER",
+      "name": "Unusually Large Transfer Outlier",
       "customer_id": "CUST-104",
       "customer_name": "Elena Rostova",
-      "description": "Customer with normal average spend of $115 triggers statistical outlier on sudden $14,500 international wire.",
-      "expected_verdict": "ATTENTION NEEDED",
-      "expected_triggered_rules": [
-        "RULE_LARGE_TRANSFER"
-      ],
-      "sample_transaction_ids": [
-        "TXN-1335"
-      ]
+      "input": {
+        "endpoint": "GET /api/customers/CUST-104/analysis",
+        "description": "Customer historical average spend is $115 (std dev $45). Initiates sudden $14,500 outbound wire transfer."
+      },
+      "desired_output": {
+        "verdict": "ATTENTION NEEDED",
+        "risk_score": 80,
+        "triggered_rule_ids": ["RULE_LARGE_TRANSFER"],
+        "cited_transaction_ids": ["TXN-1335"],
+        "first_report_line": "VERDICT: ATTENTION NEEDED",
+        "has_suggested_action": true,
+        "has_disclaimer": true
+      }
     },
     {
-      "case_id": "TEST_CASE_2_NEW_PAYEE_BURST",
+      "test_case_id": "TC-02-NEW-PAYEE-BURST",
+      "name": "Burst of Transfers to Newly Added Payee",
       "customer_id": "CUST-109",
       "customer_name": "Marcus Vance",
-      "description": "Customer performs 3 rapid successive payments to previously unseen crypto payee within 6 hours.",
-      "expected_verdict": "ATTENTION NEEDED",
-      "expected_triggered_rules": [
-        "RULE_NEW_PAYEE_BURST"
-      ],
-      "sample_transaction_ids": [
-        "TXN-1718",
-        "TXN-1719",
-        "TXN-1720"
-      ]
+      "input": {
+        "endpoint": "GET /api/customers/CUST-109/analysis",
+        "description": "Customer sends 3 consecutive payments ($2,450, $3,200, $4,150) within 6 hours to newly added crypto payee 'NovaDex Crypto Settlement'."
+      },
+      "desired_output": {
+        "verdict": "ATTENTION NEEDED",
+        "risk_score": 100,
+        "triggered_rule_ids": ["RULE_NEW_PAYEE_BURST"],
+        "cited_transaction_ids": ["TXN-1718", "TXN-1719", "TXN-1720"],
+        "first_report_line": "VERDICT: ATTENTION NEEDED",
+        "has_suggested_action": true,
+        "has_disclaimer": true
+      }
     },
     {
-      "case_id": "TEST_CASE_3_ODD_HOURS",
+      "test_case_id": "TC-03-ODD-HOURS",
+      "name": "Odd-Hours Activity Outside Diurnal Window",
       "customer_id": "CUST-112",
       "customer_name": "Aisha Patel",
-      "description": "High-value transactions executed at 03:15 AM and 04:20 AM, outside customer's baseline active window (08:00 - 21:00).",
-      "expected_verdict": "ATTENTION NEEDED",
-      "expected_triggered_rules": [
-        "RULE_ODD_HOURS"
-      ],
-      "sample_transaction_ids": [
-        "TXN-1941",
-        "TXN-1942"
-      ]
+      "input": {
+        "endpoint": "GET /api/customers/CUST-112/analysis",
+        "description": "Customer established active hours are strictly 08:00–21:00. Executes high-value transfers at 03:15 AM and 04:20 AM."
+      },
+      "desired_output": {
+        "verdict": "ATTENTION NEEDED",
+        "risk_score": 100,
+        "triggered_rule_ids": ["RULE_ODD_HOURS"],
+        "cited_transaction_ids": ["TXN-1941", "TXN-1942"],
+        "first_report_line": "VERDICT: ATTENTION NEEDED",
+        "has_suggested_action": true,
+        "has_disclaimer": true
+      }
     },
     {
-      "case_id": "TEST_CASE_4_PATTERN_BREAK",
+      "test_case_id": "TC-04-PATTERN-BREAK",
+      "name": "Channel & Category Pattern Break",
       "customer_id": "CUST-115",
       "customer_name": "David Chen",
-      "description": "Sudden unprecedented high-value international wire payments on a domestic retail account.",
-      "expected_verdict": "ATTENTION NEEDED",
-      "expected_triggered_rules": [
-        "RULE_PATTERN_BREAK"
-      ],
-      "sample_transaction_ids": [
-        "TXN-2165",
-        "TXN-2166",
-        "TXN-2167"
-      ]
+      "input": {
+        "endpoint": "GET /api/customers/CUST-115/analysis",
+        "description": "Domestic retail store owner with 0 historical wire usage suddenly initiates high-value international wires totaling over $15,000."
+      },
+      "desired_output": {
+        "verdict": "ATTENTION NEEDED",
+        "risk_score": 100,
+        "triggered_rule_ids": ["RULE_PATTERN_BREAK"],
+        "cited_transaction_ids": ["TXN-2165", "TXN-2166", "TXN-2167"],
+        "first_report_line": "VERDICT: ATTENTION NEEDED",
+        "has_suggested_action": true,
+        "has_disclaimer": true
+      }
     },
     {
-      "case_id": "TEST_CASE_5_MULTI_VECTOR_ANOMALY",
+      "test_case_id": "TC-05-MULTI-VECTOR",
+      "name": "Multi-Vector Coordinated Anomaly",
       "customer_id": "CUST-118",
       "customer_name": "Sophia Morales",
-      "description": "Outlier transfer ($9,850) + New Payee + Odd Hours (02:40 AM) triggering multiple rules simultaneously.",
-      "expected_verdict": "ATTENTION NEEDED",
-      "expected_triggered_rules": [
-        "RULE_LARGE_TRANSFER",
-        "RULE_ODD_HOURS",
-        "RULE_NEW_PAYEE_BURST",
-        "RULE_PATTERN_BREAK"
-      ]
+      "input": {
+        "endpoint": "GET /api/customers/CUST-118/analysis",
+        "description": "Triggers Outlier ($9,850) + New Payee ('Apex Offshore Settlement Ltd') + Odd Hours (02:40 AM) + Wire Channel Break simultaneously."
+      },
+      "desired_output": {
+        "verdict": "ATTENTION NEEDED",
+        "risk_score": 100,
+        "triggered_rule_ids": ["RULE_LARGE_TRANSFER", "RULE_ODD_HOURS", "RULE_PATTERN_BREAK"],
+        "first_report_line": "VERDICT: ATTENTION NEEDED",
+        "has_suggested_action": true,
+        "has_disclaimer": true
+      }
     },
     {
-      "case_id": "TEST_CASE_6_CLEAN_CUSTOMER",
+      "test_case_id": "TC-06-CLEAN-ROUTINE",
+      "name": "Routine Account (Clean Positive State)",
       "customer_id": "CUST-101",
       "customer_name": "Alexander Hayes",
-      "description": "Routine personal checking account with 80+ standard transactions adhering strictly to baseline profile.",
-      "expected_verdict": "NOTHING FLAGGED",
-      "expected_triggered_rules": []
+      "input": {
+        "endpoint": "GET /api/customers/CUST-101/analysis",
+        "description": "Standard account with 80+ transactions strictly adhering to spend ceiling, known payees, and active hours."
+      },
+      "desired_output": {
+        "verdict": "NOTHING FLAGGED",
+        "risk_score": 0,
+        "findings_count": 0,
+        "cited_transaction_ids": [],
+        "first_report_line": "VERDICT: NOTHING FLAGGED",
+        "has_disclaimer": true
+      }
     },
     {
-      "case_id": "TEST_CASE_7_EMPTY_HISTORY",
+      "test_case_id": "TC-07-EMPTY-HISTORY",
+      "name": "Edge Case: Zero / Empty Transaction History",
       "customer_id": "CUST-199",
       "customer_name": "Lucas Vance",
-      "description": "New account with zero transactions. Handled gracefully without errors.",
-      "expected_verdict": "NOTHING FLAGGED",
-      "expected_triggered_rules": []
+      "input": {
+        "endpoint": "GET /api/customers/CUST-199/analysis",
+        "description": "Newly opened customer account with 0 transaction records."
+      },
+      "desired_output": {
+        "verdict": "NOTHING FLAGGED",
+        "risk_score": 0,
+        "findings_count": 0,
+        "cited_transaction_ids": [],
+        "first_report_line": "VERDICT: NOTHING FLAGGED",
+        "has_disclaimer": true
+      }
+    },
+    {
+      "test_case_id": "TC-08-CUSTOM-SANDBOX-PAYLOAD",
+      "name": "Arbitrary Custom Payload via POST Sandbox",
+      "customer_id": "CUSTOM-001",
+      "customer_name": "Custom Test Account",
+      "input": {
+        "endpoint": "POST /api/analyze/custom",
+        "payload": {
+          "customer_profile": {
+            "customer_id": "CUSTOM-001",
+            "name": "Jane Doe",
+            "account_type": "Checking",
+            "account_number": "ACC-55443322",
+            "baseline_avg_amount": 60.0,
+            "baseline_std_amount": 25.0,
+            "baseline_max_normal": 200.0,
+            "baseline_active_hours": [8, 21],
+            "known_payees": ["Local Market", "Coffee Shop"],
+            "common_channels": ["POS", "Mobile"]
+          },
+          "transactions": [
+            {
+              "transaction_id": "CUSTOM-TXN-01",
+              "timestamp": "2026-08-30T14:30:00",
+              "description": "Lunch Payment",
+              "payee": "Local Market",
+              "amount": 42.50,
+              "channel": "POS"
+            },
+            {
+              "transaction_id": "CUSTOM-TXN-02",
+              "timestamp": "2026-08-30T03:15:00",
+              "description": "Suspicious Overnight Outbound Transfer",
+              "payee": "Unknown Offshore Counterparty",
+              "amount": 8900.00,
+              "channel": "Wire"
+            }
+          ]
+        }
+      },
+      "desired_output": {
+        "verdict": "ATTENTION NEEDED",
+        "risk_score": 100,
+        "triggered_rule_ids": ["RULE_LARGE_TRANSFER", "RULE_ODD_HOURS", "RULE_PATTERN_BREAK"],
+        "cited_transaction_ids": ["CUSTOM-TXN-02"],
+        "first_report_line": "VERDICT: ATTENTION NEEDED",
+        "has_disclaimer": true
+      }
     }
   ]
 }

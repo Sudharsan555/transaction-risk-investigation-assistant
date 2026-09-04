@@ -4,28 +4,9 @@ TRACK_ID=PS6
 
 An intelligent, bank-grade fraud desk investigation assistant built for **NexusTiQ 24 (Track PS06: Banking - Transaction Risk Investigation Assistant)**.
 
-The system combines a **100% deterministic statistical risk rule engine** (zero LLM dependency) with a **strictly grounded GenAI investigation layer (Gemini 2.0 Flash)** to detect, analyze, and explain anomalous customer transaction activity without ever hallucinating findings or definitively asserting fraud.
-
----
-
-## 🎯 What the Project Does
-
-1. **Deterministic Rule Engine**: Evaluates full customer transaction histories against individual historical baselines across 4 core risk categories:
-   - **Unusually Large Transfers**: Statistical z-score outlier detection vs. customer's historical average and std deviation.
-   - **Burst of Transfers to New Payee**: Rapid consecutive payments to previously unseen counterparties within short time windows.
-   - **Odd-Hours Activity**: Transactions executed outside the customer's established active hours baseline.
-   - **Break from Established Pattern**: Sudden high-risk channel switches (e.g., sudden wire/crypto) or drastic frequency shifts.
-2. **Strictly Grounded LLM Layer (Gemini 2.0 Flash)**: Generates human-readable investigation notes:
-   - Starts with strict verdict: `VERDICT: ATTENTION NEEDED` or `VERDICT: NOTHING FLAGGED`.
-   - Cites exact `transaction_id`s for every factual claim.
-   - Never hallucinates ungrounded data.
-   - Never declares fraud (flags, explains, and provides actionable investigator checklists).
-   - Features **instant graceful deterministic fallback** if Gemini API key is missing or network times out.
-3. **Modern FinTech Dashboard**:
-   - High-aesthetic glassmorphic UI with dark/light themes.
-   - Live customer search, filterable risk queues (Flagged vs. Clean).
-   - Visual transaction ledger with glowing inline citations and interactive rule tooltips.
-   - Interactive Sandbox Analyzer to test custom JSON/CSV transaction payloads.
+The system features a **strict two-layer architecture**:
+1. **Deterministic Rule Engine (Pure Python / Zero LLM Dependency)**: Evaluates full customer transaction histories against individual historical baselines across statistical outlier thresholds, rapid payee bursts, odd-hours activity, and channel deviations.
+2. **Grounded GenAI Investigation Layer (Gemini 2.0 Flash / Resilient Deterministic Fallback)**: Translates structured findings and cited transaction rows into a human-readable investigation note with strict evidence citations (`[TXN-xxxx]`), actionable investigator steps, and mandatory disclaimers.
 
 ---
 
@@ -33,7 +14,7 @@ The system combines a **100% deterministic statistical risk rule engine** (zero 
 
 ### Prerequisites
 - Python 3.11+
-- (Optional) `GEMINI_API_KEY` for AI grounded narrative (system includes automatic deterministic fallback).
+- (Optional) `GEMINI_API_KEY` for Google Gemini 2.0 Flash live generative reports (system automatically utilizes instant deterministic fallback if key is omitted).
 
 ### Single Command Setup & Run
 
@@ -48,53 +29,189 @@ $env:GEMINI_API_KEY="your-gemini-api-key-here"
 # Linux / macOS:
 export GEMINI_API_KEY="your-gemini-api-key-here"
 
-# 3. Start the application
+# 3. Start application
 python app.py
 ```
 
-The application will start immediately and be available at:
+The application will start within seconds and serve both backend API and frontend UI at:
 👉 **`http://localhost:8000`**
 
 ---
 
-## 📊 Synthetic Data Generated
+## 🎯 Architecture & Strict Separation (Graded Criteria)
 
-Located under `data/`:
-- **`customers.json`**: 18 realistic bank customer profiles with baseline spend statistics, standard active hours, and known counterparty graphs.
-- **`transactions.csv`**: 1,500+ realistic transaction records spanning 6 months across POS, Mobile, Web, ATM, and Wire channels.
-- **Seeded Anomaly Profiles**:
-  - `CUST-104` (Elena Rostova): Unusually large international wire transfer ($14,500 vs $120 avg).
-  - `CUST-109` (Marcus Vance): Burst of 3 rapid transfers in 6 hours to newly added crypto payee.
-  - `CUST-112` (Aisha Patel): Multiple consecutive transactions at 03:15 AM and 04:20 AM (normal active window: 08:00–21:00).
-  - `CUST-115` (David Chen): Rapid channel break with international wire transactions.
-  - `CUST-118` (Sophia Morales): Multi-vector anomaly (outlier + new payee + odd hours).
-  - `CUST-101`, `CUST-102`, `CUST-103`, etc.: Completely clean transaction histories with zero false positives.
-  - `CUST-199` (New Account): Empty / zero-history edge case handled gracefully.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   Customer Transaction Data                 │
+│              (1,480+ Txns across 19 Accounts)               │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│       Layer 1: Deterministic Risk Rule Engine               │
+│       (100% Python / Zero LLM / Zero Network Calls)         │
+│  - Statistical Large Transfer Outlier Detection (Z-Score)   │
+│  - Rapid Burst to Newly-Added Payee (<= 48h Window)        │
+│  - Odd-Hours Diurnal Baseline Deviation Detection           │
+│  - Channel & Merchant Category Pattern Break Detection      │
+│  - Traceable Citation Mapping & Severity Calculation        │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ Structured Findings + Cited Rows
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│       Layer 2: Grounded GenAI Investigation Layer           │
+│       (Google Gemini 2.0 Flash / Resilient Fallback)        │
+│  - Strict Grounding (Never hallucinates ungrounded data)    │
+│  - Objective tone (Never asserts definitive fraud)          │
+│  - Explicit transaction ID citations [TXN-xxxx]             │
+│  - Formats: VERDICT line, Executive Summary, Evidence,      │
+│    Risk Correlation, Action Checklist, Compliance Disclaimer│
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│       Layer 3: Modern Glassmorphic Web Dashboard            │
+│       (FastAPI + Responsive FinTech UI on Port 8000)        │
+│  - Customer Queue with live search and filter badges        │
+│  - Interactive Transaction Ledger with cited row highlights │
+│  - Interactive Sandbox for testing arbitrary payloads       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📊 Synthetic Dataset Generated
+
+All data resides in `data/`:
+- **`customers.json`**: 19 customer profiles with precomputed spend distributions, 95th percentiles, active hours, and known counterparties.
+- **`transactions.csv`**: 1,483 realistic multi-month transactions across POS, Mobile, Web, ATM, and Wire channels.
+- **`sample_test_inputs.json`**: Benchmark test suite fixtures for automated grading and manual checking.
+
+### Seeded Account Matrix
+
+| Customer ID | Customer Name | Account Profile | Seeded Anomaly Pattern | Expected Verdict | Risk Score |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`CUST-104`** | Elena Rostova | Personal Checking | Unusually Large Transfer Outlier ($14,500 Wire vs $115 avg) | `ATTENTION NEEDED` | 80 / 100 |
+| **`CUST-109`** | Marcus Vance | Tech Contractor | Rapid Burst of 3 Transfers to New Crypto Payee | `ATTENTION NEEDED` | 100 / 100 |
+| **`CUST-112`** | Aisha Patel | Senior Consultant | Odd-Hours Activity (03:15 AM & 04:20 AM transfers) | `ATTENTION NEEDED` | 100 / 100 |
+| **`CUST-115`** | David Chen | Retail Store Owner | Channel Break (Unprecedented International Wires) | `ATTENTION NEEDED` | 100 / 100 |
+| **`CUST-118`** | Sophia Morales | Medical Specialist | Multi-Vector Anomaly (Outlier + New Payee + Odd Hours) | `ATTENTION NEEDED` | 100 / 100 |
+| **`CUST-101`** | Alexander Hayes | Standard Checking | Clean Routine History (Adheres to baseline) | `NOTHING FLAGGED` | 0 / 100 |
+| **`CUST-199`** | Lucas Vance | New Account | Empty / Zero Transaction History Edge Case | `NOTHING FLAGGED` | 0 / 100 |
+
+---
+
+## 🧪 Inputs & Desired Outputs for Checking (Grading Fixtures)
+
+You can check any scenario using the REST API or Web UI at `http://localhost:8000`.
+
+### 1. Test Case 1: Unusually Large Transfer Outlier (`CUST-104`)
+
+**Input Command (PowerShell / cURL):**
+```powershell
+curl http://localhost:8000/api/customers/CUST-104/analysis
+```
+
+**Desired Output:**
+- `verdict`: `"ATTENTION NEEDED"`
+- `risk_score`: `80`
+- `findings`: Contains `RULE_LARGE_TRANSFER` citing transaction `TXN-1335` ($14,500.00 wire transfer vs historical avg $115.00).
+- `llm_report`: Line 1 begins with `VERDICT: ATTENTION NEEDED` and ends with mandatory disclaimer.
+
+---
+
+### 2. Test Case 2: New Payee Rapid Burst (`CUST-109`)
+
+**Input Command:**
+```powershell
+curl http://localhost:8000/api/customers/CUST-109/analysis
+```
+
+**Desired Output:**
+- `verdict`: `"ATTENTION NEEDED"`
+- `risk_score`: `100`
+- `findings`: Contains `RULE_NEW_PAYEE_BURST` citing `["TXN-1718", "TXN-1719", "TXN-1720"]` to new payee `NovaDex Crypto Settlement`.
+
+---
+
+### 3. Test Case 3: Odd-Hours Diurnal Deviation (`CUST-112`)
+
+**Input Command:**
+```powershell
+curl http://localhost:8000/api/customers/CUST-112/analysis
+```
+
+**Desired Output:**
+- `verdict`: `"ATTENTION NEEDED"`
+- `risk_score`: `100`
+- `findings`: Contains `RULE_ODD_HOURS` citing `["TXN-1941", "TXN-1942"]` occurring at 03:15 AM and 04:20 AM (baseline is 08:00–21:00).
+
+---
+
+### 4. Test Case 4: Clean Routine Customer (`CUST-101`)
+
+**Input Command:**
+```powershell
+curl http://localhost:8000/api/customers/CUST-101/analysis
+```
+
+**Desired Output:**
+- `verdict`: `"NOTHING FLAGGED"`
+- `risk_score`: `0`
+- `findings_count`: `0`
+- `cited_transactions`: `[]`
+- `llm_report`: Line 1 is `VERDICT: NOTHING FLAGGED` with a reassuring, non-alarming baseline adherence explanation.
+
+---
+
+### 5. Test Case 5: Empty Transaction History Edge Case (`CUST-199`)
+
+**Input Command:**
+```powershell
+curl http://localhost:8000/api/customers/CUST-199/analysis
+```
+
+**Desired Output:**
+- `verdict`: `"NOTHING FLAGGED"`
+- `risk_score`: `0`
+- `findings_count`: `0`
+- System does not crash or throw exceptions.
+
+---
+
+### 6. Test Case 6: Custom Payload Sandbox (`POST /api/analyze/custom`)
+
+**Input Command:**
+```powershell
+curl -X POST http://localhost:8000/api/analyze/custom -H "Content-Type: application/json" -d "{\"transactions\": [{\"transaction_id\": \"CUSTOM-1\", \"timestamp\": \"2026-08-30T03:00:00\", \"amount\": 9500.0, \"payee\": \"Unseen Entity\", \"channel\": \"Wire\"}]}"
+```
+
+**Desired Output:**
+- `verdict`: `"ATTENTION NEEDED"`
+- Cites `CUSTOM-1` for large transfer, odd hours, and uncharacteristic wire channel.
 
 ---
 
 ## 🧪 Running Automated Tests
 
-Run the test suite covering rule engine accuracy, data validation, and API contracts:
+Run the full automated test suite (23 unit & integration tests):
 
 ```bash
-pytest tests/ -v
-# or
-python -m unittest discover tests/
+python -m unittest discover tests -v
 ```
-
----
-
-## 🎥 Demo Video
-
-- **Demo Video Link**: `https://youtu.be/demo-link-placeholder-ps06` *(2-minute demonstration showing normal vs anomalous customer investigation)*
 
 ---
 
 ## 🛡️ Edge Cases Handled
 
-- **Empty / Near-Empty History**: Returns confident, non-alarming `NOTHING FLAGGED` status.
-- **Zero Anomalies**: Clean, reassuring report affirming baseline compliance.
-- **Malformed Data / Missing Fields**: Gracefully handles missing amounts, timestamps, or invalid strings without throwing exceptions.
-- **API Failure / Timeout**: Automatic deterministic fallback ensures report is generated within milliseconds.
-- **Large Flagged Volume**: Grouped summarization prevents report cognitive overload.
+1. **Empty / Near-Empty Transaction Ledger**: Verified with `CUST-199`—outputs confident, non-alarming `NOTHING FLAGGED` status.
+2. **Clean Account with Zero Anomalies**: Verified with `CUST-101`—outputs polished, reassuring baseline adherence.
+3. **Malformed / Missing Transaction Data**: Gracefully skips `NaN`, negative amounts, or malformed strings without throwing exceptions.
+4. **LLM API Timeout / Missing Key**: Automatic deterministic fallback ensures 100% uptime and immediate sub-second responses.
+5. **Traceability**: Every fact cited in an investigation report maps to a valid `transaction_id`.
+
+---
+
+## 🎥 Demo Video
+
+- **Demo Video URL**: `https://youtu.be/demo-link-placeholder-ps06` *(2-3 minute demonstration showcasing normal vs flagged investigations, cited transaction highlighting, and custom sandbox test execution)*

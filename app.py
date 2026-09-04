@@ -212,6 +212,6 @@ async def serve_index():
 
 
 if __name__ == "__main__":
-    print(f"🚀 [START] Starting Transaction Risk Investigation Assistant (TRACK_ID={TRACK_ID})")
-    print(f"🔗 Access the application at: http://localhost:{PORT}")
+    print(f"[START] Starting Transaction Risk Investigation Assistant (TRACK_ID={TRACK_ID})")
+    print(f"[INFO] Access the application at: http://localhost:{PORT}")
     uvicorn.run("app:app", host=HOST, port=PORT, reload=False)
