@@ -304,6 +304,51 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("Transaction Risk Investigation Assistant", response.text)
 
+    def test_custom_sandbox_accepts_merchant_and_iso_z_timestamps(self):
+        """Input robustness: accepts 'merchant' as payee fallback and ISO timestamps with trailing 'Z'."""
+        payload = {
+            "customer_id": "CUST-Z-TEST",
+            "historical_transactions": [
+                {
+                    "transaction_id": f"TXN-Z-HIST-{i}",
+                    "timestamp": f"2026-08-0{i+1}T10:00:00Z",
+                    "merchant": "SuperStore",
+                    "amount": 50.0 + i
+                }
+                for i in range(5)
+            ],
+            "observed_transactions": [
+                {
+                    "transaction_id": "TXN-Z-OBS-1",
+                    "timestamp": "2026-08-06T03:00:00Z",
+                    "merchant": "Offshore Vault",
+                    "amount": 9500.0,
+                    "channel": "Wire"
+                }
+            ]
+        }
+        response = self.client.post("/api/analyze/custom", json=payload)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["customer_id"], "CUST-Z-TEST")
+        self.assertEqual(data["verdict"], "ATTENTION_REQUIRED")
+
+    def test_custom_sandbox_accepts_raw_json_array(self):
+        """Input robustness: accepts a raw JSON array of transactions."""
+        payload = [
+            {
+                "transaction_id": f"TXN-ARR-{i}",
+                "timestamp": f"2026-08-0{i+1}T10:00:00",
+                "payee": "Store",
+                "amount": 40.0
+            }
+            for i in range(6)
+        ]
+        response = self.client.post("/api/analyze/custom", json=payload)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("verdict", data)
+
 
 if __name__ == "__main__":
     unittest.main()

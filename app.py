@@ -166,12 +166,20 @@ async def analyze_custom_payload(request: CustomAnalysisRequest):
     Strictly separates historical transactions from observed transactions to prevent baseline contamination.
     Strictly validates incoming transaction fields with structured HTTP 422 errors.
     """
-    hist_txns = request.historical_transactions or []
-    obs_txns = request.observed_transactions or []
-    legacy_txns = request.transactions or []
+    hist_txns = list(request.historical_transactions or [])
+    obs_txns = list(request.observed_transactions or [])
+    legacy_txns = list(request.transactions or [])
 
-    # Determine transactions to evaluate
-    if obs_txns:
+    # Auto-partition legacy or flat payloads: if only a flat list of txns is provided and >= 6,
+    # separate the baseline (first N-1) from the evaluated transaction (last 1)
+    if not hist_txns and not obs_txns and legacy_txns:
+        if len(legacy_txns) >= 6:
+            hist_txns = legacy_txns[:-1]
+            obs_txns = [legacy_txns[-1]]
+            eval_txns = obs_txns
+        else:
+            eval_txns = legacy_txns
+    elif obs_txns:
         eval_txns = obs_txns
     elif legacy_txns:
         eval_txns = legacy_txns
@@ -180,8 +188,8 @@ async def analyze_custom_payload(request: CustomAnalysisRequest):
 
     # Determine customer ID & account name
     cust_profile = request.customer_profile
-    cust_id = "CUSTOM-001"
-    cust_name = "Custom Sandbox Account"
+    cust_id = request.customer_id or "CUSTOM-001"
+    cust_name = request.customer_name or "Custom Sandbox Account"
     if cust_profile:
         cust_id = cust_profile.customer_id or cust_id
         cust_name = cust_profile.name or cust_name

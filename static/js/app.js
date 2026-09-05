@@ -492,22 +492,18 @@ function loadPresetIntoSandbox(fix) {
   fetch(`/api/customers/${fix.customer_id}/transactions`)
     .then(r => r.json())
     .then(data => {
+      const txns = data.transactions || [];
+      const clean = txns.filter(t => !t.is_flagged);
+      const flagged = txns.filter(t => t.is_flagged);
       const payload = {
         customer_profile: {
           customer_id: fix.customer_id,
           name: fix.customer_name,
           account_type: "Checking",
-          account_number: "ACC-CUSTOM-001",
-          baseline_avg_amount: 100.0,
-          baseline_std_amount: 40.0,
-          baseline_max_normal: 300.0,
-          baseline_active_hours: [8, 22],
-          known_payees: ["Amazon", "Target", "Starbucks"],
-          common_channels: ["POS", "Mobile"],
-          total_transactions: data.transactions.length,
-          total_volume: 5000.0
+          account_number: "ACC-CUSTOM-001"
         },
-        transactions: data.transactions
+        historical_transactions: clean.length >= 5 ? clean : txns.slice(0, Math.max(5, txns.length - 1)),
+        observed_transactions: flagged.length > 0 ? flagged : txns.slice(-1)
       };
       el.sandboxPayloadText.value = JSON.stringify(payload, null, 2);
       showToast(`Loaded ${fix.customer_name} fixture.`);
@@ -519,38 +515,72 @@ function loadPresetIntoSandbox(fix) {
 
 function openSandboxModal() {
   if (!el.sandboxPayloadText.value) {
-    // Default template
+    // Default template adhering to strict PS06 anti-contamination baseline schema
     const sample = {
       customer_profile: {
-        customer_id: "CUSTOM-001",
-        name: "Arthur Pendelton",
-        account_type: "Standard Checking",
-        account_number: "ACC-99001122",
-        baseline_avg_amount: 85.00,
-        baseline_std_amount: 35.00,
-        baseline_max_normal: 250.00,
-        baseline_active_hours: [8, 21],
-        known_payees: ["Supermarket", "Metro Card", "Utility Board"],
+        customer_id: "CUST-DEMO-999",
+        name: "Alex Mercer",
+        account_type: "Personal Checking",
+        account_number: "ACC-99201948",
+        known_payees: ["Local Supermarket", "Metro Fuel", "Neighborhood Cafe"],
         common_channels: ["POS", "Mobile"]
       },
-      transactions: [
+      historical_transactions: [
         {
-          "transaction_id": "CUSTOM-TXN-101",
-          "timestamp": "2026-08-30T10:15:00",
-          "description": "Weekly Groceries",
-          "payee": "Supermarket",
-          "amount": 75.50,
-          "channel": "POS",
-          "category": "Groceries"
+          transaction_id: "HIST-01",
+          customer_id: "CUST-DEMO-999",
+          timestamp: "2026-08-01T10:00:00",
+          description: "Groceries",
+          payee: "Local Supermarket",
+          amount: 45.00,
+          channel: "POS"
         },
         {
-          "transaction_id": "CUSTOM-TXN-102",
-          "timestamp": "2026-08-30T03:30:00",
-          "description": "High Value Outbound Wire",
-          "payee": "Offshore Vault Pay",
-          "amount": 12850.00,
-          "channel": "Wire",
-          "category": "Wire Transfer"
+          transaction_id: "HIST-02",
+          customer_id: "CUST-DEMO-999",
+          timestamp: "2026-08-02T11:30:00",
+          description: "Fuel",
+          payee: "Metro Fuel",
+          amount: 52.50,
+          channel: "POS"
+        },
+        {
+          transaction_id: "HIST-03",
+          customer_id: "CUST-DEMO-999",
+          timestamp: "2026-08-03T12:15:00",
+          description: "Lunch",
+          payee: "Neighborhood Cafe",
+          amount: 38.00,
+          channel: "Mobile"
+        },
+        {
+          transaction_id: "HIST-04",
+          customer_id: "CUST-DEMO-999",
+          timestamp: "2026-08-04T09:45:00",
+          description: "Groceries",
+          payee: "Local Supermarket",
+          amount: 60.00,
+          channel: "POS"
+        },
+        {
+          transaction_id: "HIST-05",
+          customer_id: "CUST-DEMO-999",
+          timestamp: "2026-08-05T13:00:00",
+          description: "Coffee",
+          payee: "Neighborhood Cafe",
+          amount: 35.50,
+          channel: "Mobile"
+        }
+      ],
+      observed_transactions: [
+        {
+          transaction_id: "TXN-ANOMALOUS-01",
+          customer_id: "CUST-DEMO-999",
+          timestamp: "2026-08-06T03:42:00",
+          description: "Urgent High Value Wire",
+          payee: "Unknown Offshore Crypto",
+          amount: 8950.00,
+          channel: "Wire"
         }
       ]
     };
@@ -566,8 +596,64 @@ function closeSandboxModal() {
 // Run Sandbox Analysis
 async function runSandboxAnalysis() {
   try {
-    const raw = el.sandboxPayloadText.value;
-    const jsonPayload = JSON.parse(raw);
+    let raw = (el.sandboxPayloadText.value || '').trim();
+    if (!raw) {
+      showToast('❌ Please provide a JSON payload.');
+      return;
+    }
+
+    // Auto-clean if wrapped in markdown codeblocks or leading prompt commentary
+    if (raw.includes('```json')) {
+      raw = raw.split('```json')[1].split('```')[0].trim();
+    } else if (raw.includes('```')) {
+      raw = raw.split('```')[1].split('```')[0].trim();
+    } else {
+      const firstBrace = raw.indexOf('{');
+      const firstBracket = raw.indexOf('[');
+      let startIdx = -1;
+      let isArray = false;
+
+      if (firstBrace !== -1 && (firstBracket === -1 || firstBrace < firstBracket)) {
+        startIdx = firstBrace;
+      } else if (firstBracket !== -1) {
+        startIdx = firstBracket;
+        isArray = true;
+      }
+
+      if (startIdx !== -1) {
+        const endChar = isArray ? ']' : '}';
+        const endIdx = raw.lastIndexOf(endChar);
+        if (endIdx > startIdx) {
+          raw = raw.substring(startIdx, endIdx + 1);
+        }
+      }
+    }
+
+    let jsonPayload;
+    try {
+      jsonPayload = JSON.parse(raw);
+    } catch (parseErr) {
+      showToast('❌ Invalid JSON syntax: ' + parseErr.message);
+      el.sandboxPayloadText.style.borderColor = 'var(--risk-high-text)';
+      setTimeout(() => {
+        el.sandboxPayloadText.style.borderColor = '';
+      }, 3000);
+      return;
+    }
+
+    // If user passed a top-level array of transactions: [ {...}, {...} ]
+    if (Array.isArray(jsonPayload)) {
+      if (jsonPayload.length >= 6) {
+        jsonPayload = {
+          historical_transactions: jsonPayload.slice(0, -1),
+          observed_transactions: jsonPayload.slice(-1)
+        };
+      } else {
+        jsonPayload = {
+          transactions: jsonPayload
+        };
+      }
+    }
     
     closeSandboxModal();
     el.reportLoadingState.style.display = 'flex';
@@ -580,13 +666,50 @@ async function runSandboxAnalysis() {
     });
 
     const result = await res.json();
+    if (!res.ok) {
+      const errDetail = Array.isArray(result.detail)
+        ? result.detail.map(d => `${d.loc ? d.loc.slice(-1).join('') : ''}: ${d.msg}`).join('; ')
+        : (result.detail || 'Analysis request failed.');
+      showToast(`❌ Error (${res.status}): ${errDetail}`);
+      el.reportLoadingState.style.display = 'none';
+      el.sandboxModal.classList.add('open');
+      return;
+    }
+
     state.activeAnalysisResult = result;
-    state.activeTransactions = jsonPayload.transactions.map((t, idx) => ({
-      ...t,
-      transaction_id: t.transaction_id || `CUSTOM-TXN-${idx+1}`,
-      is_flagged: result.cited_transactions.some(ct => ct.transaction_id === (t.transaction_id || `CUSTOM-TXN-${idx+1}`)),
-      flag_reasons: result.findings.filter(f => f.cited_transaction_ids.includes(t.transaction_id || `CUSTOM-TXN-${idx+1}`)).map(f => f.rule_name)
-    }));
+    state.activeCustomerId = result.customer_id;
+
+    // Collect all transactions for table view: observed transactions first, then historical
+    const obsTxns = jsonPayload.observed_transactions || [];
+    const histTxns = jsonPayload.historical_transactions || [];
+    const legacyTxns = jsonPayload.transactions || [];
+    const allTxns = obsTxns.length > 0 ? [...obsTxns, ...histTxns] : (legacyTxns.length > 0 ? legacyTxns : histTxns);
+
+    // Track flagged transaction IDs from findings and cited transactions
+    const flaggedIdSet = new Set((result.cited_transactions || []).map(t => t.transaction_id));
+    if (result.findings) {
+      result.findings.forEach(f => {
+        const ids = f.cited_transactions || f.cited_transaction_ids || f.transaction_ids || [];
+        ids.forEach(id => flaggedIdSet.add(id));
+      });
+    }
+
+    state.activeTransactions = allTxns.map((t, idx) => {
+      const tid = t.transaction_id || `CUSTOM-TXN-${idx + 1}`;
+      const isFlagged = flaggedIdSet.has(tid);
+      const reasons = (result.findings || [])
+        .filter(f => {
+          const ids = f.cited_transactions || f.cited_transaction_ids || f.transaction_ids || [];
+          return ids.includes(tid);
+        })
+        .map(f => f.rule_name);
+      return {
+        ...t,
+        transaction_id: tid,
+        is_flagged: isFlagged,
+        flag_reasons: reasons
+      };
+    });
 
     renderCustomerHeader(result);
     renderBaselineMetrics(result);
@@ -596,7 +719,7 @@ async function runSandboxAnalysis() {
 
   } catch (err) {
     console.error('Error running sandbox analysis:', err);
-    showToast('Invalid JSON payload or evaluation error.');
+    showToast('❌ Error: ' + err.message);
     el.reportLoadingState.style.display = 'none';
   }
 }

@@ -8,6 +8,7 @@ def _check_valid_timestamp(dt_str: str) -> bool:
     if not dt_str or not isinstance(dt_str, str):
         return False
     dt_str = dt_str.strip()
+    cleaned = dt_str.rstrip("Z").rstrip("z")
     formats = [
         "%Y-%m-%dT%H:%M:%S",
         "%Y-%m-%d %H:%M:%S",
@@ -16,10 +17,15 @@ def _check_valid_timestamp(dt_str: str) -> bool:
     ]
     for fmt in formats:
         try:
-            datetime.strptime(dt_str, fmt)
+            datetime.strptime(cleaned, fmt)
             return True
         except ValueError:
             continue
+    try:
+        datetime.fromisoformat(dt_str)
+        return True
+    except (ValueError, TypeError):
+        pass
     return False
 
 
@@ -35,6 +41,40 @@ class Transaction(BaseModel):
     is_flagged: bool = False
     flag_reasons: List[str] = Field(default_factory=list)
 
+    @model_validator(mode="before")
+    @classmethod
+    def sanitize_transaction_input(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            # 1. Fallback for payee ONLY if key omitted or None (explicit empty string should fail validation)
+            if "payee" not in data or data.get("payee") is None:
+                for fallback in ("merchant", "counterparty", "recipient", "description"):
+                    val = data.get(fallback)
+                    if val and str(val).strip():
+                        data["payee"] = str(val).strip()
+                        break
+            # 2. Sanitize amount if string like "$45.00"
+            amt = data.get("amount")
+            if isinstance(amt, str):
+                cleaned_amt = amt.replace("$", "").replace(",", "").strip()
+                try:
+                    data["amount"] = float(cleaned_amt)
+                except ValueError:
+                    pass
+            # 3. Sanitize timestamp: if trailing Z, strip Z for clean local ISO representation
+            ts = data.get("timestamp")
+            if isinstance(ts, str):
+                ts = ts.strip()
+                if ts.endswith("Z") or ts.endswith("z"):
+                    data["timestamp"] = ts[:-1]
+            # 4. Default channel if key omitted or None (explicit whitespace should fail validation)
+            if "channel" not in data or data.get("channel") is None:
+                data["channel"] = "Web"
+            # 5. Default transaction_id if key omitted or None
+            if "transaction_id" not in data or data.get("transaction_id") is None:
+                import uuid
+                data["transaction_id"] = f"TXN-{uuid.uuid4().hex[:8].upper()}"
+        return data
+
     @field_validator("amount")
     @classmethod
     def validate_positive_amount(cls, v: float) -> float:
@@ -49,7 +89,8 @@ class Transaction(BaseModel):
     def validate_timestamp_format(cls, v: str) -> str:
         if not v or not _check_valid_timestamp(v):
             raise ValueError(f"Invalid timestamp '{v}'. Expected ISO-8601 string (e.g. YYYY-MM-DDTHH:MM:SS).")
-        return v.strip()
+        cleaned = v.strip().rstrip("Z").rstrip("z")
+        return cleaned
 
     @field_validator("transaction_id", "payee")
     @classmethod
@@ -162,10 +203,31 @@ class InvestigationResult(BaseModel):
 
 
 class CustomAnalysisRequest(BaseModel):
+    customer_id: Optional[str] = None
+    customer_name: Optional[str] = None
     customer_profile: Optional[CustomerProfile] = None
     historical_transactions: List[Transaction] = Field(default_factory=list)
     observed_transactions: List[Transaction] = Field(default_factory=list)
     transactions: Optional[List[Transaction]] = None  # Legacy backward compatibility
+
+    @model_validator(mode="before")
+    @classmethod
+    def preprocess_request_payload(cls, data: Any) -> Any:
+        if isinstance(data, list):
+            # If payload is a raw JSON array of transactions: [ {...}, {...} ]
+            return {"transactions": data}
+        if isinstance(data, dict):
+            # If customer_id provided at root but no profile
+            cid = data.get("customer_id")
+            cname = data.get("customer_name") or data.get("name")
+            if cid and not data.get("customer_profile"):
+                data["customer_profile"] = {
+                    "customer_id": str(cid).strip(),
+                    "name": str(cname or "Custom Sandbox Account").strip(),
+                    "account_type": data.get("account_type") or "Standard Checking",
+                    "account_number": data.get("account_number") or "ACC-00000000"
+                }
+        return data
 
     @model_validator(mode="after")
     def validate_custom_payload(self) -> "CustomAnalysisRequest":

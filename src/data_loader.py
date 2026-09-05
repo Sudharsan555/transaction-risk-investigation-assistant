@@ -22,6 +22,7 @@ def parse_iso_datetime(dt_str: str) -> Optional[datetime]:
     if not dt_str or not isinstance(dt_str, str):
         return None
     dt_str = dt_str.strip()
+    cleaned = dt_str.rstrip("Z").rstrip("z")
     formats = [
         "%Y-%m-%dT%H:%M:%S",
         "%Y-%m-%d %H:%M:%S",
@@ -30,9 +31,13 @@ def parse_iso_datetime(dt_str: str) -> Optional[datetime]:
     ]
     for fmt in formats:
         try:
-            return datetime.strptime(dt_str, fmt)
+            return datetime.strptime(cleaned, fmt)
         except ValueError:
             continue
+    try:
+        return datetime.fromisoformat(dt_str)
+    except (ValueError, TypeError):
+        pass
     return None
 
 
