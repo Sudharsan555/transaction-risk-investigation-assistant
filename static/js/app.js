@@ -276,12 +276,26 @@ function renderCustomerHeader(result) {
   el.customerTxnCount.textContent = `${totalTx} transactions ($${totalVol.toLocaleString('en-US', { minimumFractionDigits: 2 })})`;
 
   const isAttention = result.verdict === 'ATTENTION NEEDED';
-  el.customerVerdictBadge.className = `verdict-large-badge ${isAttention ? 'attention' : 'clean'}`;
-  el.verdictIcon.textContent = isAttention ? '🚨' : '🛡️';
-  el.verdictText.textContent = isAttention ? 'ATTENTION NEEDED' : 'NOTHING FLAGGED';
+  const isInsufficient = result.evidence_status === 'INSUFFICIENT_EVIDENCE';
+
+  if (isAttention) {
+    el.customerVerdictBadge.className = 'verdict-large-badge attention';
+    el.verdictIcon.textContent = '🚨';
+    el.verdictText.textContent = 'ATTENTION NEEDED';
+    el.customerRiskScore.style.color = 'var(--risk-high-text)';
+  } else if (isInsufficient) {
+    el.customerVerdictBadge.className = 'verdict-large-badge insufficient';
+    el.verdictIcon.textContent = 'ℹ️';
+    el.verdictText.textContent = 'NOTHING FLAGGED (Limited History)';
+    el.customerRiskScore.style.color = '#facc15';
+  } else {
+    el.customerVerdictBadge.className = 'verdict-large-badge clean';
+    el.verdictIcon.textContent = '🛡️';
+    el.verdictText.textContent = 'NOTHING FLAGGED';
+    el.customerRiskScore.style.color = 'var(--clean-text)';
+  }
 
   el.customerRiskScore.textContent = `${result.risk_score}/100`;
-  el.customerRiskScore.style.color = isAttention ? 'var(--risk-high-text)' : 'var(--clean-text)';
 }
 
 // Render Baseline Metric Cards
@@ -314,9 +328,14 @@ function renderInvestigationReport(result) {
   // Parse markdown
   let html = (typeof marked !== 'undefined') ? marked.parse(rawMarkdown) : `<pre>${rawMarkdown}</pre>`;
   
-  // Enforce clickable interactive transaction ID tags [TXN-XXXX]
-  html = html.replace(/\[(TXN-\d+|CUSTOM-TXN-\d+)\]/g, (match, txnId) => {
-    return `<code class="citation-tag" onclick="highlightTransaction('${txnId}')">[${txnId}]</code>`;
+  // Clean up any double code-wrapping from marked: <code>[TXN-xxxx]</code> -> [TXN-xxxx]
+  html = html.replace(/<code>\s*\[?([A-Za-z0-9_-]+)\]?\s*<\/code>/g, (m, id) => {
+    return (id.startsWith('TXN-') || id.startsWith('CUSTOM-') || id.startsWith('SB-') || id.startsWith('TEST-')) ? `[${id}]` : m;
+  });
+
+  // Enforce clickable interactive transaction ID tags [TXN-XXXX], [CUSTOM-XXXX], [SB-XXXX], etc.
+  html = html.replace(/\[((?:TXN|CUSTOM|SB|TEST)[A-Za-z0-9_-]*)\]/g, (match, txnId) => {
+    return `<code class="citation-tag" onclick="highlightTransaction('${txnId}')" title="Click to trace in transaction ledger">[${txnId}]</code>`;
   });
 
   el.reportContent.innerHTML = html;
@@ -333,7 +352,10 @@ window.highlightTransaction = function(txnId) {
   if (targetRow) {
     targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
     targetRow.classList.add('highlight-target');
-    showToast(`Jumped to transaction [${txnId}]`);
+    showToast(`Traceable Citation: Jumped to transaction [${txnId}]`);
+    setTimeout(() => {
+      targetRow.classList.remove('highlight-target');
+    }, 4500);
   } else {
     // If filtered out, turn off filter
     if (state.showOnlyFlaggedTxns || state.txnSearchTerm) {
