@@ -1,4 +1,4 @@
-TRACK_ID=PS6
+TRACK_ID=PS06
 
 # Transaction Risk Investigation Assistant (PS06)
 
