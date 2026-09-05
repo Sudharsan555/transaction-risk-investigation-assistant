@@ -58,16 +58,23 @@ class Transaction(BaseModel):
             raise ValueError("Field cannot be empty or whitespace.")
         return str(v).strip()
 
+    @field_validator("channel")
+    @classmethod
+    def validate_channel_non_empty(cls, v: Optional[str]) -> str:
+        if v is not None and not str(v).strip():
+            raise ValueError("Channel cannot be empty or whitespace.")
+        return str(v).strip() if v else "Web"
+
 
 class CustomerProfile(BaseModel):
     customer_id: str
-    name: str
-    account_type: str  # Personal Checking, Small Business, High Net Worth, Student
-    account_number: str
-    baseline_avg_amount: float
+    name: str = "Unknown Customer"
+    account_type: str = "Standard Checking"  # Personal Checking, Small Business, High Net Worth, Student
+    account_number: str = "ACC-00000000"
+    baseline_avg_amount: float = 0.0
     baseline_median_amount: float = 0.0
-    baseline_std_amount: float
-    baseline_max_normal: float
+    baseline_std_amount: float = 0.0
+    baseline_max_normal: float = 0.0
     baseline_amount_range: List[float] = Field(default_factory=lambda: [0.0, 0.0])
     baseline_active_hours: List[int] = Field(default_factory=lambda: [8, 22])  # [start_hour, end_hour]
     known_payees: List[str] = Field(default_factory=list)
@@ -76,6 +83,10 @@ class CustomerProfile(BaseModel):
     baseline_frequency_per_month: float = 0.0
     total_transactions: int = 0
     total_volume: float = 0.0
+    baseline_transaction_count: int = 0
+    baseline_transaction_ids: List[str] = Field(default_factory=list)
+    excluded_transaction_ids: List[str] = Field(default_factory=list)
+    is_sufficient: bool = False
     provenance: str = "HISTORICAL_TRANSACTIONS_ONLY"
 
 
@@ -152,4 +163,32 @@ class InvestigationResult(BaseModel):
 
 class CustomAnalysisRequest(BaseModel):
     customer_profile: Optional[CustomerProfile] = None
-    transactions: List[Transaction] = Field(default_factory=list)
+    historical_transactions: List[Transaction] = Field(default_factory=list)
+    observed_transactions: List[Transaction] = Field(default_factory=list)
+    transactions: Optional[List[Transaction]] = None  # Legacy backward compatibility
+
+    @model_validator(mode="after")
+    def validate_custom_payload(self) -> "CustomAnalysisRequest":
+        all_txns = list(self.historical_transactions) + list(self.observed_transactions)
+        if self.transactions:
+            all_txns.extend(self.transactions)
+
+        seen_ids = set()
+        customer_ids = set()
+        for t in all_txns:
+            if t.transaction_id in seen_ids:
+                raise ValueError(
+                    f"Duplicate transaction ID detected: '{t.transaction_id}'. "
+                    f"All transaction IDs within a single payload must be unique."
+                )
+            seen_ids.add(t.transaction_id)
+            if t.customer_id and str(t.customer_id).strip():
+                customer_ids.add(str(t.customer_id).strip())
+
+        if len(customer_ids) > 1:
+            raise ValueError(
+                f"Mixed customer IDs detected in transaction payload: {sorted(list(customer_ids))}. "
+                f"All transactions in a single analysis request must belong to the same customer account."
+            )
+
+        return self

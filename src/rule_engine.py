@@ -27,49 +27,68 @@ class RiskRuleEngine:
         self,
         customer_id: str,
         transactions: Optional[List[Transaction]] = None,
-        profile: Optional[CustomerProfile] = None
+        profile: Optional[CustomerProfile] = None,
+        historical_transactions: Optional[List[Transaction]] = None
     ) -> InvestigationResult:
         """
         Main evaluation entrypoint for a single customer.
-        Accepts optional override transactions/profile for sandbox/custom analysis.
+        Accepts optional override transactions/profile/historical_transactions for sandbox/custom analysis.
         Strictly returns one of:
           - ATTENTION_REQUIRED (rule violations found)
           - NOTHING_FLAGGED (routine customer behavior within baseline)
           - INSUFFICIENT_EVIDENCE (history too sparse < MIN_TRANSACTIONS_FOR_BASELINE)
         """
-        # 1. Resolve Profile & Transactions
-        profile_was_explicit = (profile is not None)
-        if profile is None:
-            profile = self.loader.get_customer(customer_id)
-            if profile is not None:
-                profile_was_explicit = True
-        
+        # 1. Resolve Profile & Historical Baseline Transactions
+        if historical_transactions is not None:
+            # Baseline is derived STRICTLY and ONLY from historical_transactions
+            hist_name = profile.name if profile else (self.loader.get_customer(customer_id).name if self.loader.get_customer(customer_id) else "Customer")
+            eval_ids = [t.transaction_id for t in (transactions or [])]
+            if profile and getattr(profile, "excluded_transaction_ids", None):
+                eval_ids = list(dict.fromkeys(eval_ids + profile.excluded_transaction_ids))
+            derived = self.loader.derive_baseline(
+                historical_transactions,
+                customer_id,
+                name=hist_name,
+                exclude_transaction_ids=eval_ids
+            )
+            if profile:
+                derived.account_type = profile.account_type or derived.account_type
+                derived.account_number = profile.account_number or derived.account_number
+            profile = derived
+            historical_count = len(historical_transactions)
+        else:
+            if profile is None:
+                profile = self.loader.get_customer(customer_id)
+
+            if profile is not None and getattr(profile, "baseline_transaction_count", 0) > 0:
+                historical_count = profile.baseline_transaction_count
+            elif profile is not None and getattr(profile, "total_transactions", 0) > 0:
+                historical_count = profile.total_transactions
+            elif transactions is not None:
+                historical_count = len(transactions)
+            else:
+                c_txns = self.loader.get_customer_transactions(customer_id)
+                historical_count = len(c_txns)
+                if profile is None:
+                    profile = self.loader.derive_baseline(c_txns, customer_id)
+
         if transactions is None:
             transactions = self.loader.get_customer_transactions(customer_id)
 
-        # Fallback profile derivation if missing
         if profile is None:
             profile = self.loader.derive_baseline(transactions or [], customer_id)
+            historical_count = len(transactions or [])
 
-        # 2. Edge Case: Empty or Sparse History (< MIN_TRANSACTIONS_FOR_BASELINE)
-        if not transactions or len(transactions) == 0:
+        # 2. Strict minimum 5 historical transactions rule
+        # Manual profile values must NOT bypass the 5-txn rule.
+        # 0 or 1-4 txns -> INSUFFICIENT_EVIDENCE
+        # 5 txns -> SUFFICIENT_HISTORY (normal evaluation)
+        # 5+ txns -> SUFFICIENT_HISTORY (normal evaluation)
+        if historical_count == 0:
             return self._build_empty_history_result(profile)
 
-        # Baseline history sufficiency strictly enforced (minimum 5 historical transactions)
-        if profile_was_explicit:
-            if 0 < profile.total_transactions < MIN_TRANSACTIONS_FOR_BASELINE:
-                has_sufficient_history = False
-            elif profile.total_transactions >= MIN_TRANSACTIONS_FOR_BASELINE:
-                has_sufficient_history = True
-            elif profile.baseline_avg_amount > 0 and profile.baseline_max_normal > 0:
-                has_sufficient_history = True
-            else:
-                has_sufficient_history = (len(transactions) >= MIN_TRANSACTIONS_FOR_BASELINE)
-        else:
-            has_sufficient_history = (len(transactions) >= MIN_TRANSACTIONS_FOR_BASELINE)
-
-        if not has_sufficient_history:
-            return self._build_insufficient_history_result(profile, transactions)
+        if historical_count < MIN_TRANSACTIONS_FOR_BASELINE:
+            return self._build_insufficient_history_result(profile, transactions or [])
 
         # Clone transactions so we can safely annotate flags
         txns = [t.model_copy(deep=True) for t in transactions]
@@ -140,7 +159,11 @@ class RiskRuleEngine:
             "common_categories": profile.common_categories,
             "baseline_frequency_per_month": profile.baseline_frequency_per_month,
             "provenance": getattr(profile, "provenance", "HISTORICAL_TRANSACTIONS_ONLY"),
-            "historical_sample_size": profile.total_transactions,
+            "baseline_transaction_count": getattr(profile, "baseline_transaction_count", profile.total_transactions or historical_count),
+            "baseline_transaction_ids": getattr(profile, "baseline_transaction_ids", []),
+            "excluded_transaction_ids": getattr(profile, "excluded_transaction_ids", []),
+            "is_sufficient": True,
+            "historical_sample_size": getattr(profile, "baseline_transaction_count", profile.total_transactions or historical_count),
             "reliability": "SUFFICIENT"
         }
 
@@ -217,7 +240,8 @@ class RiskRuleEngine:
         return self.evaluate_customer(
             customer_id=target_cid,
             transactions=[target_txn],
-            profile=profile
+            profile=profile,
+            historical_transactions=historical_txns
         )
 
     def _evaluate_large_transfers(
@@ -593,6 +617,10 @@ class RiskRuleEngine:
                 "common_categories": profile.common_categories,
                 "baseline_frequency_per_month": 0.0,
                 "provenance": "HISTORICAL_TRANSACTIONS_ONLY",
+                "baseline_transaction_count": 0,
+                "baseline_transaction_ids": [],
+                "excluded_transaction_ids": getattr(profile, "excluded_transaction_ids", []),
+                "is_sufficient": False,
                 "historical_sample_size": 0,
                 "reliability": "INSUFFICIENT_HISTORY",
                 "note": "Zero historical transactions recorded. Empirical baseline metrics cannot be established."
@@ -636,6 +664,7 @@ class RiskRuleEngine:
         Never generates phantom risk scores.
         """
         total_vol = sum(t.amount for t in transactions)
+        hist_count = getattr(profile, "baseline_transaction_count", 0) or len(transactions)
         return InvestigationResult(
             customer_id=profile.customer_id,
             customer_name=profile.name,
@@ -660,9 +689,13 @@ class RiskRuleEngine:
                 "common_categories": profile.common_categories,
                 "baseline_frequency_per_month": profile.baseline_frequency_per_month,
                 "provenance": "HISTORICAL_TRANSACTIONS_ONLY",
-                "historical_sample_size": len(transactions),
+                "baseline_transaction_count": hist_count,
+                "baseline_transaction_ids": getattr(profile, "baseline_transaction_ids", [t.transaction_id for t in transactions]),
+                "excluded_transaction_ids": getattr(profile, "excluded_transaction_ids", []),
+                "is_sufficient": False,
+                "historical_sample_size": hist_count,
                 "reliability": "INSUFFICIENT_HISTORY",
-                "note": f"Fewer than {MIN_TRANSACTIONS_FOR_BASELINE} historical transactions recorded ({len(transactions)} available). Baseline metrics are insufficient for statistical anomaly detection."
+                "note": f"Fewer than {MIN_TRANSACTIONS_FOR_BASELINE} historical transactions recorded ({hist_count} available). Baseline metrics are insufficient for statistical anomaly detection."
             },
             summary_statistics={
                 "total_transactions": len(transactions),

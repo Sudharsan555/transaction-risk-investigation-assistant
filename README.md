@@ -6,7 +6,7 @@ An intelligent, bank-grade fraud desk investigation assistant built for **NexusT
 
 The system features a **strict two-stage architecture**:
 1. **Deterministic Risk Engine (Pure Python / Zero LLM Dependency)**: Evaluates full customer transaction histories against individual historical baselines across statistical outlier thresholds, rapid payee bursts, odd-hours activity, and channel deviations.
-2. **Grounded GenAI Investigation Layer (Gemini 2.0 Flash / Resilient Deterministic Fallback)**: Translates structured findings and cited transaction rows into a human-readable investigation note with strict evidence citations (`[TXN-xxxx]`), actionable investigator steps, and mandatory compliance disclaimers.
+2. **Grounded GenAI Investigation Layer (Gemini 3.5 Flash Lite / Resilient Deterministic Fallback)**: Translates structured findings and cited transaction rows into a human-readable investigation note with strict evidence citations (`[TXN-xxxx]`), actionable investigator steps, and mandatory compliance disclaimers.
 
 ---
 
@@ -42,7 +42,9 @@ pip install -r requirements.txt
 ```
 
 ### 3. Configure Environment (Optional)
-The system runs immediately out-of-the-box using high-speed deterministic fallback if no API key is set. To enable live Google Gemini 2.0 Flash generation, set your API key:
+The system runs immediately out-of-the-box using high-speed deterministic fallback if no API key is set. To enable live Google Gemini generation (default model: `gemini-3.5-flash-lite`), set your API key:
+
+The application uses **Google Gemini ONLY** via official `google-genai` SDK. It reads the API key strictly from `GEMINI_API_KEY`. No OpenAI, Claude, Groq, hosted vector databases, or external RAG services are used. If Gemini is unavailable, times out, or returns invalid facts, the application gracefully and safely falls back to the deterministic report.
 
 **Windows PowerShell:**
 ```powershell
@@ -123,11 +125,11 @@ Deterministic Risk Engine (Layer 1)
         ↓
 Verified Findings + Cited Transactions
         ↓
-Gemini Investigation Layer (Layer 2)
-[Google Gemini 2.0 Flash • Strict Grounding • Traceable [TXN-xxxx] Citations]
+Gemini Investigation Layer (Stage 2)
+[Google Gemini 3.5 Flash Lite • Grounded Prompting • Traceable [TXN-xxxx] Citations]
         ↓
-Post-Generation Citation & Fact Validation Layer
-[Zero Hallucinations • Factual Amount & Counterparty Cross-Check • Safe Fallback Guard]
+Post-Generation Citation & Fact Validation Firewall
+[Hallucination Stripping • Factual Amount/Date/Channel Cross-Verification • Safe Fallback Guard]
         ↓
 Grounded Investigation Report
         ↓
@@ -249,16 +251,30 @@ curl http://localhost:8000/api/customers/CUST-199/analysis
 
 ### 7. Test Case 7: Custom Payload Sandbox (`POST /api/analyze/custom`)
 ```bash
-curl -X POST http://localhost:8000/api/analyze/custom -H "Content-Type: application/json" -d "{\"transactions\": [{\"transaction_id\": \"CUSTOM-1\", \"timestamp\": \"2026-08-30T03:00:00\", \"amount\": 9500.0, \"payee\": \"Unseen Entity\", \"channel\": \"Wire\"}]}"
+curl -X POST http://localhost:8000/api/analyze/custom \
+  -H "Content-Type: application/json" \
+  -d '{
+    "historical_transactions": [
+      {"transaction_id": "H1", "timestamp": "2026-08-01T12:00:00", "payee": "Routine Grocery", "amount": 45.0, "channel": "POS"},
+      {"transaction_id": "H2", "timestamp": "2026-08-02T12:00:00", "payee": "Routine Grocery", "amount": 50.0, "channel": "POS"},
+      {"transaction_id": "H3", "timestamp": "2026-08-03T12:00:00", "payee": "Routine Grocery", "amount": 42.0, "channel": "POS"},
+      {"transaction_id": "H4", "timestamp": "2026-08-04T12:00:00", "payee": "Routine Grocery", "amount": 48.0, "channel": "POS"},
+      {"transaction_id": "H5", "timestamp": "2026-08-05T12:00:00", "payee": "Routine Grocery", "amount": 46.0, "channel": "POS"}
+    ],
+    "observed_transactions": [
+      {"transaction_id": "OBS-1", "timestamp": "2026-08-30T03:00:00", "amount": 9500.0, "payee": "Unseen Entity", "channel": "Wire"}
+    ]
+  }'
 ```
 - `verdict`: `"ATTENTION_REQUIRED"`
-- Cites `CUSTOM-1` for large transfer, odd hours, and uncharacteristic wire channel.
+- Baseline derived strictly from the 5 historical transactions ($46.20 avg).
+- Cites `OBS-1` for large transfer outlier, odd hours, and uncharacteristic wire channel without baseline contamination.
 
 ---
 
 ## 🧪 Running Automated Tests
 
-Run the full automated test suite (23 unit & integration tests):
+Run the full automated test suite (**49 unit & integration tests** covering deterministic rules, anti-contamination baselines, Gemini fact-checking firewalls, and HTTP 422 input validation):
 ```bash
 python -m unittest discover tests -v
 ```

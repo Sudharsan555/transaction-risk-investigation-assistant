@@ -168,6 +168,72 @@ class TestRiskRuleEngine(unittest.TestCase):
                     )
 
 
+    def test_baseline_provenance_and_metadata_completeness(self):
+        """Baseline metadata must include provenance, transaction counts, IDs, and sufficiency flag."""
+        res = self.engine.evaluate_customer("CUST-101")
+        base = res.customer_baseline
+        self.assertEqual(base["provenance"], "HISTORICAL_TRANSACTIONS_ONLY")
+        self.assertGreaterEqual(base["baseline_transaction_count"], 5)
+        self.assertTrue(base["is_sufficient"])
+        self.assertIsInstance(base["baseline_transaction_ids"], list)
+        self.assertIsInstance(base["excluded_transaction_ids"], list)
+
+    def test_manual_profile_cannot_bypass_sparse_history(self):
+        """Supplying manual profile metrics must NOT bypass the 5-transaction minimum rule."""
+        manual_profile = CustomerProfile(
+            customer_id="MANUAL-001",
+            name="Manual User",
+            baseline_avg_amount=120.0,
+            baseline_max_normal=350.0,
+            baseline_std_amount=30.0,
+            total_transactions=2  # Sparse history < 5
+        )
+        txns = [
+            Transaction(
+                transaction_id=f"TXN-MAN-{i}",
+                customer_id="MANUAL-001",
+                timestamp=f"2026-08-0{i+1}T12:00:00",
+                payee="Store",
+                amount=50.0
+            )
+            for i in range(2)
+        ]
+        res = self.engine.evaluate_customer("MANUAL-001", transactions=txns, profile=manual_profile)
+        self.assertEqual(res.verdict, "INSUFFICIENT_EVIDENCE")
+        self.assertEqual(res.evidence_status, "INSUFFICIENT_EVIDENCE")
+        self.assertEqual(res.risk_score, 0)
+        self.assertFalse(res.customer_baseline["is_sufficient"])
+
+    def test_historical_vs_observed_separation_in_engine(self):
+        """Passing historical_transactions strictly isolates baseline from evaluated transactions."""
+        hist = [
+            Transaction(
+                transaction_id=f"H-TXN-{i}",
+                customer_id="CUST-SEP",
+                timestamp=f"2026-08-0{i+1}T12:00:00",
+                payee="Normal Merchant",
+                amount=100.0,
+                channel="POS"
+            )
+            for i in range(5)
+        ]
+        eval_tx = [
+            Transaction(
+                transaction_id="OUTLIER-1",
+                customer_id="CUST-SEP",
+                timestamp="2026-08-20T12:00:00",
+                payee="Rogue Beneficiary",
+                amount=15000.0,
+                channel="Wire"
+            )
+        ]
+        res = self.engine.evaluate_customer("CUST-SEP", transactions=eval_tx, historical_transactions=hist)
+        self.assertEqual(res.customer_baseline["baseline_avg_amount"], 100.0)
+        self.assertIn("OUTLIER-1", res.customer_baseline["excluded_transaction_ids"])
+        self.assertEqual(res.customer_baseline["provenance"], "HISTORICAL_TRANSACTIONS_ONLY")
+        self.assertEqual(res.verdict, "ATTENTION_REQUIRED")
+
+
 if __name__ == "__main__":
     unittest.main()
 

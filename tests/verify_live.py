@@ -74,22 +74,21 @@ def main():
             "name": "Sandbox Test Customer",
             "account_type": "Checking",
             "account_number": "ACC-99887766",
-            "baseline_avg_amount": 50.0,
-            "baseline_std_amount": 20.0,
-            "baseline_max_normal": 150.0,
-            "baseline_active_hours": [8, 20],
             "known_payees": ["Grocery Mart"],
             "common_channels": ["POS"]
         },
-        "transactions": [
+        "historical_transactions": [
             {
-                "transaction_id": "SB-TXN-01",
-                "timestamp": "2026-08-30T12:00:00",
-                "description": "Routine Lunch",
+                "transaction_id": f"HIST-SB-{i}",
+                "timestamp": f"2026-08-0{i+1}T12:00:00",
+                "description": "Routine purchase",
                 "payee": "Grocery Mart",
-                "amount": 25.0,
+                "amount": 35.0 + (i * 2),
                 "channel": "POS"
-            },
+            }
+            for i in range(5)
+        ],
+        "observed_transactions": [
             {
                 "transaction_id": "SB-TXN-02",
                 "timestamp": "2026-08-30T02:30:00",

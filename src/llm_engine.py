@@ -118,7 +118,7 @@ class LLMInvestigationEngine:
             else:
                 hallucinated_citations.append(cid)
 
-        # Factual amount and counterparty cross-verification
+        # Factual amount, channel, and date cross-verification
         factual_contradictions = []
         sentences = re.split(r'(?<=[.!?\n])\s+', text)
         for sentence in sentences:
@@ -131,7 +131,7 @@ class LLMInvestigationEngine:
                     continue
                 actual_txn = valid_transactions[cid]
                 
-                # Check dollar amounts mentioned in the same sentence as [TXN-xxx]
+                # 1. Check dollar amounts mentioned in the same sentence as [TXN-xxx]
                 dollar_matches = re.findall(r'\$([0-9]{1,3}(?:,[0-9]{3})*(?:\.[0-9]{2})?|[0-9]+(?:\.[0-9]{2})?)', sentence)
                 for d_str in dollar_matches:
                     try:
@@ -159,6 +159,30 @@ class LLMInvestigationEngine:
                     if not any(abs(clean_d - a) <= 1.0 for a in allowed_amounts if a > 0):
                         factual_contradictions.append(
                             f"Transaction [{cid}] context cites unverified amount ${clean_d:,.2f} (Actual txn amount: ${actual_txn.amount:,.2f})"
+                        )
+
+                # 2. Check channel mentions in sentence with [TXN-xxx]
+                actual_ch = (actual_txn.channel or "").lower()
+                for ch in ["Wire", "POS", "Mobile", "Web", "ATM"]:
+                    if re.search(rf'\b{ch}\b', sentence, re.IGNORECASE):
+                        if ch.lower() != actual_ch and ch.lower() not in [c.lower() for c in result.customer_baseline.get("common_channels", [])]:
+                            if re.search(rf'(?:via|through|channel|on)\s+{ch}', sentence, re.IGNORECASE):
+                                factual_contradictions.append(
+                                    f"Transaction [{cid}] context claims unverified channel '{ch}' (Actual channel: {actual_txn.channel})"
+                                )
+
+                # 3. Check date mentions (YYYY-MM-DD) in sentence with [TXN-xxx]
+                date_matches = re.findall(r'\b(\d{4}-\d{2}-\d{2})\b', sentence)
+                for d_val in date_matches:
+                    actual_date = actual_txn.timestamp[:10] if actual_txn.timestamp else ""
+                    valid_dates = {
+                        actual_date,
+                        (result.summary_statistics.get("earliest_transaction") or "")[:10],
+                        (result.summary_statistics.get("latest_transaction") or "")[:10]
+                    }
+                    if actual_date and d_val not in valid_dates:
+                        factual_contradictions.append(
+                            f"Transaction [{cid}] context cites unverified date '{d_val}' (Actual date: {actual_date})"
                         )
 
         fallback_needed = (len(hallucinated_citations) > 0 or len(factual_contradictions) > 0)
@@ -301,13 +325,13 @@ class LLMInvestigationEngine:
         )
 
     def _post_process_report(self, text: str, result: InvestigationResult) -> str:
-        """Ensures verdict line and disclaimer are strictly compliant."""
-        lines = text.strip().split("\n")
+        """Ensures verdict line and disclaimer are strictly compliant with deterministic engine supremacy."""
         expected_verdict = f"VERDICT: {result.verdict}"
+        lines = text.strip().split("\n")
         
-        # Ensure first line starts with exact verdict
-        if not lines[0].startswith("VERDICT:"):
-            text = f"{expected_verdict}\n\n" + text
+        # Filter out any verdict line that may have been emitted by LLM to guarantee deterministic dominance
+        non_verdict_lines = [l for l in lines if not l.strip().startswith("VERDICT:")]
+        text = f"{expected_verdict}\n\n" + "\n".join(non_verdict_lines).strip()
 
         # Ensure disclaimer is included at the end
         if "DISCLAIMER:" not in text:

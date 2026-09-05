@@ -68,30 +68,32 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertGreater(len(flagged_items), 0)
 
     def test_custom_sandbox_analysis_valid(self):
+        """Custom sandbox analysis with separated historical and observed transactions."""
         payload = {
             "customer_profile": {
                 "customer_id": "TEST-CUST",
                 "name": "Test User",
                 "account_type": "Checking",
                 "account_number": "ACC-12345678",
-                "baseline_avg_amount": 50.0,
-                "baseline_std_amount": 20.0,
-                "baseline_max_normal": 150.0,
-                "baseline_active_hours": [8, 20],
                 "known_payees": ["Grocery Store"],
                 "common_channels": ["POS"]
             },
-            "transactions": [
+            "historical_transactions": [
                 {
-                    "transaction_id": "TEST-TXN-1",
-                    "timestamp": "2026-08-30T14:00:00",
+                    "transaction_id": f"HIST-TXN-{i}",
+                    "customer_id": "TEST-CUST",
+                    "timestamp": f"2026-08-0{i+1}T12:00:00",
                     "description": "Routine purchase",
                     "payee": "Grocery Store",
-                    "amount": 45.0,
+                    "amount": 40.0 + (i * 2),
                     "channel": "POS"
-                },
+                }
+                for i in range(5)  # 5 historical transactions (sufficient baseline)
+            ],
+            "observed_transactions": [
                 {
-                    "transaction_id": "TEST-TXN-2",
+                    "transaction_id": "OBS-TXN-1",
+                    "customer_id": "TEST-CUST",
                     "timestamp": "2026-08-30T03:00:00",
                     "description": "Sudden Outbound Wire",
                     "payee": "New International Exchange",
@@ -106,6 +108,120 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertEqual(data["verdict"], "ATTENTION_REQUIRED")
         self.assertIn("llm_report", data)
         self.assertTrue(data["llm_report"].startswith("VERDICT: ATTENTION_REQUIRED"))
+        self.assertEqual(data["customer_baseline"]["provenance"], "HISTORICAL_TRANSACTIONS_ONLY")
+        self.assertEqual(data["customer_baseline"]["baseline_transaction_count"], 5)
+        self.assertTrue(data["customer_baseline"]["is_sufficient"])
+
+    def test_custom_sandbox_rejects_insufficient_history_despite_manual_profile(self):
+        """Manual profile values must NOT bypass the 5-txn rule; history < 5 must return INSUFFICIENT_EVIDENCE."""
+        payload = {
+            "customer_profile": {
+                "customer_id": "TEST-CUST",
+                "name": "Test User",
+                "account_type": "Checking",
+                "account_number": "ACC-12345678",
+                "baseline_avg_amount": 50.0,
+                "baseline_std_amount": 20.0,
+                "baseline_max_normal": 150.0
+            },
+            "observed_transactions": [
+                {
+                    "transaction_id": "TEST-TXN-1",
+                    "customer_id": "TEST-CUST",
+                    "timestamp": "2026-08-30T14:00:00",
+                    "payee": "Grocery Store",
+                    "amount": 45.0,
+                    "channel": "POS"
+                }
+            ]
+        }
+        response = self.client.post("/api/analyze/custom", json=payload)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["verdict"], "INSUFFICIENT_EVIDENCE")
+        self.assertEqual(data["evidence_status"], "INSUFFICIENT_EVIDENCE")
+        self.assertEqual(data["risk_score"], 0)
+
+    def test_custom_sandbox_anti_contamination_proof(self):
+        """Observed transactions must NEVER contaminate the historical baseline."""
+        payload = {
+            "historical_transactions": [
+                {
+                    "transaction_id": f"HIST-{i}",
+                    "customer_id": "TEST-CUST",
+                    "timestamp": f"2026-08-0{i+1}T12:00:00",
+                    "payee": "Supermarket",
+                    "amount": 50.0,
+                    "channel": "POS"
+                }
+                for i in range(5)
+            ],
+            "observed_transactions": [
+                {
+                    "transaction_id": "OBS-OUTLIER",
+                    "customer_id": "TEST-CUST",
+                    "timestamp": "2026-08-30T14:00:00",
+                    "payee": "Offshore Vault",
+                    "amount": 95000.0,
+                    "channel": "Wire"
+                }
+            ]
+        }
+        response = self.client.post("/api/analyze/custom", json=payload)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        # Baseline average must strictly remain 50.0 from historical txns, not contaminated by $95,000
+        self.assertEqual(data["customer_baseline"]["baseline_avg_amount"], 50.0)
+        self.assertIn("OBS-OUTLIER", data["customer_baseline"]["excluded_transaction_ids"])
+        self.assertEqual(data["customer_baseline"]["provenance"], "HISTORICAL_TRANSACTIONS_ONLY")
+
+    def test_custom_sandbox_rejects_duplicate_transaction_ids_422(self):
+        """Duplicate transaction IDs must be rejected with HTTP 422 Unprocessable Entity."""
+        payload = {
+            "historical_transactions": [
+                {
+                    "transaction_id": "DUPLICATE-ID",
+                    "customer_id": "TEST-CUST",
+                    "timestamp": "2026-08-01T12:00:00",
+                    "payee": "Store A",
+                    "amount": 50.0
+                }
+            ],
+            "observed_transactions": [
+                {
+                    "transaction_id": "DUPLICATE-ID",
+                    "customer_id": "TEST-CUST",
+                    "timestamp": "2026-08-02T12:00:00",
+                    "payee": "Store B",
+                    "amount": 75.0
+                }
+            ]
+        }
+        response = self.client.post("/api/analyze/custom", json=payload)
+        self.assertEqual(response.status_code, 422)
+
+    def test_custom_sandbox_rejects_mixed_customer_ids_422(self):
+        """Mixed customer IDs in a single analysis request must be rejected with HTTP 422."""
+        payload = {
+            "historical_transactions": [
+                {
+                    "transaction_id": "TXN-1",
+                    "customer_id": "CUST-A",
+                    "timestamp": "2026-08-01T12:00:00",
+                    "payee": "Store A",
+                    "amount": 50.0
+                },
+                {
+                    "transaction_id": "TXN-2",
+                    "customer_id": "CUST-B",
+                    "timestamp": "2026-08-02T12:00:00",
+                    "payee": "Store B",
+                    "amount": 75.0
+                }
+            ]
+        }
+        response = self.client.post("/api/analyze/custom", json=payload)
+        self.assertEqual(response.status_code, 422)
 
     def test_custom_sandbox_rejects_negative_amount_422(self):
         """Input validation: non-positive amounts must be rejected with HTTP 422 Unprocessable Entity."""
@@ -146,6 +262,37 @@ class TestAPIEndpoints(unittest.TestCase):
                     "timestamp": "2026-08-30T14:00:00",
                     "payee": "   ",
                     "amount": 100.0
+                }
+            ]
+        }
+        response = self.client.post("/api/analyze/custom", json=invalid_payload)
+        self.assertEqual(response.status_code, 422)
+
+    def test_custom_sandbox_rejects_empty_channel_422(self):
+        """Input validation: empty/whitespace channel must be rejected with HTTP 422."""
+        invalid_payload = {
+            "transactions": [
+                {
+                    "transaction_id": "TXN-BAD-CHANNEL",
+                    "timestamp": "2026-08-30T14:00:00",
+                    "payee": "Merchant",
+                    "amount": 100.0,
+                    "channel": "   "
+                }
+            ]
+        }
+        response = self.client.post("/api/analyze/custom", json=invalid_payload)
+        self.assertEqual(response.status_code, 422)
+
+    def test_custom_sandbox_rejects_zero_amount_422(self):
+        """Input validation: zero amount must be rejected with HTTP 422."""
+        invalid_payload = {
+            "transactions": [
+                {
+                    "transaction_id": "TXN-BAD-ZERO",
+                    "timestamp": "2026-08-30T14:00:00",
+                    "payee": "Merchant",
+                    "amount": 0.0
                 }
             ]
         }

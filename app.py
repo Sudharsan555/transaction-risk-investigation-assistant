@@ -163,26 +163,69 @@ async def analyze_custom_payload(request: CustomAnalysisRequest):
     """
     Sandbox endpoint: Evaluates an arbitrary payload of transactions against
     a custom or dynamically derived customer baseline.
+    Strictly separates historical transactions from observed transactions to prevent baseline contamination.
     Strictly validates incoming transaction fields with structured HTTP 422 errors.
     """
-    parsed_txns = request.transactions
-    if not parsed_txns or len(parsed_txns) == 0:
-        # Empty payload
-        empty_profile = request.customer_profile or data_loader.derive_baseline([], "CUSTOM-001", "Custom Account")
-        res = rule_engine.evaluate_customer("CUSTOM-001", transactions=[], profile=empty_profile)
-        report_md, model_name, fallback_used = llm_engine.generate_investigation_report(res)
-        res.llm_report = report_md
-        res.llm_model_used = model_name
-        res.fallback_used = fallback_used
-        return res
+    hist_txns = request.historical_transactions or []
+    obs_txns = request.observed_transactions or []
+    legacy_txns = request.transactions or []
 
-    # Derive baseline profile if not explicitly provided
+    # Determine transactions to evaluate
+    if obs_txns:
+        eval_txns = obs_txns
+    elif legacy_txns:
+        eval_txns = legacy_txns
+    else:
+        eval_txns = []
+
+    # Determine customer ID & account name
     cust_profile = request.customer_profile
-    if cust_profile is None:
-        cust_profile = data_loader.derive_baseline(parsed_txns, "CUSTOM-001", "Custom Sandbox Account")
+    cust_id = "CUSTOM-001"
+    cust_name = "Custom Sandbox Account"
+    if cust_profile:
+        cust_id = cust_profile.customer_id or cust_id
+        cust_name = cust_profile.name or cust_name
+    elif eval_txns and eval_txns[0].customer_id:
+        cust_id = eval_txns[0].customer_id
+    elif hist_txns and hist_txns[0].customer_id:
+        cust_id = hist_txns[0].customer_id
 
-    # Evaluate
-    result = rule_engine.evaluate_customer("CUSTOM-001", transactions=parsed_txns, profile=cust_profile)
+    # Baseline derivation & contamination prevention
+    if hist_txns:
+        # Strict separation: baseline derived ONLY from historical_transactions
+        # Observed transactions NEVER contaminate baseline
+        derived_profile = data_loader.derive_baseline(
+            hist_txns,
+            customer_id=cust_id,
+            name=cust_name,
+            exclude_transaction_ids=[t.transaction_id for t in eval_txns]
+        )
+        if cust_profile:
+            derived_profile.account_type = cust_profile.account_type or derived_profile.account_type
+            derived_profile.account_number = cust_profile.account_number or derived_profile.account_number
+        cust_profile = derived_profile
+        result = rule_engine.evaluate_customer(
+            cust_id,
+            transactions=eval_txns,
+            profile=cust_profile,
+            historical_transactions=hist_txns
+        )
+    else:
+        # No explicit historical_transactions provided
+        if not eval_txns:
+            # Entirely empty payload
+            empty_profile = cust_profile or data_loader.derive_baseline([], cust_id, cust_name)
+            result = rule_engine.evaluate_customer(cust_id, transactions=[], profile=empty_profile)
+        elif cust_profile is not None:
+            # User provided a manual customer profile without historical transactions
+            # Rule engine strictly enforces MIN_TRANSACTIONS_FOR_BASELINE:
+            # If history < 5, verdict MUST be INSUFFICIENT_EVIDENCE
+            result = rule_engine.evaluate_customer(cust_id, transactions=eval_txns, profile=cust_profile)
+        else:
+            # Legacy mode: single list of transactions provided
+            derived_profile = data_loader.derive_baseline(eval_txns, cust_id, cust_name)
+            result = rule_engine.evaluate_customer(cust_id, transactions=eval_txns, profile=derived_profile)
+
     report_md, model_name, fallback_used = llm_engine.generate_investigation_report(result)
     result.llm_report = report_md
     result.llm_model_used = model_name

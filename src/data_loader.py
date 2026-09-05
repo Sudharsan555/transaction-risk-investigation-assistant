@@ -93,6 +93,8 @@ class DataLoader:
                             baseline_frequency_per_month=freq_per_m,
                             total_transactions=int(item.get("total_transactions", 0)),
                             total_volume=sanitize_float(item.get("total_volume", 0.0)),
+                            baseline_transaction_count=int(item.get("total_transactions", 0)),
+                            is_sufficient=(int(item.get("total_transactions", 0)) >= 5),
                             provenance=str(item.get("provenance", "HISTORICAL_TRANSACTIONS_ONLY"))
                         )
                         if cust.customer_id:
@@ -115,9 +117,14 @@ class DataLoader:
             except Exception as e:
                 logger.warning(f"Error loading transactions.csv: {e}")
 
-        # Sort each customer's transactions chronologically
-        for c_id in self._transactions_cache:
-            self._transactions_cache[c_id].sort(key=lambda t: t.timestamp)
+        # Sort each customer's transactions chronologically and index transaction IDs
+        for c_id, cust in self._customers_cache.items():
+            c_txns = self._transactions_cache.get(c_id, [])
+            c_txns.sort(key=lambda t: t.timestamp)
+            cust.baseline_transaction_ids = [t.transaction_id for t in c_txns]
+            if cust.baseline_transaction_count == 0 and len(c_txns) > 0:
+                cust.baseline_transaction_count = len(c_txns)
+                cust.is_sufficient = (len(c_txns) >= 5)
 
     def _parse_transaction_row(self, row: Dict[str, Any]) -> Optional[Transaction]:
         """Safely parses a transaction row, skipping corrupt/missing required fields with logging."""
@@ -190,13 +197,21 @@ class DataLoader:
                 account_type="Standard Checking",
                 account_number=f"ACC-{abs(hash(customer_id)) % 100000000:08d}",
                 baseline_avg_amount=0.0,
+                baseline_median_amount=0.0,
                 baseline_std_amount=0.0,
                 baseline_max_normal=0.0,
+                baseline_amount_range=[0.0, 0.0],
                 baseline_active_hours=[8, 22],
                 known_payees=[],
                 common_channels=["Mobile"],
+                common_categories=[],
+                baseline_frequency_per_month=0.0,
                 total_transactions=0,
                 total_volume=0.0,
+                baseline_transaction_count=0,
+                baseline_transaction_ids=[],
+                excluded_transaction_ids=list(exclude_set),
+                is_sufficient=False,
                 provenance="HISTORICAL_TRANSACTIONS_ONLY"
             )
 
@@ -254,6 +269,10 @@ class DataLoader:
             baseline_frequency_per_month=freq_per_month,
             total_transactions=len(valid_txns),
             total_volume=round(sum(amounts), 2),
+            baseline_transaction_count=len(valid_txns),
+            baseline_transaction_ids=[t.transaction_id for t in valid_txns],
+            excluded_transaction_ids=list(exclude_set),
+            is_sufficient=(len(valid_txns) >= 5),
             provenance="HISTORICAL_TRANSACTIONS_ONLY"
         )
 

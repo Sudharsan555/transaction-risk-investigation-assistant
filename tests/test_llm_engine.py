@@ -106,7 +106,68 @@ class TestLLMInvestigationEngine(unittest.TestCase):
         self.assertTrue(fallback_used)
         self.assertIn("Deterministic Fallback", model_name)
         self.assertTrue(report.startswith("VERDICT: ATTENTION_REQUIRED"))
-        self.assertIn("DISCLAIMER:", report)
+    def test_validate_citations_and_facts_detects_hallucinated_channel(self):
+        """Fact validation catches invented channel claims and safely triggers deterministic fallback."""
+        txn = Transaction(
+            transaction_id="TXN-1015",
+            customer_id="CUST-101",
+            timestamp="2026-08-01T12:00:00",
+            description="POS purchase",
+            payee="Cafe",
+            amount=45.00,
+            channel="POS"
+        )
+        valid_map = {"TXN-1015": txn}
+        res = self.rule_engine.evaluate_customer("CUST-101")
+        
+        hallucinated_text = "Analysis shows [TXN-1015] was transmitted via Wire to an unverified counterparty."
+        final_report, meta, fallback_applied = self.llm.validate_citations_and_facts(hallucinated_text, valid_map, res)
+        
+        self.assertTrue(fallback_applied)
+        self.assertTrue(meta["fallback_applied"])
+        self.assertGreater(len(meta["factual_contradictions"]), 0)
+        self.assertEqual(meta["status"], "FALLBACK_TRIGGERED_HALLUCINATION_DETECTED")
+        self.assertTrue(final_report.startswith("VERDICT: NOTHING_FLAGGED"))
+
+    def test_validate_citations_and_facts_detects_hallucinated_date(self):
+        """Fact validation catches invented transaction dates and safely triggers deterministic fallback."""
+        txn = Transaction(
+            transaction_id="TXN-1015",
+            customer_id="CUST-101",
+            timestamp="2026-08-01T12:00:00",
+            description="Purchase",
+            payee="Cafe",
+            amount=45.00,
+            channel="POS"
+        )
+        valid_map = {"TXN-1015": txn}
+        res = self.rule_engine.evaluate_customer("CUST-101")
+        
+        hallucinated_text = "Transaction [TXN-1015] was executed on 2024-01-01 in deviation from normal schedule."
+        final_report, meta, fallback_applied = self.llm.validate_citations_and_facts(hallucinated_text, valid_map, res)
+        
+        self.assertTrue(fallback_applied)
+        self.assertTrue(meta["fallback_applied"])
+        self.assertGreater(len(meta["factual_contradictions"]), 0)
+        self.assertEqual(meta["status"], "FALLBACK_TRIGGERED_HALLUCINATION_DETECTED")
+        self.assertTrue(final_report.startswith("VERDICT: NOTHING_FLAGGED"))
+
+    def test_post_process_report_enforces_deterministic_verdict_supremacy(self):
+        """Even if LLM tries to emit a rogue verdict, post_process_report enforces deterministic engine verdict."""
+        res = self.rule_engine.evaluate_customer("CUST-101")
+        self.assertEqual(res.verdict, "NOTHING_FLAGGED")
+        
+        rogue_llm_text = (
+            "VERDICT: FRAUD_DETECTED_CONFIRMED\n\n"
+            "### 📋 Executive Summary\n"
+            "Customer account has been compromised."
+        )
+        cleaned = self.llm._post_process_report(rogue_llm_text, res)
+        
+        # Line 1 must strictly be deterministic verdict
+        self.assertTrue(cleaned.startswith("VERDICT: NOTHING_FLAGGED"))
+        self.assertNotIn("FRAUD_DETECTED_CONFIRMED", cleaned)
+        self.assertIn("DISCLAIMER:", cleaned)
 
 
 if __name__ == "__main__":
