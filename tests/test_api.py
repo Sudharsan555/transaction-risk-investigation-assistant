@@ -24,8 +24,8 @@ class TestAPIEndpoints(unittest.TestCase):
         
         # Verify flagged accounts are at the top
         verdicts = [c["verdict"] for c in data["customers"]]
-        attention_indices = [i for i, v in enumerate(verdicts) if v == "ATTENTION NEEDED"]
-        clean_indices = [i for i, v in enumerate(verdicts) if v == "NOTHING FLAGGED"]
+        attention_indices = [i for i, v in enumerate(verdicts) if v in ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]]
+        clean_indices = [i for i, v in enumerate(verdicts) if v in ["NOTHING_FLAGGED", "NOTHING FLAGGED"]]
         if attention_indices and clean_indices:
             self.assertLess(min(attention_indices), max(clean_indices))
 
@@ -34,9 +34,21 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         data = response.json()
         self.assertEqual(data["customer_id"], "CUST-104")
-        self.assertEqual(data["verdict"], "ATTENTION NEEDED")
+        self.assertIn(data["verdict"], ["ATTENTION_REQUIRED", "ATTENTION NEEDED"])
         self.assertIn("llm_report", data)
-        self.assertTrue(data["llm_report"].startswith("VERDICT: ATTENTION NEEDED"))
+        self.assertTrue(
+            data["llm_report"].startswith("VERDICT: ATTENTION_REQUIRED") or
+            data["llm_report"].startswith("VERDICT: ATTENTION NEEDED")
+        )
+        self.assertIn("risk_score_breakdown", data)
+        self.assertIn("citation_validation", data)
+
+    def test_analyze_single_transaction_endpoint(self):
+        response = self.client.get("/api/transactions/TXN-1318/analysis")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn(data["verdict"], ["ATTENTION_REQUIRED", "ATTENTION NEEDED"])
+        self.assertIn("llm_report", data)
 
     def test_customer_transactions_endpoint(self):
         response = self.client.get("/api/customers/CUST-104/transactions")
@@ -84,7 +96,7 @@ class TestAPIEndpoints(unittest.TestCase):
         response = self.client.post("/api/analyze/custom", json=payload)
         self.assertEqual(response.status_code, 200)
         data = response.json()
-        self.assertEqual(data["verdict"], "ATTENTION NEEDED")
+        self.assertIn(data["verdict"], ["ATTENTION_REQUIRED", "ATTENTION NEEDED"])
         self.assertIn("llm_report", data)
 
     def test_serve_html_index(self):

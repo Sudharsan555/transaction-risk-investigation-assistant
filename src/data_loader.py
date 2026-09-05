@@ -66,17 +66,28 @@ class DataLoader:
                 with open(self.customers_file, "r", encoding="utf-8") as f:
                     data = json.load(f)
                     for item in data:
+                        avg_amt = sanitize_float(item.get("baseline_avg_amount", 0.0))
+                        max_norm = sanitize_float(item.get("baseline_max_normal", 0.0))
+                        med_amt = sanitize_float(item.get("baseline_median_amount", avg_amt * 0.92))
+                        amt_range = item.get("baseline_amount_range", [round(avg_amt * 0.1, 2), max_norm])
+                        freq_per_m = sanitize_float(item.get("baseline_frequency_per_month", float(item.get("total_transactions", 0)) / 6.0 if item.get("total_transactions") else 0.0))
+                        common_cats = item.get("common_categories", ["Retail", "Dining", "Groceries", "Utilities"])
+
                         cust = CustomerProfile(
                             customer_id=str(item.get("customer_id", "")).strip(),
                             name=str(item.get("name", "Unknown")),
                             account_type=str(item.get("account_type", "Standard")),
                             account_number=str(item.get("account_number", "ACC-00000000")),
-                            baseline_avg_amount=sanitize_float(item.get("baseline_avg_amount", 0.0)),
+                            baseline_avg_amount=avg_amt,
+                            baseline_median_amount=med_amt,
                             baseline_std_amount=sanitize_float(item.get("baseline_std_amount", 0.0)),
-                            baseline_max_normal=sanitize_float(item.get("baseline_max_normal", 0.0)),
+                            baseline_max_normal=max_norm,
+                            baseline_amount_range=amt_range,
                             baseline_active_hours=item.get("baseline_active_hours", [8, 22]),
                             known_payees=item.get("known_payees", []),
                             common_channels=item.get("common_channels", ["Mobile", "POS", "Web"]),
+                            common_categories=common_cats,
+                            baseline_frequency_per_month=freq_per_m,
                             total_transactions=int(item.get("total_transactions", 0)),
                             total_volume=sanitize_float(item.get("total_volume", 0.0))
                         )
@@ -148,12 +159,20 @@ class DataLoader:
         """Returns list of transactions for customer_id."""
         return self._transactions_cache.get(customer_id, [])
 
-    def derive_baseline(self, transactions: List[Transaction], customer_id: str, name: str = "Unknown") -> CustomerProfile:
+    def derive_baseline(
+        self,
+        transactions: List[Transaction],
+        customer_id: str,
+        name: str = "Unknown",
+        exclude_transaction_ids: Optional[List[str]] = None
+    ) -> CustomerProfile:
         """
         Derives baseline metrics dynamically from a given list of transactions.
-        Used for custom uploads or when precomputed profile is missing.
+        Strictly excludes any transaction ID passed in exclude_transaction_ids
+        to ensure evaluated transactions never leak into the historical baseline.
         """
-        valid_txns = [t for t in transactions if t.amount > 0]
+        exclude_set = set(exclude_transaction_ids or [])
+        valid_txns = [t for t in transactions if t.amount > 0 and t.transaction_id not in exclude_set]
         if not valid_txns:
             return CustomerProfile(
                 customer_id=customer_id,
@@ -173,11 +192,22 @@ class DataLoader:
         amounts = [t.amount for t in valid_txns]
         n = len(amounts)
         avg = sum(amounts) / n
+        sorted_amts = sorted(amounts)
+        median_amt = sorted_amts[n // 2] if n % 2 != 0 else (sorted_amts[n // 2 - 1] + sorted_amts[n // 2]) / 2.0
         variance = sum((x - avg) ** 2 for x in amounts) / n if n > 1 else 0.0
         std = math.sqrt(variance)
-        sorted_amts = sorted(amounts)
         p95_idx = int(0.95 * n)
         max_normal = sorted_amts[min(p95_idx, n - 1)] * 1.5
+        min_normal = round(sorted_amts[0], 2)
+        amount_range = [min_normal, round(max_normal, 2)]
+
+        # Frequency calculation
+        timestamps = [parse_iso_datetime(t.timestamp) for t in valid_txns if parse_iso_datetime(t.timestamp)]
+        if len(timestamps) >= 2:
+            span_days = max(1.0, (max(timestamps) - min(timestamps)).total_seconds() / 86400.0)
+            freq_per_month = round((len(valid_txns) / span_days) * 30.0, 1)
+        else:
+            freq_per_month = round(float(len(valid_txns)), 1)
 
         # Active hours
         hours = []
@@ -194,6 +224,7 @@ class DataLoader:
 
         payees = list({t.payee for t in valid_txns if t.payee})
         channels = list({t.channel for t in valid_txns if t.channel})
+        categories = list({t.category for t in valid_txns if t.category})
 
         return CustomerProfile(
             customer_id=customer_id,
@@ -201,11 +232,15 @@ class DataLoader:
             account_type="Standard Checking",
             account_number=f"ACC-{abs(hash(customer_id)) % 100000000:08d}",
             baseline_avg_amount=round(avg, 2),
+            baseline_median_amount=round(median_amt, 2),
             baseline_std_amount=round(std, 2),
             baseline_max_normal=round(max_normal, 2),
+            baseline_amount_range=amount_range,
             baseline_active_hours=active_hours,
             known_payees=payees[:20],
             common_channels=channels,
+            common_categories=categories[:10],
+            baseline_frequency_per_month=freq_per_month,
             total_transactions=len(valid_txns),
             total_volume=round(sum(amounts), 2)
         )

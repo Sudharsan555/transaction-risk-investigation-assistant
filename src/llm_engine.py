@@ -7,7 +7,8 @@ and provides an instant, zero-latency deterministic fallback when the API is una
 
 import json
 import os
-from typing import Optional, Dict, Any, Tuple
+import re
+from typing import Optional, Dict, Any, Tuple, Set
 from src.config import GEMINI_API_KEY, GEMINI_MODEL, GEMINI_FALLBACK_MODEL
 from src.models import InvestigationResult, RiskFinding, Transaction
 
@@ -23,10 +24,10 @@ CRITICAL OPERATIONAL RULES:
    - SUSPICION / RISK: Contextual explanation of why the observed pattern is anomalous compared to baseline.
    - RECOMMENDATION: Concrete, prioritized next investigative steps for human personnel.
 4. MANDATORY CITATIONS: Every factual claim, finding, or transaction referenced MUST explicitly cite its exact transaction ID in brackets, e.g., [TXN-1082].
-5. HONEST HANDLING OF INSUFFICIENT EVIDENCE: If an account has zero or minimal transaction history, clearly declare that behavioral evidence is insufficient to establish an empirical baseline. Never extrapolate or imagine activity.
+5. HONEST HANDLING OF INSUFFICIENT EVIDENCE: If an account has fewer than 5 transactions or minimal history, clearly declare that behavioral evidence is insufficient to mathematically establish a baseline. Never extrapolate or imagine activity.
 6. HUMAN INVESTIGATOR PRIMACY: The final business and legal decision remains strictly with the human investigator.
 7. REPORT FORMAT:
-   - Line 1 MUST be strictly: "VERDICT: ATTENTION NEEDED" or "VERDICT: NOTHING FLAGGED".
+   - Line 1 MUST be strictly one of: "VERDICT: ATTENTION_REQUIRED", "VERDICT: NOTHING_FLAGGED", or "VERDICT: INSUFFICIENT_EVIDENCE".
    - Section 1: 📋 Executive Summary (2-3 sentences summarizing the account posture, evidence sufficiency, and key deviations).
    - Section 2: 🔍 Detailed Risk Findings & Evidence Breakdown (For each finding: Rule Name, Cited Transactions [IDs], Baseline Comparison, Plain-Language Explanation, and Suggested First Step).
    - Section 3: 🧩 Risk Pattern & Correlation Analysis (Explain how multiple transactions or rules connect, or why normal activity is verified).
@@ -59,15 +60,62 @@ class LLMInvestigationEngine:
         else:
             self.client = None
 
+    def validate_and_sanitize_citations(
+        self, text: str, valid_transaction_ids: Set[str]
+    ) -> Tuple[str, Dict[str, Any]]:
+        """
+        Scans generated report for bracketed transaction citations.
+        Any transaction ID mentioned in the text that does not belong to valid_transaction_ids
+        is flagged as hallucinated, replaced with [UNVERIFIED CITATION REMOVED],
+        and recorded in the citation validation audit metadata.
+        Guarantees ZERO hallucinated citations in final output.
+        """
+        citation_pattern = re.compile(r'\[((?:TXN|CUSTOM|SB|TEST)[A-Za-z0-9_-]*)\]')
+        found_citations = []
+        valid_citations = []
+        hallucinated_citations = []
+
+        def replace_citation(match):
+            txn_id = match.group(1)
+            found_citations.append(txn_id)
+            if txn_id in valid_transaction_ids:
+                valid_citations.append(txn_id)
+                return f"[{txn_id}]"
+            else:
+                hallucinated_citations.append(txn_id)
+                return "[UNVERIFIED CITATION REMOVED]"
+
+        sanitized_text = citation_pattern.sub(replace_citation, text)
+
+        validation_meta = {
+            "total_citations": len(found_citations),
+            "valid_citations": list(dict.fromkeys(valid_citations)),
+            "hallucinated_citations": list(dict.fromkeys(hallucinated_citations)),
+            "sanitized": len(hallucinated_citations) > 0,
+            "status": "PASSED_CLEAN" if len(hallucinated_citations) == 0 else "SANITIZED"
+        }
+        return sanitized_text, validation_meta
+
     def generate_investigation_report(self, result: InvestigationResult) -> Tuple[str, str, bool]:
         """
-        Generates a grounded investigation report.
+        Generates a grounded investigation report with post-generation citation validation.
         Returns: (report_markdown, model_name, fallback_used)
         """
+        # Collect valid source transaction IDs for citation enforcement
+        valid_ids: Set[str] = {t.transaction_id for t in result.cited_transactions}
+        try:
+            from src.data_loader import data_loader
+            for t in data_loader.get_customer_transactions(result.customer_id):
+                valid_ids.add(t.transaction_id)
+        except Exception:
+            pass
+
         # If no API key or client, immediately use clean deterministic fallback
         if not self.client:
-            report = self._generate_deterministic_fallback_report(result)
-            return report, "Deterministic Fallback (No API Key)", True
+            raw_report = self._generate_deterministic_fallback_report(result)
+            sanitized_report, meta = self.validate_and_sanitize_citations(raw_report, valid_ids)
+            result.citation_validation = meta
+            return sanitized_report, "Deterministic Fallback (No API Key)", True
 
         # Construct strictly grounded prompt payload
         prompt_payload = self._build_prompt_payload(result)
@@ -97,14 +145,18 @@ class LLMInvestigationEngine:
                 )
                 if response and response.text:
                     cleaned_report = self._post_process_report(response.text, result)
-                    return cleaned_report, f"Google Gemini ({model_name})", False
+                    sanitized_report, meta = self.validate_and_sanitize_citations(cleaned_report, valid_ids)
+                    result.citation_validation = meta
+                    return sanitized_report, f"Google Gemini ({model_name})", False
             except Exception as e:
                 print(f"[WARN] Gemini model '{model_name}' call failed: {e}")
                 continue
 
         # Fallback if all API attempts fail
         fallback_report = self._generate_deterministic_fallback_report(result)
-        return fallback_report, "Deterministic Fallback (API Error/Timeout)", True
+        sanitized_report, meta = self.validate_and_sanitize_citations(fallback_report, valid_ids)
+        result.citation_validation = meta
+        return sanitized_report, "Deterministic Fallback (API Error/Timeout)", True
 
     def _build_prompt_payload(self, result: InvestigationResult) -> str:
         """Constructs compact JSON payload for grounding."""
@@ -173,32 +225,41 @@ class LLMInvestigationEngine:
         """
         Generates a clean, polished, fully-grounded report using deterministic logic.
         Guarantees zero downtime, exact citation preservation, and non-alarming clean states.
+        Strictly aligns with PS06 tri-partite verdicts:
+          - INSUFFICIENT_EVIDENCE
+          - NOTHING_FLAGGED
+          - ATTENTION_REQUIRED
         """
         verdict_line = f"VERDICT: {result.verdict}"
 
-        if result.verdict == "NOTHING FLAGGED":
+        # 1. Sparse History / Insufficient Data Case
+        if result.verdict == "INSUFFICIENT_EVIDENCE" or result.evidence_status == "INSUFFICIENT_EVIDENCE":
+            total_tx = result.summary_statistics.get("total_transactions", 0)
+            return (
+                f"{verdict_line}\n\n"
+                f"### 📋 Executive Summary\n"
+                f"Customer **{result.customer_name}** (`{result.customer_id}`) currently has {total_tx} recorded transaction(s) on account `{result.account_number}`. "
+                f"**Evidence Assessment**: Insufficient transaction history (< 5 transactions) to establish an empirical behavioral baseline. "
+                f"An anomaly cannot be mathematically proven without sufficient historical data. Standard onboarding monitoring controls remain active.\n\n"
+                f"### 🔍 Detailed Risk Findings & Evidence Breakdown\n"
+                f"- **Status**: INSUFFICIENT_EVIDENCE (Baseline Not Established).\n"
+                f"- **Rules Evaluated**: Unusually Large Transfers, New Payee Bursts, Odd-Hours Activity, Pattern & Channel Deviations.\n"
+                f"- **Triggered Findings**: None (0 anomalies flagged in available records).\n"
+                f"- **Mathematical Precondition**: Requires a minimum of 5 historical transactions to compute statistical bounds (mean, variance, normal ceiling).\n\n"
+                f"### 🧩 Risk Pattern & Baseline Adherence\n"
+                f"Account currently has insufficient transaction volume for longitudinal statistical profiling. No phantom risk score is generated.\n\n"
+                f"### 🛠️ Investigator Action Checklist\n"
+                f"1. Await accumulation of routine transaction cycles (minimum 30-90 days / 5+ transactions) to establish statistical baseline.\n"
+                f"2. Retain standard onboarding monitoring for upcoming transaction cycles.\n\n"
+                f"---\n**{DISCLAIMER_TEXT}**"
+            )
+
+        # 2. Routine Clean Case
+        if result.verdict in ["NOTHING_FLAGGED", "NOTHING FLAGGED"]:
             total_tx = result.summary_statistics.get("total_transactions", 0)
             total_vol = result.summary_statistics.get("total_volume", 0.0)
             avg_amt = result.customer_baseline.get("baseline_avg_amount", 0.0)
             active_h = result.customer_baseline.get("baseline_active_hours", [8, 22])
-
-            if result.evidence_status == "INSUFFICIENT_EVIDENCE" or total_tx == 0:
-                return (
-                    f"{verdict_line}\n\n"
-                    f"### 📋 Executive Summary\n"
-                    f"Customer **{result.customer_name}** (`{result.customer_id}`) currently has {total_tx} recorded transaction(s) on account `{result.account_number}`. "
-                    f"**Evidence Assessment**: Insufficient transaction history to establish an empirical behavioral baseline. No anomalous activity detected in available data.\n\n"
-                    f"### 🔍 Detailed Risk Findings & Evidence Breakdown\n"
-                    f"- **Status**: INSUFFICIENT EVIDENCE (Baseline Not Established).\n"
-                    f"- **Rules Evaluated**: Unusually Large Transfers, New Payee Bursts, Odd-Hours Activity, Pattern & Channel Deviations.\n"
-                    f"- **Triggered Findings**: None (0 anomalies flagged in available records).\n\n"
-                    f"### 🧩 Risk Pattern & Baseline Adherence\n"
-                    f"Account currently has insufficient transaction volume for longitudinal statistical profiling. Standard onboarding monitoring controls remain active.\n\n"
-                    f"### 🛠️ Investigator Action Checklist\n"
-                    f"1. Await accumulation of routine transaction cycles (minimum 30-90 days) to establish statistical baseline.\n"
-                    f"2. Retain standard baseline profiling for upcoming transaction cycles.\n\n"
-                    f"---\n**{DISCLAIMER_TEXT}**"
-                )
 
             return (
                 f"{verdict_line}\n\n"
@@ -206,7 +267,7 @@ class LLMInvestigationEngine:
                 f"Comprehensive automated risk screening for **{result.customer_name}** (`{result.customer_id}`) evaluated **{total_tx} transactions** totaling **${total_vol:,.2f}**. "
                 f"**Evidence Assessment**: Established historical baseline verified. All evaluated transactions strictly conform to established spending, payee, temporal, and channel patterns.\n\n"
                 f"### 🔍 Detailed Risk Findings & Evidence Breakdown\n"
-                f"- **Status**: NOTHING FLAGGED (Sufficient History - Routine Account Activity).\n"
+                f"- **Status**: NOTHING_FLAGGED (Sufficient History - Routine Account Activity).\n"
                 f"- **Statistical Outlier Check**: All transaction amounts remain within the expected normal spend ceiling (${result.customer_baseline.get('baseline_max_normal', 0.0):,.2f}).\n"
                 f"- **Payee Frequency Check**: 100% of transactions were directed to known, recurring counterparties ({result.customer_baseline.get('known_payees_count', 0)} established payees).\n"
                 f"- **Temporal Window Check**: All transactions occurred during the customer's established active window ({active_h[0]:02d}:00–{active_h[1]:02d}:00).\n"
@@ -219,27 +280,29 @@ class LLMInvestigationEngine:
                 f"---\n**{DISCLAIMER_TEXT}**"
             )
 
-        # Flagged Case
+        # 3. Flagged Case (ATTENTION_REQUIRED)
         report_sections = [
             f"{verdict_line}\n",
             "### 📋 Executive Summary",
             (
                 f"Automated risk screening for customer **{result.customer_name}** (`{result.customer_id}`) identified **{result.findings_count} anomalous risk pattern(s)** "
                 f"across **{len(result.cited_transactions)} cited transaction(s)**. "
-                f"Composite Risk Score is evaluated at **{result.risk_score}/100**. Specific baseline deviations require human investigator review."
+                f"Composite Risk Score is evaluated at **{result.risk_score}/100** (Investigative Urgency). "
+                f"Specific baseline deviations require human investigator review."
             ),
             "\n### 🔍 Detailed Risk Findings & Evidence Breakdown"
         ]
 
         for idx, f in enumerate(result.findings, 1):
-            cited_str = ", ".join([f"`[{t_id}]`" for t_id in f.cited_transaction_ids])
+            cited_str = ", ".join([f"`[{t_id}]`" for t_id in f.transaction_ids])
             report_sections.append(
                 f"#### Finding #{idx}: {f.rule_name} (Severity: **{f.severity}**)\n"
                 f"- **Cited Transactions**: {cited_str}\n"
-                f"- **Observed Metric**: {f.metric_observed}\n"
-                f"- **Baseline Baseline**: {f.baseline_reference}\n"
-                f"- **Explanation**: {f.technical_summary}\n"
-                f"- **Suggested First Step**: {f.suggested_first_step}\n"
+                f"- **Observed Metric**: {f.observed_value or f.metric_observed}\n"
+                f"- **Baseline Reference**: {f.baseline_value or f.baseline_reference}\n"
+                f"- **Deviation**: {f.deviation or 'N/A'}\n"
+                f"- **Explanation**: {f.explanation or f.technical_summary}\n"
+                f"- **Suggested First Step**: {f.investigator_action or f.suggested_first_step}\n"
             )
 
         # Correlation analysis
@@ -248,7 +311,7 @@ class LLMInvestigationEngine:
             report_sections.append(
                 f"Multiple concurrent risk rules triggered on account `{result.account_number}`. "
                 f"The combination of **{', '.join([f.rule_name for f in result.findings])}** suggests coordinated multi-vector deviation "
-                f"from historical behavioral baselines, elevating overall priority."
+                f"from historical behavioral baselines, elevating overall investigative urgency."
             )
         else:
             report_sections.append(

@@ -80,8 +80,8 @@ async def get_customers():
             "findings_count": res.findings_count
         })
 
-    # Sort flagged accounts to the top
-    result_list.sort(key=lambda x: (0 if x["verdict"] == "ATTENTION NEEDED" else 1, -x["risk_score"]))
+    # Sort flagged accounts to the top, then insufficient evidence, then clean accounts
+    result_list.sort(key=lambda x: (0 if x["verdict"] in ["ATTENTION_REQUIRED", "ATTENTION NEEDED"] else (1 if x["verdict"] == "INSUFFICIENT_EVIDENCE" else 2), -x["risk_score"]))
     return {"customers": result_list}
 
 
@@ -106,6 +106,23 @@ async def analyze_customer(customer_id: str):
     result.fallback_used = fallback_used
 
     return result
+
+
+@app.get("/api/transactions/{transaction_id}/analysis", response_model=InvestigationResult)
+async def analyze_single_transaction(transaction_id: str):
+    """
+    Evaluates a specific transaction against customer historical baseline,
+    guaranteeing the evaluated transaction is STRICTLY excluded from baseline derivation.
+    """
+    try:
+        result = rule_engine.evaluate_transaction(transaction_id)
+        report_md, model_name, fallback_used = llm_engine.generate_investigation_report(result)
+        result.llm_report = report_md
+        result.llm_model_used = model_name
+        result.fallback_used = fallback_used
+        return result
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 
 @app.get("/api/customers/{customer_id}/transactions")

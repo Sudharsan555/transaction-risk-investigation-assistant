@@ -35,29 +35,38 @@ def main():
 
     print("\n=== 3. Testing Anomaly & Clean Customer Analysis ===")
     cases = [
-        ("CUST-104", "Elena Rostova", "ATTENTION NEEDED"),
-        ("CUST-109", "Marcus Vance", "ATTENTION NEEDED"),
-        ("CUST-112", "Aisha Patel", "ATTENTION NEEDED"),
-        ("CUST-115", "David Chen", "ATTENTION NEEDED"),
-        ("CUST-118", "Sophia Morales", "ATTENTION NEEDED"),
-        ("CUST-101", "Alexander Hayes", "NOTHING FLAGGED"),
-        ("CUST-199", "Lucas Vance", "NOTHING FLAGGED"),
+        ("CUST-104", "Elena Rostova", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
+        ("CUST-109", "Marcus Vance", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
+        ("CUST-112", "Aisha Patel", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
+        ("CUST-115", "David Chen", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
+        ("CUST-118", "Sophia Morales", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
+        ("CUST-101", "Alexander Hayes", ["NOTHING_FLAGGED", "NOTHING FLAGGED"]),
+        ("CUST-199", "Lucas Vance", ["INSUFFICIENT_EVIDENCE", "NOTHING FLAGGED"]),
     ]
 
-    for c_id, expected_name, expected_verdict in cases:
+    for c_id, expected_name, allowed_verdicts in cases:
         res = client.get(f"/api/customers/{c_id}/analysis").json()
         verdict = res["verdict"]
         score = res["risk_score"]
         findings = res["findings_count"]
         report_line1 = res["llm_report"].strip().split("\n")[0]
         
-        assert verdict == expected_verdict, f"Expected {expected_verdict} for {c_id}, got {verdict}"
-        assert report_line1 == f"VERDICT: {expected_verdict}", f"Line 1 mismatch: {report_line1}"
+        assert verdict in allowed_verdicts, f"Expected one of {allowed_verdicts} for {c_id}, got {verdict}"
+        assert any(report_line1 == f"VERDICT: {v}" for v in allowed_verdicts), f"Line 1 mismatch: {report_line1}"
         assert "DISCLAIMER:" in res["llm_report"], "Disclaimer missing in report"
+        assert "risk_score_breakdown" in res, "Missing risk score breakdown"
+        assert "citation_validation" in res, "Missing citation validation audit"
 
-        print(f"[OK] {c_id:8s} | {expected_name:18s} | Verdict: {verdict:16s} | Score: {score:3d} | Findings: {findings} | Line 1: {report_line1}")
+        print(f"[OK] {c_id:8s} | {expected_name:18s} | Verdict: {verdict:22s} | Score: {score:3d} | Findings: {findings} | Line 1: {report_line1}")
 
-    print("\n=== 4. Testing Interactive Sandbox POST Endpoint ===")
+    print("\n=== 4. Testing Single Transaction Analysis Endpoint ===")
+    r_txn = client.get("/api/transactions/TXN-1318/analysis")
+    assert r_txn.status_code == 200
+    txn_data = r_txn.json()
+    assert txn_data["verdict"] in ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]
+    print(f"[OK] GET /api/transactions/TXN-1318/analysis -> HTTP 200 | Verdict: {txn_data['verdict']}")
+
+    print("\n=== 5. Testing Interactive Sandbox POST Endpoint ===")
     sample_payload = {
         "customer_profile": {
             "customer_id": "TEST-CUST-99",

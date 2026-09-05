@@ -160,7 +160,7 @@ async function fetchCustomers() {
 // Update Sidebar Tab Numbers & Quick Stats
 function updateSidebarCounts() {
   const total = state.customers.length;
-  const flagged = state.customers.filter(c => c.verdict === 'ATTENTION NEEDED').length;
+  const flagged = state.customers.filter(c => c.verdict === 'ATTENTION_REQUIRED' || c.verdict === 'ATTENTION NEEDED').length;
   const clean = total - flagged;
 
   el.countAll.textContent = total;
@@ -192,8 +192,9 @@ function renderCustomerList() {
                           c.account_number.toLowerCase().includes(state.searchTerm);
     
     if (!matchesSearch) return false;
-    if (state.filterMode === 'FLAGGED') return c.verdict === 'ATTENTION NEEDED';
-    if (state.filterMode === 'CLEAN') return c.verdict === 'NOTHING FLAGGED';
+    const isFlagged = c.verdict === 'ATTENTION_REQUIRED' || c.verdict === 'ATTENTION NEEDED';
+    if (state.filterMode === 'FLAGGED') return isFlagged;
+    if (state.filterMode === 'CLEAN') return !isFlagged;
     return true;
   });
 
@@ -207,9 +208,19 @@ function renderCustomerList() {
     const isSelected = cust.customer_id === state.activeCustomerId;
     card.className = `customer-card ${isSelected ? 'active' : ''}`;
     
-    const isFlagged = cust.verdict === 'ATTENTION NEEDED';
-    const tagClass = isFlagged ? 'flagged' : 'clean';
-    const tagText = isFlagged ? `⚠️ Risk: ${cust.risk_score}` : '🛡️ Normal';
+    const isFlagged = cust.verdict === 'ATTENTION_REQUIRED' || cust.verdict === 'ATTENTION NEEDED';
+    const isInsufficient = cust.verdict === 'INSUFFICIENT_EVIDENCE' || cust.total_transactions < 5;
+
+    let tagClass = 'clean';
+    let tagText = '🛡️ Normal';
+
+    if (isFlagged) {
+      tagClass = 'flagged';
+      tagText = `⚠️ Risk: ${cust.risk_score}`;
+    } else if (isInsufficient) {
+      tagClass = 'insufficient';
+      tagText = 'ℹ️ Sparse';
+    }
 
     card.innerHTML = `
       <div class="card-top-row">
@@ -275,18 +286,18 @@ function renderCustomerHeader(result) {
   const totalVol = result.summary_statistics?.total_volume || 0;
   el.customerTxnCount.textContent = `${totalTx} transactions ($${totalVol.toLocaleString('en-US', { minimumFractionDigits: 2 })})`;
 
-  const isAttention = result.verdict === 'ATTENTION NEEDED';
-  const isInsufficient = result.evidence_status === 'INSUFFICIENT_EVIDENCE';
+  const isAttention = result.verdict === 'ATTENTION_REQUIRED' || result.verdict === 'ATTENTION NEEDED';
+  const isInsufficient = result.verdict === 'INSUFFICIENT_EVIDENCE' || result.evidence_status === 'INSUFFICIENT_EVIDENCE';
 
   if (isAttention) {
     el.customerVerdictBadge.className = 'verdict-large-badge attention';
     el.verdictIcon.textContent = '🚨';
-    el.verdictText.textContent = 'ATTENTION NEEDED';
+    el.verdictText.textContent = 'ATTENTION REQUIRED';
     el.customerRiskScore.style.color = 'var(--risk-high-text)';
   } else if (isInsufficient) {
     el.customerVerdictBadge.className = 'verdict-large-badge insufficient';
     el.verdictIcon.textContent = 'ℹ️';
-    el.verdictText.textContent = 'NOTHING FLAGGED (Limited History)';
+    el.verdictText.textContent = 'INSUFFICIENT EVIDENCE';
     el.customerRiskScore.style.color = '#facc15';
   } else {
     el.customerVerdictBadge.className = 'verdict-large-badge clean';

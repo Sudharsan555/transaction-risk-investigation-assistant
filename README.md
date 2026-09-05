@@ -1,4 +1,4 @@
-﻿TRACK_ID=PS06
+TRACK_ID=PS6
 
 # Transaction Risk Investigation Assistant (PS06)
 
@@ -253,19 +253,26 @@ python tests/verify_live.py
 
 ---
 
-## 🛡️ Edge Cases Handled
+## ⚠️ System Limitations & Governance Boundaries
 
-1. **Empty / Near-Empty Transaction Ledger**: Verified with `CUST-199`—outputs `NOTHING FLAGGED` with `INSUFFICIENT_EVIDENCE` explanation.
-2. **Clean Account with Zero Anomalies**: Verified with `CUST-101`—outputs reassuring baseline adherence without false positives.
-3. **Malformed / Corrupt Transaction Rows**: Gracefully skips `NaN`, negative amounts, or malformed strings without throwing exceptions.
-4. **LLM API Timeout / Missing Key**: High-speed deterministic fallback ensures 100% uptime and sub-second responses.
-5. **Traceability**: Every fact cited in an investigation report maps to an existing `transaction_id`.
+1. **Statistical Cold-Start Threshold**: Accounts with fewer than 5 historical transactions cannot mathematically establish a reliable behavioral baseline. The system explicitly returns `INSUFFICIENT_EVIDENCE` without generating phantom risk scores.
+2. **Deterministic Risk Precondition**: GenAI (Gemini) is strictly downstream of the deterministic rule engine. Gemini never independently invents fraud flags, alters mathematical deviations, or computes risk scores.
+3. **Investigative Urgency vs. Probability of Fraud**: Risk scores (0–100) indicate investigative urgency for human fraud desk analysts. A high score does not represent an empirical probability of fraud or a definitive assertion of guilt.
+4. **Data Ingestion Boundary**: The current hackathon implementation parses CSV ledgers and JSON profiles. Enterprise production would ingest via real-time Apache Kafka event streams and BigQuery data warehouses.
 
 ---
 
-## 🎥 Demo Video
+## 🎥 Demo & Evaluation Walkthrough
 
-- **Demo Video URL**: `https://youtu.be/demo-link-placeholder-ps06` *(2-3 minute demonstration showcasing normal vs flagged investigations, cited transaction highlighting, and custom sandbox test execution)*
+To inspect and test the interactive application live:
+1. Run `python app.py` (or the one-command quickstart).
+2. Open `http://localhost:8000` in any web browser.
+3. **Inspect Flagged Investigations**: Click on `CUST-104` (Large Outlier Wire), `CUST-109` (Crypto Payee Burst), or `CUST-112` (Odd-Hours Diurnal Deviation) to review the tri-partite investigation notes, clickable transaction citations `[TXN-xxxx]`, and additive risk score breakdown.
+4. **Inspect Clean Routine Customer**: Click on `CUST-101` to verify `NOTHING_FLAGGED` posture with reassuring baseline adherence.
+5. **Inspect Sparse Account**: Click on `CUST-199` to verify `INSUFFICIENT_EVIDENCE` handling without false alarms.
+6. **Sandbox Custom Payloads**: Click **"Open Custom Sandbox"** in the top-right navbar to test custom transaction payloads with immediate evaluation.
+
+> *Live screen-recorded video walkthrough demonstrating normal vs flagged accounts, citation jump navigation, and custom payload evaluation is prepared for evaluators and judges.*
 
 ---
 
@@ -273,3 +280,13 @@ python tests/verify_live.py
 
 - **Description**: `A grounded Gemini-powered transaction risk investigation assistant that detects behavioral anomalies and generates traceable evidence-based investigation reports.`
 - **Suggested Topics**: `genai`, `gemini`, `fastapi`, `transaction-risk`, `risk-analysis`, `banking`, `fraud-detection`, `hackathon`
+
+---
+
+## 👨‍💻 Author Details
+**Sudharsan V**  
+B.E. Computer Science and Engineering, 2023–2027  
+V.S.B. College of Engineering Technical Campus  
+GitHub: [Sudharsan555](https://github.com/Sudharsan555)  
+LinkedIn: [sudharsan555](https://linkedin.com/in/sudharsan555)  
+Email: [sudharsanvasu2006@gmail.com](mailto:sudharsanvasu2006@gmail.com)
