@@ -84,6 +84,12 @@ class RiskRuleEngine:
         # 8. Compute Risk Score & Verdict
         risk_score = self._calculate_risk_score(findings)
         verdict = "ATTENTION NEEDED" if len(findings) > 0 else "NOTHING FLAGGED"
+        
+        # Determine baseline evidence status: distinguish routine clean history from insufficient data
+        if len(txns) < 3 and len(findings) == 0:
+            evidence_status = "INSUFFICIENT_EVIDENCE"
+        else:
+            evidence_status = "SUFFICIENT_HISTORY"
 
         # Summary statistics
         total_vol = sum(t.amount for t in txns)
@@ -112,6 +118,7 @@ class RiskRuleEngine:
             account_type=profile.account_type,
             account_number=profile.account_number,
             verdict=verdict,
+            evidence_status=evidence_status,
             risk_score=risk_score,
             findings_count=len(findings),
             findings=findings,
@@ -405,6 +412,7 @@ class RiskRuleEngine:
             account_type=profile.account_type,
             account_number=profile.account_number,
             verdict="NOTHING FLAGGED",
+            evidence_status="INSUFFICIENT_EVIDENCE",
             risk_score=0,
             findings_count=0,
             findings=[],

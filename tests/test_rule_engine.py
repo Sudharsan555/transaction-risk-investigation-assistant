@@ -9,18 +9,20 @@ class TestRiskRuleEngine(unittest.TestCase):
         self.engine = RiskRuleEngine(loader=self.loader)
 
     def test_clean_customer_evaluation(self):
-        """Clean customer should return NOTHING FLAGGED and 0 findings."""
+        """Clean customer should return NOTHING FLAGGED with SUFFICIENT_HISTORY status."""
         res = self.engine.evaluate_customer("CUST-101")
         self.assertEqual(res.verdict, "NOTHING FLAGGED")
+        self.assertEqual(res.evidence_status, "SUFFICIENT_HISTORY")
         self.assertEqual(res.risk_score, 0)
         self.assertEqual(res.findings_count, 0)
         self.assertEqual(len(res.findings), 0)
         self.assertEqual(len(res.cited_transactions), 0)
 
     def test_empty_history_customer(self):
-        """Empty history customer should return NOTHING FLAGGED without errors."""
+        """Empty history customer should return NOTHING FLAGGED with INSUFFICIENT_EVIDENCE status."""
         res = self.engine.evaluate_customer("CUST-199")
         self.assertEqual(res.verdict, "NOTHING FLAGGED")
+        self.assertEqual(res.evidence_status, "INSUFFICIENT_EVIDENCE")
         self.assertEqual(res.risk_score, 0)
         self.assertEqual(res.findings_count, 0)
         self.assertEqual(len(res.cited_transactions), 0)

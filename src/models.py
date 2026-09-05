@@ -47,6 +47,7 @@ class InvestigationResult(BaseModel):
     account_type: str
     account_number: str
     verdict: str  # "ATTENTION NEEDED" or "NOTHING FLAGGED"
+    evidence_status: str = "SUFFICIENT_HISTORY"  # "SUFFICIENT_HISTORY" or "INSUFFICIENT_EVIDENCE"
     risk_score: int  # 0 to 100
     findings_count: int
     findings: List[RiskFinding] = Field(default_factory=list)

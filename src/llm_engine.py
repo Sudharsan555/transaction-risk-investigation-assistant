@@ -13,15 +13,21 @@ from src.models import InvestigationResult, RiskFinding, Transaction
 
 
 SYSTEM_INSTRUCTION = """You are the Senior Bank Fraud Desk Investigation Assistant for a Tier-1 financial institution.
-Your duty is to produce objective, clear, and actionable transaction risk investigation reports for human fraud analysts based strictly on provided deterministic risk findings.
+Your duty is to produce objective, clear, grounded, and actionable transaction risk investigation reports for human fraud analysts based strictly on provided deterministic risk findings.
 
 CRITICAL OPERATIONAL RULES:
-1. STRICT GROUNDING: Rely ONLY on the provided structured findings and cited transactions in the prompt payload. NEVER invent transactions, dates, amounts, counterparties, or baseline statistics not present in the payload.
-2. NO FRAUD CONCLUSIONS: NEVER declare, conclude, or imply that 'fraud has occurred' or that the customer is guilty. Your role is strictly to flag anomalies, explain deviations against baseline, and hand investigative judgment to the human analyst.
-3. MANDATORY CITATIONS: Every factual statement, finding, or transaction referenced MUST explicitly include its transaction ID in brackets, e.g., [TXN-1082].
-4. REPORT FORMAT:
+1. STRICT GROUNDING: Rely ONLY on the provided structured findings, customer baselines, and cited transactions in the prompt payload. NEVER invent transaction IDs, transaction amounts, dates, counterparties, or customer statistics.
+2. NO UNSUPPORTED FRAUD CONCLUSIONS: NEVER declare, conclude, or state definitively that 'fraud has occurred' or that the customer is guilty. Your role is strictly to flag anomalies, explain deviations against baseline, and hand investigative judgment to the human analyst.
+3. CLEAR TRI-PARTITE DISTINCTION: Clearly distinguish between:
+   - EVIDENCE: Verified, deterministic transaction data and mathematical deviations.
+   - SUSPICION / RISK: Contextual explanation of why the observed pattern is anomalous compared to baseline.
+   - RECOMMENDATION: Concrete, prioritized next investigative steps for human personnel.
+4. MANDATORY CITATIONS: Every factual claim, finding, or transaction referenced MUST explicitly cite its exact transaction ID in brackets, e.g., [TXN-1082].
+5. HONEST HANDLING OF INSUFFICIENT EVIDENCE: If an account has zero or minimal transaction history, clearly declare that behavioral evidence is insufficient to establish an empirical baseline. Never extrapolate or imagine activity.
+6. HUMAN INVESTIGATOR PRIMACY: The final business and legal decision remains strictly with the human investigator.
+7. REPORT FORMAT:
    - Line 1 MUST be strictly: "VERDICT: ATTENTION NEEDED" or "VERDICT: NOTHING FLAGGED".
-   - Section 1: 📋 Executive Summary (2-3 sentences summarizing the account posture and key deviations).
+   - Section 1: 📋 Executive Summary (2-3 sentences summarizing the account posture, evidence sufficiency, and key deviations).
    - Section 2: 🔍 Detailed Risk Findings & Evidence Breakdown (For each finding: Rule Name, Cited Transactions [IDs], Baseline Comparison, Plain-Language Explanation, and Suggested First Step).
    - Section 3: 🧩 Risk Pattern & Correlation Analysis (Explain how multiple transactions or rules connect, or why normal activity is verified).
    - Section 4: 🛠️ Investigator Action Checklist (3-4 concise, concrete, prioritized actions for the investigator).
@@ -69,14 +75,25 @@ class LLMInvestigationEngine:
         # Attempt Gemini API call
         for model_name in [GEMINI_MODEL, GEMINI_FALLBACK_MODEL]:
             try:
-                response = self.client.models.generate_content(
-                    model=model_name,
-                    contents=prompt_payload,
-                    config={
+                gen_config = None
+                try:
+                    from google.genai import types
+                    gen_config = types.GenerateContentConfig(
+                        system_instruction=SYSTEM_INSTRUCTION,
+                        temperature=0.1,
+                        max_output_tokens=1500,
+                    )
+                except Exception:
+                    gen_config = {
                         "system_instruction": SYSTEM_INSTRUCTION,
                         "temperature": 0.1,
                         "max_output_tokens": 1500,
                     }
+
+                response = self.client.models.generate_content(
+                    model=model_name,
+                    contents=prompt_payload,
+                    config=gen_config
                 )
                 if response and response.text:
                     cleaned_report = self._post_process_report(response.text, result)
@@ -123,6 +140,7 @@ class LLMInvestigationEngine:
             "account_type": result.account_type,
             "account_number": result.account_number,
             "deterministic_verdict": result.verdict,
+            "evidence_status": result.evidence_status,
             "risk_score": result.risk_score,
             "findings_count": result.findings_count,
             "summary_statistics": result.summary_statistics,
@@ -164,20 +182,20 @@ class LLMInvestigationEngine:
             avg_amt = result.customer_baseline.get("baseline_avg_amount", 0.0)
             active_h = result.customer_baseline.get("baseline_active_hours", [8, 22])
 
-            if total_tx == 0:
+            if result.evidence_status == "INSUFFICIENT_EVIDENCE" or total_tx == 0:
                 return (
                     f"{verdict_line}\n\n"
                     f"### 📋 Executive Summary\n"
-                    f"Customer **{result.customer_name}** (`{result.customer_id}`) has no historical transaction records recorded on account `{result.account_number}`. "
-                    f"All rule evaluations completed normally with zero baseline anomalies.\n\n"
+                    f"Customer **{result.customer_name}** (`{result.customer_id}`) currently has {total_tx} recorded transaction(s) on account `{result.account_number}`. "
+                    f"**Evidence Assessment**: Insufficient transaction history to establish an empirical behavioral baseline. No anomalous activity detected in available data.\n\n"
                     f"### 🔍 Detailed Risk Findings & Evidence Breakdown\n"
-                    f"- **Status**: No anomalous transactions detected.\n"
+                    f"- **Status**: INSUFFICIENT EVIDENCE (Baseline Not Established).\n"
                     f"- **Rules Evaluated**: Unusually Large Transfers, New Payee Bursts, Odd-Hours Activity, Pattern & Channel Deviations.\n"
-                    f"- **Triggered Rules**: None (0 findings).\n\n"
+                    f"- **Triggered Findings**: None (0 anomalies flagged in available records).\n\n"
                     f"### 🧩 Risk Pattern & Baseline Adherence\n"
-                    f"Account currently has zero transaction volume. Routine onboarding monitoring remains active.\n\n"
+                    f"Account currently has insufficient transaction volume for longitudinal statistical profiling. Standard onboarding monitoring controls remain active.\n\n"
                     f"### 🛠️ Investigator Action Checklist\n"
-                    f"1. No immediate action required for this account.\n"
+                    f"1. Await accumulation of routine transaction cycles (minimum 30-90 days) to establish statistical baseline.\n"
                     f"2. Retain standard baseline profiling for upcoming transaction cycles.\n\n"
                     f"---\n**{DISCLAIMER_TEXT}**"
                 )
@@ -186,8 +204,9 @@ class LLMInvestigationEngine:
                 f"{verdict_line}\n\n"
                 f"### 📋 Executive Summary\n"
                 f"Comprehensive automated risk screening for **{result.customer_name}** (`{result.customer_id}`) evaluated **{total_tx} transactions** totaling **${total_vol:,.2f}**. "
-                f"All evaluated transactions fall strictly within established historical behavioral norms. No suspicious outliers or pattern deviations were detected.\n\n"
+                f"**Evidence Assessment**: Established historical baseline verified. All evaluated transactions strictly conform to established spending, payee, temporal, and channel patterns.\n\n"
                 f"### 🔍 Detailed Risk Findings & Evidence Breakdown\n"
+                f"- **Status**: NOTHING FLAGGED (Sufficient History - Routine Account Activity).\n"
                 f"- **Statistical Outlier Check**: All transaction amounts remain within the expected normal spend ceiling (${result.customer_baseline.get('baseline_max_normal', 0.0):,.2f}).\n"
                 f"- **Payee Frequency Check**: 100% of transactions were directed to known, recurring counterparties ({result.customer_baseline.get('known_payees_count', 0)} established payees).\n"
                 f"- **Temporal Window Check**: All transactions occurred during the customer's established active window ({active_h[0]:02d}:00–{active_h[1]:02d}:00).\n"
