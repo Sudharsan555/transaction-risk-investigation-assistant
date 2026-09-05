@@ -12,7 +12,7 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         data = response.json()
         self.assertEqual(data["status"], "healthy")
-        self.assertEqual(data["track_id"], "PS6")
+        self.assertEqual(data["track_id"], "PS06")
         self.assertIn("total_customers_loaded", data)
 
     def test_get_customers_list(self):

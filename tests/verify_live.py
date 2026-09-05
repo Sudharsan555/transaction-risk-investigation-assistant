@@ -25,6 +25,7 @@ def main():
     r_health = client.get("/api/health")
     assert r_health.status_code == 200
     health_data = r_health.json()
+    assert health_data['track_id'] == 'PS06', f"Expected PS06, got {health_data['track_id']}"
     print(f"[OK] GET /api/health -> HTTP 200 | Track ID: {health_data['track_id']} | Total Customers: {health_data['total_customers_loaded']}")
 
     r_custs = client.get("/api/customers")

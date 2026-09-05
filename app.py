@@ -21,7 +21,7 @@ from src.llm_engine import llm_engine
 
 app = FastAPI(
     title="Transaction Risk Investigation Assistant",
-    description="Bank Fraud Desk Risk Engine & AI Grounded Investigation Assistant (NexusTiQ 24 TRACK_ID=PS6)",
+    description="Bank Fraud Desk Risk Engine & AI Grounded Investigation Assistant (NexusTiQ 24 TRACK_ID=PS06)",
     version="1.0.0"
 )
 
@@ -208,7 +208,7 @@ async def serve_index():
     index_path = STATIC_DIR / "index.html"
     if index_path.exists():
         return FileResponse(index_path)
-    return HTMLResponse("<h1>Transaction Risk Investigation Assistant</h1><p>NexusTiQ 24 TRACK_ID=PS6</p>")
+    return HTMLResponse("<h1>Transaction Risk Investigation Assistant</h1><p>NexusTiQ 24 TRACK_ID=PS06</p>")
 
 
 if __name__ == "__main__":
