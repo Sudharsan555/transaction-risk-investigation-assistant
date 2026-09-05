@@ -55,12 +55,16 @@ class RiskRuleEngine:
         if not transactions or len(transactions) == 0:
             return self._build_empty_history_result(profile)
 
-        # Baseline history sufficiency
+        # Baseline history sufficiency strictly enforced (minimum 5 historical transactions)
         if profile_was_explicit:
-            has_sufficient_history = bool(
-                profile.total_transactions >= MIN_TRANSACTIONS_FOR_BASELINE
-                or (profile.baseline_avg_amount > 0 and profile.baseline_max_normal > 0)
-            )
+            if 0 < profile.total_transactions < MIN_TRANSACTIONS_FOR_BASELINE:
+                has_sufficient_history = False
+            elif profile.total_transactions >= MIN_TRANSACTIONS_FOR_BASELINE:
+                has_sufficient_history = True
+            elif profile.baseline_avg_amount > 0 and profile.baseline_max_normal > 0:
+                has_sufficient_history = True
+            else:
+                has_sufficient_history = (len(transactions) >= MIN_TRANSACTIONS_FOR_BASELINE)
         else:
             has_sufficient_history = (len(transactions) >= MIN_TRANSACTIONS_FOR_BASELINE)
 
@@ -134,7 +138,10 @@ class RiskRuleEngine:
             "known_payees_sample": profile.known_payees[:6],
             "common_channels": profile.common_channels,
             "common_categories": profile.common_categories,
-            "baseline_frequency_per_month": profile.baseline_frequency_per_month
+            "baseline_frequency_per_month": profile.baseline_frequency_per_month,
+            "provenance": getattr(profile, "provenance", "HISTORICAL_TRANSACTIONS_ONLY"),
+            "historical_sample_size": profile.total_transactions,
+            "reliability": "SUFFICIENT"
         }
 
         return InvestigationResult(
@@ -584,7 +591,11 @@ class RiskRuleEngine:
                 "known_payees_sample": [],
                 "common_channels": profile.common_channels,
                 "common_categories": profile.common_categories,
-                "baseline_frequency_per_month": 0.0
+                "baseline_frequency_per_month": 0.0,
+                "provenance": "HISTORICAL_TRANSACTIONS_ONLY",
+                "historical_sample_size": 0,
+                "reliability": "INSUFFICIENT_HISTORY",
+                "note": "Zero historical transactions recorded. Empirical baseline metrics cannot be established."
             },
             summary_statistics={
                 "total_transactions": 0,
@@ -647,7 +658,11 @@ class RiskRuleEngine:
                 "known_payees_sample": profile.known_payees[:6],
                 "common_channels": profile.common_channels,
                 "common_categories": profile.common_categories,
-                "baseline_frequency_per_month": profile.baseline_frequency_per_month
+                "baseline_frequency_per_month": profile.baseline_frequency_per_month,
+                "provenance": "HISTORICAL_TRANSACTIONS_ONLY",
+                "historical_sample_size": len(transactions),
+                "reliability": "INSUFFICIENT_HISTORY",
+                "note": f"Fewer than {MIN_TRANSACTIONS_FOR_BASELINE} historical transactions recorded ({len(transactions)} available). Baseline metrics are insufficient for statistical anomaly detection."
             },
             summary_statistics={
                 "total_transactions": len(transactions),

@@ -91,31 +91,123 @@ class LLMInvestigationEngine:
             "total_citations": len(found_citations),
             "valid_citations": list(dict.fromkeys(valid_citations)),
             "hallucinated_citations": list(dict.fromkeys(hallucinated_citations)),
+            "factual_contradictions": [],
             "sanitized": len(hallucinated_citations) > 0,
             "status": "PASSED_CLEAN" if len(hallucinated_citations) == 0 else "SANITIZED"
         }
         return sanitized_text, validation_meta
 
+    def validate_citations_and_facts(
+        self, text: str, valid_transactions: Dict[str, Transaction], result: InvestigationResult
+    ) -> Tuple[str, Dict[str, Any], bool]:
+        """
+        Post-generation fact & citation verification:
+        1. Checks all cited transaction IDs exist in valid_transactions.
+        2. Validates cited factual amounts/metrics in citation sentences against source data.
+        3. Never allows invented facts or hallucinated IDs: activates safe deterministic fallback if invalid.
+        Returns: (final_report_text, validation_metadata, fallback_triggered)
+        """
+        citation_pattern = re.compile(r'\[((?:TXN|CUSTOM|SB|TEST)[A-Za-z0-9_-]*)\]')
+        all_cited_ids = citation_pattern.findall(text)
+        
+        hallucinated_citations = []
+        valid_citations = []
+        for cid in all_cited_ids:
+            if cid in valid_transactions:
+                valid_citations.append(cid)
+            else:
+                hallucinated_citations.append(cid)
+
+        # Factual amount and counterparty cross-verification
+        factual_contradictions = []
+        sentences = re.split(r'(?<=[.!?\n])\s+', text)
+        for sentence in sentences:
+            sentence_cites = citation_pattern.findall(sentence)
+            if not sentence_cites:
+                continue
+                
+            for cid in sentence_cites:
+                if cid not in valid_transactions:
+                    continue
+                actual_txn = valid_transactions[cid]
+                
+                # Check dollar amounts mentioned in the same sentence as [TXN-xxx]
+                dollar_matches = re.findall(r'\$([0-9]{1,3}(?:,[0-9]{3})*(?:\.[0-9]{2})?|[0-9]+(?:\.[0-9]{2})?)', sentence)
+                for d_str in dollar_matches:
+                    try:
+                        clean_d = float(d_str.replace(',', ''))
+                    except ValueError:
+                        continue
+                    if clean_d <= 0:
+                        continue
+                    
+                    # Permitted factual reference amounts in the context of this investigation
+                    allowed_amounts = {
+                        round(actual_txn.amount, 2),
+                        round(result.customer_baseline.get("baseline_avg_amount", -1), 2),
+                        round(result.customer_baseline.get("baseline_max_normal", -1), 2),
+                        round(result.summary_statistics.get("total_volume", -1), 2),
+                        round(result.summary_statistics.get("avg_transaction_amount", -1), 2)
+                    }
+                    for f in result.findings:
+                        for amt_part in re.findall(r'\$([0-9,]+(?:\.[0-9]{2})?)', f.observed_value + " " + f.explanation + " " + f.baseline_value):
+                            try:
+                                allowed_amounts.add(round(float(amt_part.replace(',', '')), 2))
+                            except ValueError:
+                                pass
+                                
+                    if not any(abs(clean_d - a) <= 1.0 for a in allowed_amounts if a > 0):
+                        factual_contradictions.append(
+                            f"Transaction [{cid}] context cites unverified amount ${clean_d:,.2f} (Actual txn amount: ${actual_txn.amount:,.2f})"
+                        )
+
+        fallback_needed = (len(hallucinated_citations) > 0 or len(factual_contradictions) > 0)
+        
+        if fallback_needed:
+            fallback_report = self._generate_deterministic_fallback_report(result)
+            validation_meta = {
+                "total_citations": len(all_cited_ids),
+                "valid_citations": list(dict.fromkeys(valid_citations)),
+                "hallucinated_citations": list(dict.fromkeys(hallucinated_citations)),
+                "factual_contradictions": list(dict.fromkeys(factual_contradictions)),
+                "sanitized": True,
+                "fallback_applied": True,
+                "status": "FALLBACK_TRIGGERED_HALLUCINATION_DETECTED"
+            }
+            return fallback_report, validation_meta, True
+
+        # Clean report passed
+        validation_meta = {
+            "total_citations": len(all_cited_ids),
+            "valid_citations": list(dict.fromkeys(valid_citations)),
+            "hallucinated_citations": [],
+            "factual_contradictions": [],
+            "sanitized": False,
+            "fallback_applied": False,
+            "status": "PASSED_CLEAN"
+        }
+        return text, validation_meta, False
+
     def generate_investigation_report(self, result: InvestigationResult) -> Tuple[str, str, bool]:
         """
-        Generates a grounded investigation report with post-generation citation validation.
+        Generates a grounded investigation report with post-generation citation and fact validation.
         Returns: (report_markdown, model_name, fallback_used)
         """
-        # Collect valid source transaction IDs for citation enforcement
-        valid_ids: Set[str] = {t.transaction_id for t in result.cited_transactions}
+        # Collect valid source transactions map for citation and fact enforcement
+        valid_txns_map: Dict[str, Transaction] = {t.transaction_id: t for t in result.cited_transactions}
         try:
             from src.data_loader import data_loader
             for t in data_loader.get_customer_transactions(result.customer_id):
-                valid_ids.add(t.transaction_id)
+                valid_txns_map[t.transaction_id] = t
         except Exception:
             pass
 
         # If no API key or client, immediately use clean deterministic fallback
         if not self.client:
             raw_report = self._generate_deterministic_fallback_report(result)
-            sanitized_report, meta = self.validate_and_sanitize_citations(raw_report, valid_ids)
+            final_report, meta, _ = self.validate_citations_and_facts(raw_report, valid_txns_map, result)
             result.citation_validation = meta
-            return sanitized_report, "Deterministic Fallback (No API Key)", True
+            return final_report, "Deterministic Fallback (No API Key)", True
 
         # Construct strictly grounded prompt payload
         prompt_payload = self._build_prompt_payload(result)
@@ -145,18 +237,20 @@ class LLMInvestigationEngine:
                 )
                 if response and response.text:
                     cleaned_report = self._post_process_report(response.text, result)
-                    sanitized_report, meta = self.validate_and_sanitize_citations(cleaned_report, valid_ids)
+                    final_report, meta, fallback_applied = self.validate_citations_and_facts(cleaned_report, valid_txns_map, result)
                     result.citation_validation = meta
-                    return sanitized_report, f"Google Gemini ({model_name})", False
+                    if fallback_applied:
+                        return final_report, "Deterministic Fallback (Validation Rejection)", True
+                    return final_report, f"Google Gemini ({model_name})", False
             except Exception as e:
                 print(f"[WARN] Gemini model '{model_name}' call failed: {e}")
                 continue
 
         # Fallback if all API attempts fail
         fallback_report = self._generate_deterministic_fallback_report(result)
-        sanitized_report, meta = self.validate_and_sanitize_citations(fallback_report, valid_ids)
+        final_report, meta, _ = self.validate_citations_and_facts(fallback_report, valid_txns_map, result)
         result.citation_validation = meta
-        return sanitized_report, "Deterministic Fallback (API Error/Timeout)", True
+        return final_report, "Deterministic Fallback (API Error/Timeout)", True
 
     def _build_prompt_payload(self, result: InvestigationResult) -> str:
         """Constructs compact JSON payload for grounding."""
@@ -255,7 +349,7 @@ class LLMInvestigationEngine:
             )
 
         # 2. Routine Clean Case
-        if result.verdict in ["NOTHING_FLAGGED", "NOTHING FLAGGED"]:
+        if result.verdict == "NOTHING_FLAGGED":
             total_tx = result.summary_statistics.get("total_transactions", 0)
             total_vol = result.summary_statistics.get("total_volume", 0.0)
             avg_amt = result.customer_baseline.get("baseline_avg_amount", 0.0)

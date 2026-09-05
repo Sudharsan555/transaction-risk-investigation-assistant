@@ -35,24 +35,25 @@ def main():
 
     print("\n=== 3. Testing Anomaly & Clean Customer Analysis ===")
     cases = [
-        ("CUST-104", "Elena Rostova", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
-        ("CUST-109", "Marcus Vance", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
-        ("CUST-112", "Aisha Patel", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
-        ("CUST-115", "David Chen", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
-        ("CUST-118", "Sophia Morales", ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]),
-        ("CUST-101", "Alexander Hayes", ["NOTHING_FLAGGED", "NOTHING FLAGGED"]),
-        ("CUST-199", "Lucas Vance", ["INSUFFICIENT_EVIDENCE", "NOTHING FLAGGED"]),
+        ("CUST-104", "Elena Rostova", "ATTENTION_REQUIRED"),
+        ("CUST-109", "Marcus Vance", "ATTENTION_REQUIRED"),
+        ("CUST-112", "Aisha Patel", "ATTENTION_REQUIRED"),
+        ("CUST-115", "David Chen", "ATTENTION_REQUIRED"),
+        ("CUST-118", "Sophia Morales", "ATTENTION_REQUIRED"),
+        ("CUST-101", "Alexander Hayes", "NOTHING_FLAGGED"),
+        ("CUST-198", "Zoe Kensington", "INSUFFICIENT_EVIDENCE"),
+        ("CUST-199", "Lucas Vance", "INSUFFICIENT_EVIDENCE"),
     ]
 
-    for c_id, expected_name, allowed_verdicts in cases:
+    for c_id, expected_name, expected_verdict in cases:
         res = client.get(f"/api/customers/{c_id}/analysis").json()
         verdict = res["verdict"]
         score = res["risk_score"]
         findings = res["findings_count"]
         report_line1 = res["llm_report"].strip().split("\n")[0]
         
-        assert verdict in allowed_verdicts, f"Expected one of {allowed_verdicts} for {c_id}, got {verdict}"
-        assert any(report_line1 == f"VERDICT: {v}" for v in allowed_verdicts), f"Line 1 mismatch: {report_line1}"
+        assert verdict == expected_verdict, f"Expected {expected_verdict} for {c_id}, got {verdict}"
+        assert report_line1 == f"VERDICT: {expected_verdict}", f"Line 1 mismatch: {report_line1}"
         assert "DISCLAIMER:" in res["llm_report"], "Disclaimer missing in report"
         assert "risk_score_breakdown" in res, "Missing risk score breakdown"
         assert "citation_validation" in res, "Missing citation validation audit"
@@ -63,7 +64,7 @@ def main():
     r_txn = client.get("/api/transactions/TXN-1318/analysis")
     assert r_txn.status_code == 200
     txn_data = r_txn.json()
-    assert txn_data["verdict"] in ["ATTENTION_REQUIRED", "ATTENTION NEEDED"]
+    assert txn_data["verdict"] == "ATTENTION_REQUIRED"
     print(f"[OK] GET /api/transactions/TXN-1318/analysis -> HTTP 200 | Verdict: {txn_data['verdict']}")
 
     print("\n=== 5. Testing Interactive Sandbox POST Endpoint ===")
@@ -102,9 +103,26 @@ def main():
     r_sb = client.post("/api/analyze/custom", json=sample_payload)
     assert r_sb.status_code == 200, f"Sandbox failed: {r_sb.status_code}"
     sb_data = r_sb.json()
+    assert sb_data["verdict"] == "ATTENTION_REQUIRED"
     print(f"[OK] POST /api/analyze/custom -> HTTP 200 | Verdict: {sb_data['verdict']} | Score: {sb_data['risk_score']} | Findings: {sb_data['findings_count']}")
 
+    print("\n=== 6. Testing Structured HTTP 422 Input Validation ===")
+    bad_payload = {
+        "transactions": [
+            {
+                "transaction_id": "BAD-01",
+                "timestamp": "INVALID-TIMESTAMP",
+                "payee": "Test Payee",
+                "amount": -50.0
+            }
+        ]
+    }
+    r_bad = client.post("/api/analyze/custom", json=bad_payload)
+    assert r_bad.status_code == 422, f"Expected 422, got {r_bad.status_code}"
+    print(f"[OK] POST /api/analyze/custom (malformed input) -> HTTP 422 Rejected as expected")
+
     print("\n[SUCCESS] ALL END-TO-END VERIFICATION CHECKS PASSED PERFECTLY!")
+
 
 if __name__ == "__main__":
     main()

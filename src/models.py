@@ -1,18 +1,62 @@
+import math
+from datetime import datetime
 from typing import List, Dict, Any, Optional
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
+
+
+def _check_valid_timestamp(dt_str: str) -> bool:
+    if not dt_str or not isinstance(dt_str, str):
+        return False
+    dt_str = dt_str.strip()
+    formats = [
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%d %H:%M:%S",
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%d"
+    ]
+    for fmt in formats:
+        try:
+            datetime.strptime(dt_str, fmt)
+            return True
+        except ValueError:
+            continue
+    return False
 
 
 class Transaction(BaseModel):
     transaction_id: str
-    customer_id: str
+    customer_id: Optional[str] = "CUSTOM-001"
     timestamp: str  # ISO format YYYY-MM-DDTHH:MM:SS
-    description: str
+    description: Optional[str] = "Transaction"
     payee: str
     amount: float
-    channel: str  # Mobile, Web, POS, ATM, Wire
+    channel: Optional[str] = "Web"  # Mobile, Web, POS, ATM, Wire
     category: Optional[str] = "General"
     is_flagged: bool = False
     flag_reasons: List[str] = Field(default_factory=list)
+
+    @field_validator("amount")
+    @classmethod
+    def validate_positive_amount(cls, v: float) -> float:
+        if v is None or v <= 0:
+            raise ValueError(f"Transaction amount must be strictly positive (> 0), got: {v}")
+        if math.isnan(v) or math.isinf(v):
+            raise ValueError(f"Transaction amount cannot be NaN or Infinite, got: {v}")
+        return round(float(v), 2)
+
+    @field_validator("timestamp")
+    @classmethod
+    def validate_timestamp_format(cls, v: str) -> str:
+        if not v or not _check_valid_timestamp(v):
+            raise ValueError(f"Invalid timestamp '{v}'. Expected ISO-8601 string (e.g. YYYY-MM-DDTHH:MM:SS).")
+        return v.strip()
+
+    @field_validator("transaction_id", "payee")
+    @classmethod
+    def validate_required_non_empty(cls, v: str) -> str:
+        if not v or not str(v).strip():
+            raise ValueError("Field cannot be empty or whitespace.")
+        return str(v).strip()
 
 
 class CustomerProfile(BaseModel):
@@ -32,6 +76,7 @@ class CustomerProfile(BaseModel):
     baseline_frequency_per_month: float = 0.0
     total_transactions: int = 0
     total_volume: float = 0.0
+    provenance: str = "HISTORICAL_TRANSACTIONS_ONLY"
 
 
 class RiskFinding(BaseModel):
@@ -107,4 +152,4 @@ class InvestigationResult(BaseModel):
 
 class CustomAnalysisRequest(BaseModel):
     customer_profile: Optional[CustomerProfile] = None
-    transactions: List[Dict[str, Any]]
+    transactions: List[Transaction] = Field(default_factory=list)

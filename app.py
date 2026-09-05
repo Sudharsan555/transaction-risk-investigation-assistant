@@ -81,7 +81,7 @@ async def get_customers():
         })
 
     # Sort flagged accounts to the top, then insufficient evidence, then clean accounts
-    result_list.sort(key=lambda x: (0 if x["verdict"] in ["ATTENTION_REQUIRED", "ATTENTION NEEDED"] else (1 if x["verdict"] == "INSUFFICIENT_EVIDENCE" else 2), -x["risk_score"]))
+    result_list.sort(key=lambda x: (0 if x["verdict"] == "ATTENTION_REQUIRED" else (1 if x["verdict"] == "INSUFFICIENT_EVIDENCE" else 2), -x["risk_score"]))
     return {"customers": result_list}
 
 
@@ -163,9 +163,10 @@ async def analyze_custom_payload(request: CustomAnalysisRequest):
     """
     Sandbox endpoint: Evaluates an arbitrary payload of transactions against
     a custom or dynamically derived customer baseline.
+    Strictly validates incoming transaction fields with structured HTTP 422 errors.
     """
-    raw_txns = request.transactions
-    if not raw_txns:
+    parsed_txns = request.transactions
+    if not parsed_txns or len(parsed_txns) == 0:
         # Empty payload
         empty_profile = request.customer_profile or data_loader.derive_baseline([], "CUSTOM-001", "Custom Account")
         res = rule_engine.evaluate_customer("CUSTOM-001", transactions=[], profile=empty_profile)
@@ -174,23 +175,6 @@ async def analyze_custom_payload(request: CustomAnalysisRequest):
         res.llm_model_used = model_name
         res.fallback_used = fallback_used
         return res
-
-    # Parse transactions safely
-    parsed_txns: List[Transaction] = []
-    for idx, row in enumerate(raw_txns, 1001):
-        txn_id = str(row.get("transaction_id", f"CUSTOM-TXN-{idx}")).strip()
-        parsed = data_loader._parse_transaction_row({
-            "transaction_id": txn_id,
-            "customer_id": str(row.get("customer_id", "CUSTOM-001")),
-            "timestamp": str(row.get("timestamp", "2026-08-30T12:00:00")),
-            "description": str(row.get("description", "Custom Transaction")),
-            "payee": str(row.get("payee", "Unknown Payee")),
-            "amount": row.get("amount", 0.0),
-            "channel": str(row.get("channel", "Web")),
-            "category": str(row.get("category", "General"))
-        })
-        if parsed:
-            parsed_txns.append(parsed)
 
     # Derive baseline profile if not explicitly provided
     cust_profile = request.customer_profile

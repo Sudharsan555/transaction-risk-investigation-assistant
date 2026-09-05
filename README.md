@@ -116,48 +116,55 @@ The system prompt enforces **11 strict operational rules**:
 ## 🏛️ System Architecture
 
 ```
-Transaction Data (CSV / JSON)
+Transaction History
         ↓
 Deterministic Risk Engine (Layer 1)
-[Pure Python • Z-Scores • Diurnal Windows • Payee Clusters • Channel Baselines]
+[Pure Python • Baseline Separation • Z-Scores • Diurnal Windows • Payee Clusters • Channel Baselines]
         ↓
-Structured Findings + Cited Transactions
+Verified Findings + Cited Transactions
         ↓
 Gemini Investigation Layer (Layer 2)
 [Google Gemini 2.0 Flash • Strict Grounding • Traceable [TXN-xxxx] Citations]
         ↓
+Post-Generation Citation & Fact Validation Layer
+[Zero Hallucinations • Factual Amount & Counterparty Cross-Check • Safe Fallback Guard]
+        ↓
 Grounded Investigation Report
         ↓
-Human Investigator Decision
+Human Investigator (Final Legal & Business Decision)
 ```
 
 ### Core Design Principles:
-- **The Deterministic Engine detects measurable anomalies.**
-- **Gemini explains and correlates the evidence.**
-- **The Human Investigator makes the final decision.**
+- **Transaction History → Deterministic Risk Engine → Verified Findings → Gemini Explanation → Citation Validation → Human Investigator.**
+- **Gemini must NEVER independently decide fraud.** Gemini's sole responsibility is objective evidence translation, multi-vector correlation, and investigator action recommendation.
+- **Human investigator primacy**: The final fraud determination, account restriction, and legal assessment rest exclusively with human fraud desk personnel.
 
 ---
 
 ## 🛡️ Distinguishing "Nothing Flagged" vs "Insufficient Evidence"
 
-The assistant cleanly distinguishes between two non-fraud scenarios:
+The assistant cleanly distinguishes between three standardized verdicts:
 
-1. **`NOTHING FLAGGED` (Sufficient History - Routine Account)**:
+1. **`ATTENTION_REQUIRED` (Verified Baseline Deviations)**:
+   - Evaluates account transactions against established multi-month historical baseline.
+   - Identified measurable anomalies across statistical outliers, rapid new payee bursts, odd-hours activity, or channel pattern breaks.
+
+2. **`NOTHING_FLAGGED` (Sufficient History - Routine Account)**:
    - Evaluates full multi-month history (e.g., `CUST-101` with 80+ transactions).
    - Confirms that all transactions strictly adhere to historical spend averages, normal active hours, and familiar counterparties.
    - Outputs an objective, non-alarming confirmation that account behavior is consistent with historical baseline.
 
-2. **`NOTHING FLAGGED` (Insufficient Evidence - Limited History)**:
-   - Handles new or empty accounts (e.g., `CUST-199` with 0 transactions).
-   - The engine flags `evidence_status: "INSUFFICIENT_EVIDENCE"` without raising false alarms.
-   - The investigation note explicitly states that transaction history is insufficient to construct an empirical baseline, recommending standard onboarding monitoring rather than pretending a normal pattern exists.
+3. **`INSUFFICIENT_EVIDENCE` (Limited History < 5 Transactions)**:
+   - Handles new or sparse accounts (e.g., `CUST-198` with 2 transactions, or `CUST-199` with 0 transactions).
+   - The engine flags `evidence_status: "INSUFFICIENT_EVIDENCE"` without generating phantom risk scores.
+   - The investigation note explicitly states that transaction history is insufficient (< 5 transactions) to construct a reliable empirical baseline, recommending standard onboarding monitoring rather than pretending a normal pattern exists.
 
 ---
 
 ## 🔍 Traceable Citations in the UI
 
 The web interface (`http://localhost:8000`) provides interactive citation traceability:
-- **Interactive Citation Tags**: Every transaction referenced in the Gemini report appears as an interactive tag (e.g., `[TXN-1335]`).
+- **Interactive Citation Tags**: Every transaction referenced in the Gemini report appears as an interactive tag (e.g., `[TXN-1318]`).
 - **One-Click Ledger Jump**: Clicking any citation tag instantly scrolls to the corresponding row in the transaction ledger.
 - **Visual Pulse Highlight**: The targeted row illuminates with a glowing animated border and highlight pulse, enabling fraud analysts to visually verify the evidence behind every AI statement immediately.
 
@@ -166,21 +173,22 @@ The web interface (`http://localhost:8000`) provides interactive citation tracea
 ## 📊 Dataset Overview
 
 All data resides in `data/`:
-- **`customers.json`**: 19 customer profiles with precomputed spend distributions, 95th percentiles, active hours, and known counterparties.
-- **`transactions.csv`**: 1,483 realistic multi-month transactions across POS, Mobile, Web, ATM, and Wire channels.
+- **`customers.json`**: 20 customer profiles with precomputed spend distributions, 95th percentiles, active hours, and known counterparties.
+- **`transactions.csv`**: 1,485 realistic multi-month transactions across POS, Mobile, Web, ATM, and Wire channels.
 - **`sample_test_inputs.json`**: Curated verification fixtures demonstrating core fraud detection vectors and baseline controls.
 
 ### Seeded Account Matrix
 
 | Customer ID | Customer Name | Account Profile | Seeded Anomaly Pattern | Expected Verdict | Risk Score | Evidence Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`CUST-104`** | Elena Rostova | Personal Checking | Unusually Large Transfer Outlier ($14,500 Wire vs $115 avg) | `ATTENTION NEEDED` | 80 / 100 | Sufficient History |
-| **`CUST-109`** | Marcus Vance | Tech Contractor | Rapid Burst of 3 Transfers to New Crypto Payee | `ATTENTION NEEDED` | 100 / 100 | Sufficient History |
-| **`CUST-112`** | Aisha Patel | Senior Consultant | Odd-Hours Activity (03:15 AM & 04:20 AM transfers) | `ATTENTION NEEDED` | 100 / 100 | Sufficient History |
-| **`CUST-115`** | David Chen | Retail Store Owner | Channel Break (Unprecedented International Wires) | `ATTENTION NEEDED` | 100 / 100 | Sufficient History |
-| **`CUST-118`** | Sophia Morales | Medical Specialist | Multi-Vector Anomaly (Outlier + New Payee + Odd Hours) | `ATTENTION NEEDED` | 100 / 100 | Sufficient History |
-| **`CUST-101`** | Alexander Hayes | Standard Checking | Clean Routine History (Adheres to baseline) | `NOTHING FLAGGED` | 0 / 100 | Sufficient History |
-| **`CUST-199`** | Lucas Vance | New Account | Empty / Zero Transaction History Edge Case | `NOTHING FLAGGED` | 0 / 100 | Insufficient Evidence |
+| **`CUST-104`** | Elena Rostova | Personal Checking | Unusually Large Transfer Outlier ($14,500 Wire vs $115 avg) | `ATTENTION_REQUIRED` | 80 / 100 | Sufficient History |
+| **`CUST-109`** | Marcus Vance | Tech Contractor | Rapid Burst of 3 Transfers to New Crypto Payee | `ATTENTION_REQUIRED` | 100 / 100 | Sufficient History |
+| **`CUST-112`** | Aisha Patel | Senior Consultant | Odd-Hours Activity (03:15 AM & 04:20 AM transfers) | `ATTENTION_REQUIRED` | 100 / 100 | Sufficient History |
+| **`CUST-115`** | David Chen | Retail Store Owner | Channel Break (Unprecedented International Wires) | `ATTENTION_REQUIRED` | 100 / 100 | Sufficient History |
+| **`CUST-118`** | Sophia Morales | Medical Specialist | Multi-Vector Anomaly (Outlier + New Payee + Odd Hours) | `ATTENTION_REQUIRED` | 100 / 100 | Sufficient History |
+| **`CUST-101`** | Alexander Hayes | Standard Checking | Clean Routine History (Adheres to baseline) | `NOTHING_FLAGGED` | 0 / 100 | Sufficient History |
+| **`CUST-198`** | Zoe Kensington | Recent Account | Sparse History Edge Case (2 transactions < 5 minimum) | `INSUFFICIENT_EVIDENCE` | 0 / 100 | Insufficient Evidence |
+| **`CUST-199`** | Lucas Vance | New Account | Empty / Zero Transaction History Edge Case | `INSUFFICIENT_EVIDENCE` | 0 / 100 | Insufficient Evidence |
 
 ---
 
@@ -192,15 +200,15 @@ You can verify any scenario using the REST API or Web UI at `http://localhost:80
 ```bash
 curl http://localhost:8000/api/customers/CUST-104/analysis
 ```
-- `verdict`: `"ATTENTION NEEDED"`
+- `verdict`: `"ATTENTION_REQUIRED"`
 - `risk_score`: `80`
-- `findings`: Contains `RULE_LARGE_TRANSFER` citing transaction `TXN-1335` ($14,500.00 wire transfer vs historical avg $115.00).
+- `findings`: Contains `RULE_LARGE_TRANSFER` citing transaction `TXN-1318` ($14,500.00 wire transfer vs historical avg $115.00).
 
 ### 2. Test Case 2: New Payee Rapid Burst (`CUST-109`)
 ```bash
 curl http://localhost:8000/api/customers/CUST-109/analysis
 ```
-- `verdict`: `"ATTENTION NEEDED"`
+- `verdict`: `"ATTENTION_REQUIRED"`
 - `risk_score`: `100`
 - `findings`: Contains `RULE_NEW_PAYEE_BURST` citing `["TXN-1718", "TXN-1719", "TXN-1720"]` to new payee `NovaDex Crypto Settlement`.
 
@@ -208,7 +216,7 @@ curl http://localhost:8000/api/customers/CUST-109/analysis
 ```bash
 curl http://localhost:8000/api/customers/CUST-112/analysis
 ```
-- `verdict`: `"ATTENTION NEEDED"`
+- `verdict`: `"ATTENTION_REQUIRED"`
 - `risk_score`: `100`
 - `findings`: Contains `RULE_ODD_HOURS` citing `["TXN-1941", "TXN-1942"]` occurring at 03:15 AM and 04:20 AM (baseline is 08:00–21:00).
 
@@ -216,25 +224,34 @@ curl http://localhost:8000/api/customers/CUST-112/analysis
 ```bash
 curl http://localhost:8000/api/customers/CUST-101/analysis
 ```
-- `verdict`: `"NOTHING FLAGGED"`
+- `verdict`: `"NOTHING_FLAGGED"`
 - `risk_score`: `0`
 - `evidence_status`: `"SUFFICIENT_HISTORY"`
 - `findings_count`: `0`
 
-### 5. Test Case 5: Empty Transaction History Edge Case (`CUST-199`)
+### 5. Test Case 5: Sparse History Edge Case (`CUST-198`)
 ```bash
-curl http://localhost:8000/api/customers/CUST-199/analysis
+curl http://localhost:8000/api/customers/CUST-198/analysis
 ```
-- `verdict`: `"NOTHING FLAGGED"`
+- `verdict`: `"INSUFFICIENT_EVIDENCE"`
 - `risk_score`: `0`
 - `evidence_status`: `"INSUFFICIENT_EVIDENCE"`
 - `findings_count`: `0`
 
-### 6. Test Case 6: Custom Payload Sandbox (`POST /api/analyze/custom`)
+### 6. Test Case 6: Empty Transaction History Edge Case (`CUST-199`)
+```bash
+curl http://localhost:8000/api/customers/CUST-199/analysis
+```
+- `verdict`: `"INSUFFICIENT_EVIDENCE"`
+- `risk_score`: `0`
+- `evidence_status`: `"INSUFFICIENT_EVIDENCE"`
+- `findings_count`: `0`
+
+### 7. Test Case 7: Custom Payload Sandbox (`POST /api/analyze/custom`)
 ```bash
 curl -X POST http://localhost:8000/api/analyze/custom -H "Content-Type: application/json" -d "{\"transactions\": [{\"transaction_id\": \"CUSTOM-1\", \"timestamp\": \"2026-08-30T03:00:00\", \"amount\": 9500.0, \"payee\": \"Unseen Entity\", \"channel\": \"Wire\"}]}"
 ```
-- `verdict`: `"ATTENTION NEEDED"`
+- `verdict`: `"ATTENTION_REQUIRED"`
 - Cites `CUSTOM-1` for large transfer, odd hours, and uncharacteristic wire channel.
 
 ---

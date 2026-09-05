@@ -251,6 +251,19 @@ CUSTOMERS = [
         "anomaly_type": "MULTI_VECTOR_ANOMALY"  # Large outlier ($9,850) + New Payee "Apex Offshore Settlement" + Odd Hours (02:40 AM)
     },
     {
+        "customer_id": "CUST-198",
+        "name": "Zoe Kensington",
+        "account_type": "Recently Opened Checking",
+        "account_number": "ACC-00481923",
+        "baseline_avg_amount": 42.50,
+        "baseline_std_amount": 12.00,
+        "baseline_max_normal": 85.00,
+        "baseline_active_hours": [9, 18],
+        "known_payees": ["Corner Cafe", "Campus Bookstore"],
+        "common_channels": ["Mobile", "POS"],
+        "anomaly_type": "SPARSE_HISTORY"  # Edge case: fewer than 5 transactions (< 5 txns)
+    },
+    {
         "customer_id": "CUST-199",
         "name": "Lucas Vance",
         "account_type": "New Checking Account",
@@ -379,7 +392,7 @@ def generate_dataset():
             })
             continue
 
-        num_txns = random.randint(65, 95)
+        num_txns = 2 if c_type == "SPARSE_HISTORY" else random.randint(65, 95)
         txns_cust = []
         
         # Generate baseline normal transactions across the 6-month period
@@ -537,7 +550,8 @@ def generate_dataset():
             "known_payees": cust["known_payees"],
             "common_channels": cust["common_channels"],
             "total_transactions": len(txns_cust),
-            "total_volume": round(total_vol, 2)
+            "total_volume": round(total_vol, 2),
+            "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
         })
         
         all_transactions.extend(txns_cust)
@@ -577,16 +591,16 @@ def generate_test_fixtures(customers, transactions):
                 "customer_id": "CUST-104",
                 "customer_name": "Elena Rostova",
                 "description": "Customer with normal average spend of $115 triggers statistical outlier on sudden $14,500 international wire.",
-                "expected_verdict": "ATTENTION NEEDED",
-                "expected_triggered_rules": ["RULE_LARGE_TRANSFER"],
-                "sample_transaction_ids": ["TXN-1335"]
+                "expected_verdict": "ATTENTION_REQUIRED",
+                "expected_triggered_rules": ["RULE_LARGE_TRANSFER", "RULE_PATTERN_BREAK"],
+                "sample_transaction_ids": ["TXN-1318"]
             },
             {
                 "case_id": "TEST_CASE_2_NEW_PAYEE_BURST",
                 "customer_id": "CUST-109",
                 "customer_name": "Marcus Vance",
-                "description": "Customer performs 3 rapid successive payments to previously unseen crypto payee within 6 hours.",
-                "expected_verdict": "ATTENTION NEEDED",
+                "description": "Customer performs rapid successive payments to previously unseen crypto payee within 48 hours.",
+                "expected_verdict": "ATTENTION_REQUIRED",
                 "expected_triggered_rules": ["RULE_NEW_PAYEE_BURST"],
                 "sample_transaction_ids": ["TXN-1718", "TXN-1719", "TXN-1720"]
             },
@@ -595,7 +609,7 @@ def generate_test_fixtures(customers, transactions):
                 "customer_id": "CUST-112",
                 "customer_name": "Aisha Patel",
                 "description": "High-value transactions executed at 03:15 AM and 04:20 AM, outside customer's baseline active window (08:00 - 21:00).",
-                "expected_verdict": "ATTENTION NEEDED",
+                "expected_verdict": "ATTENTION_REQUIRED",
                 "expected_triggered_rules": ["RULE_ODD_HOURS"],
                 "sample_transaction_ids": ["TXN-1941", "TXN-1942"]
             },
@@ -604,7 +618,7 @@ def generate_test_fixtures(customers, transactions):
                 "customer_id": "CUST-115",
                 "customer_name": "David Chen",
                 "description": "Sudden unprecedented high-value international wire payments on a domestic retail account.",
-                "expected_verdict": "ATTENTION NEEDED",
+                "expected_verdict": "ATTENTION_REQUIRED",
                 "expected_triggered_rules": ["RULE_PATTERN_BREAK"],
                 "sample_transaction_ids": ["TXN-2165", "TXN-2166", "TXN-2167"]
             },
@@ -613,7 +627,7 @@ def generate_test_fixtures(customers, transactions):
                 "customer_id": "CUST-118",
                 "customer_name": "Sophia Morales",
                 "description": "Outlier transfer ($9,850) + New Payee + Odd Hours (02:40 AM) triggering multiple rules simultaneously.",
-                "expected_verdict": "ATTENTION NEEDED",
+                "expected_verdict": "ATTENTION_REQUIRED",
                 "expected_triggered_rules": ["RULE_LARGE_TRANSFER", "RULE_ODD_HOURS", "RULE_NEW_PAYEE_BURST", "RULE_PATTERN_BREAK"]
             },
             {
@@ -621,15 +635,23 @@ def generate_test_fixtures(customers, transactions):
                 "customer_id": "CUST-101",
                 "customer_name": "Alexander Hayes",
                 "description": "Routine personal checking account with 80+ standard transactions adhering strictly to baseline profile.",
-                "expected_verdict": "NOTHING FLAGGED",
+                "expected_verdict": "NOTHING_FLAGGED",
                 "expected_triggered_rules": []
             },
             {
                 "case_id": "TEST_CASE_7_EMPTY_HISTORY",
                 "customer_id": "CUST-199",
                 "customer_name": "Lucas Vance",
-                "description": "New account with zero transactions. Handled gracefully without errors.",
-                "expected_verdict": "NOTHING FLAGGED",
+                "description": "New account with zero transactions. Explicitly returns INSUFFICIENT_EVIDENCE.",
+                "expected_verdict": "INSUFFICIENT_EVIDENCE",
+                "expected_triggered_rules": []
+            },
+            {
+                "case_id": "TEST_CASE_8_SPARSE_HISTORY",
+                "customer_id": "CUST-198",
+                "customer_name": "Zoe Kensington",
+                "description": "Recently opened account with only 2 transactions (< 5 minimum reliable history). Returns INSUFFICIENT_EVIDENCE.",
+                "expected_verdict": "INSUFFICIENT_EVIDENCE",
                 "expected_triggered_rules": []
             }
         ]

@@ -1482,3 +1482,5 @@ TXN-2472,CUST-118,2026-08-21T09:03:15,Payment to MedSupply Direct,MedSupply Dire
 TXN-2448,CUST-118,2026-08-21T15:39:16,Payment to MedSupply Direct,MedSupply Direct,135.70,Mobile,Medical Supplies
 TXN-2445,CUST-118,2026-08-22T16:36:11,Payment to MedSupply Direct,MedSupply Direct,258.97,POS,Medical Supplies
 TXN-2483,CUST-118,2026-08-30T02:40:10,Urgent Offshore Capital Liquidation,Apex Offshore Settlement Ltd,9850.00,Wire,Offshore Transfer
+TXN-2485,CUST-198,2026-05-07T10:01:53,Payment to Corner Cafe,Corner Cafe,37.34,POS,General
+TXN-2484,CUST-198,2026-07-20T12:11:12,Payment to Corner Cafe,Corner Cafe,64.69,Mobile,General

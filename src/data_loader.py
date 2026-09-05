@@ -5,6 +5,7 @@ Handles missing/malformed fields gracefully and computes customer baselines.
 
 import json
 import csv
+import logging
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any, Optional
@@ -12,6 +13,8 @@ import math
 
 from src.config import DATA_DIR
 from src.models import Transaction, CustomerProfile
+
+logger = logging.getLogger("risk_investigation")
 
 
 def parse_iso_datetime(dt_str: str) -> Optional[datetime]:
@@ -89,12 +92,13 @@ class DataLoader:
                             common_categories=common_cats,
                             baseline_frequency_per_month=freq_per_m,
                             total_transactions=int(item.get("total_transactions", 0)),
-                            total_volume=sanitize_float(item.get("total_volume", 0.0))
+                            total_volume=sanitize_float(item.get("total_volume", 0.0)),
+                            provenance=str(item.get("provenance", "HISTORICAL_TRANSACTIONS_ONLY"))
                         )
                         if cust.customer_id:
                             self._customers_cache[cust.customer_id] = cust
             except Exception as e:
-                print(f"[WARN] Error loading customers.json: {e}")
+                logger.warning(f"Error loading customers.json: {e}")
 
         # 2. Load transactions.csv
         if self.transactions_file.exists():
@@ -109,31 +113,37 @@ class DataLoader:
                                 self._transactions_cache[c_id] = []
                             self._transactions_cache[c_id].append(txn)
             except Exception as e:
-                print(f"[WARN] Error loading transactions.csv: {e}")
+                logger.warning(f"Error loading transactions.csv: {e}")
 
         # Sort each customer's transactions chronologically
         for c_id in self._transactions_cache:
             self._transactions_cache[c_id].sort(key=lambda t: t.timestamp)
 
     def _parse_transaction_row(self, row: Dict[str, Any]) -> Optional[Transaction]:
-        """Safely parses a transaction row, skipping corrupt/missing required fields."""
+        """Safely parses a transaction row, skipping corrupt/missing required fields with logging."""
         txn_id = str(row.get("transaction_id", "")).strip()
         cust_id = str(row.get("customer_id", "")).strip()
         timestamp_str = str(row.get("timestamp", "")).strip()
         
         # Must have transaction_id and customer_id
         if not txn_id or not cust_id:
+            logger.warning(f"Skipping CSV row with missing transaction_id or customer_id: {row}")
             return None
         
         # Timestamp validation
         dt = parse_iso_datetime(timestamp_str)
         if not dt:
-            # Fallback timestamp if missing/malformed
-            timestamp_str = "2026-08-01T12:00:00"
+            logger.warning(f"Skipping CSV row with invalid timestamp format '{timestamp_str}': {row}")
+            return None
             
         amount = sanitize_float(row.get("amount", 0.0))
         if amount <= 0:
-            # Skip invalid non-positive or corrupted amounts
+            logger.warning(f"Skipping CSV row with invalid non-positive amount {amount}: {row}")
+            return None
+
+        payee = str(row.get("payee", "")).strip()
+        if not payee:
+            logger.warning(f"Skipping CSV row with missing payee: {row}")
             return None
             
         return Transaction(
@@ -141,7 +151,7 @@ class DataLoader:
             customer_id=cust_id,
             timestamp=timestamp_str,
             description=str(row.get("description", "Transaction")).strip() or "Transaction",
-            payee=str(row.get("payee", "Unknown Merchant")).strip() or "Unknown Merchant",
+            payee=payee,
             amount=amount,
             channel=str(row.get("channel", "Web")).strip() or "Web",
             category=str(row.get("category", "General")).strip() or "General"
@@ -186,7 +196,8 @@ class DataLoader:
                 known_payees=[],
                 common_channels=["Mobile"],
                 total_transactions=0,
-                total_volume=0.0
+                total_volume=0.0,
+                provenance="HISTORICAL_TRANSACTIONS_ONLY"
             )
 
         amounts = [t.amount for t in valid_txns]
@@ -242,7 +253,8 @@ class DataLoader:
             common_categories=categories[:10],
             baseline_frequency_per_month=freq_per_month,
             total_transactions=len(valid_txns),
-            total_volume=round(sum(amounts), 2)
+            total_volume=round(sum(amounts), 2),
+            provenance="HISTORICAL_TRANSACTIONS_ONLY"
         )
 
 

@@ -27,7 +27,8 @@
       "Web"
     ],
     "total_transactions": 85,
-    "total_volume": 6782.62
+    "total_volume": 6782.62,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-102",
@@ -54,7 +55,8 @@
       "POS"
     ],
     "total_transactions": 75,
-    "total_volume": 2662.46
+    "total_volume": 2662.46,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-103",
@@ -81,7 +83,8 @@
       "Wire"
     ],
     "total_transactions": 90,
-    "total_volume": 36976.68
+    "total_volume": 36976.68,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-104",
@@ -109,7 +112,8 @@
       "Web"
     ],
     "total_transactions": 68,
-    "total_volume": 21835.54
+    "total_volume": 21835.54,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-105",
@@ -136,7 +140,8 @@
       "Wire"
     ],
     "total_transactions": 78,
-    "total_volume": 64355.05
+    "total_volume": 64355.05,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-106",
@@ -162,7 +167,8 @@
       "Mobile"
     ],
     "total_transactions": 87,
-    "total_volume": 7857.97
+    "total_volume": 7857.97,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-107",
@@ -188,7 +194,8 @@
       "Mobile"
     ],
     "total_transactions": 95,
-    "total_volume": 13995.59
+    "total_volume": 13995.59,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-108",
@@ -214,7 +221,8 @@
       "Wire"
     ],
     "total_transactions": 80,
-    "total_volume": 106721.59
+    "total_volume": 106721.59,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-109",
@@ -241,7 +249,8 @@
       "POS"
     ],
     "total_transactions": 88,
-    "total_volume": 20726.02
+    "total_volume": 20726.02,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-110",
@@ -267,7 +276,8 @@
       "Mobile"
     ],
     "total_transactions": 91,
-    "total_volume": 7529.85
+    "total_volume": 7529.85,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-111",
@@ -294,7 +304,8 @@
       "POS"
     ],
     "total_transactions": 75,
-    "total_volume": 11313.39
+    "total_volume": 11313.39,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-112",
@@ -321,7 +332,8 @@
       "Web"
     ],
     "total_transactions": 81,
-    "total_volume": 19922.36
+    "total_volume": 19922.36,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-113",
@@ -346,7 +358,8 @@
       "POS"
     ],
     "total_transactions": 70,
-    "total_volume": 25767.34
+    "total_volume": 25767.34,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-114",
@@ -372,7 +385,8 @@
       "POS"
     ],
     "total_transactions": 84,
-    "total_volume": 2452.64
+    "total_volume": 2452.64,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-115",
@@ -398,7 +412,8 @@
       "Web"
     ],
     "total_transactions": 90,
-    "total_volume": 41440.48
+    "total_volume": 41440.48,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-116",
@@ -424,7 +439,8 @@
       "Mobile"
     ],
     "total_transactions": 89,
-    "total_volume": 6322.0
+    "total_volume": 6322.0,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-117",
@@ -450,7 +466,8 @@
       "Mobile"
     ],
     "total_transactions": 79,
-    "total_volume": 7760.01
+    "total_volume": 7760.01,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-118",
@@ -477,7 +494,32 @@
       "POS"
     ],
     "total_transactions": 78,
-    "total_volume": 25544.75
+    "total_volume": 25544.75,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
+  },
+  {
+    "customer_id": "CUST-198",
+    "name": "Zoe Kensington",
+    "account_type": "Recently Opened Checking",
+    "account_number": "ACC-00481923",
+    "baseline_avg_amount": 42.5,
+    "baseline_std_amount": 12.0,
+    "baseline_max_normal": 85.0,
+    "baseline_active_hours": [
+      9,
+      18
+    ],
+    "known_payees": [
+      "Corner Cafe",
+      "Campus Bookstore"
+    ],
+    "common_channels": [
+      "Mobile",
+      "POS"
+    ],
+    "total_transactions": 2,
+    "total_volume": 102.03,
+    "provenance": "HISTORICAL_TRANSACTIONS_ONLY"
   },
   {
     "customer_id": "CUST-199",
