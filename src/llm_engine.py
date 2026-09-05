@@ -246,12 +246,14 @@ class LLMInvestigationEngine:
                         system_instruction=SYSTEM_INSTRUCTION,
                         temperature=0.1,
                         max_output_tokens=1500,
+                        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
                     )
                 except Exception:
                     gen_config = {
                         "system_instruction": SYSTEM_INSTRUCTION,
                         "temperature": 0.1,
                         "max_output_tokens": 1500,
+                        "automatic_function_calling": {"disable": True},
                     }
 
                 response = self.client.models.generate_content(
