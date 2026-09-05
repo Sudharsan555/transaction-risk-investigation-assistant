@@ -6,7 +6,7 @@ An intelligent, bank-grade fraud desk investigation assistant built for **NexusT
 
 The system features a **strict two-stage architecture**:
 1. **Deterministic Risk Engine (Pure Python / Zero LLM Dependency)**: Evaluates full customer transaction histories against individual historical baselines across statistical outlier thresholds, rapid payee bursts, odd-hours activity, and channel deviations.
-2. **Grounded GenAI Investigation Layer (Gemini 3.5 Flash Lite / Resilient Deterministic Fallback)**: Translates structured findings and cited transaction rows into a human-readable investigation note with strict evidence citations (`[TXN-xxxx]`), actionable investigator steps, and mandatory compliance disclaimers.
+2. **Grounded GenAI Investigation Layer (Gemini 2.5 Flash / Gemini 3.5 Flash Lite / Resilient Deterministic Fallback)**: Translates structured findings and cited transaction rows into a human-readable investigation note with strict evidence citations (`[TXN-xxxx]`), actionable investigator steps, and mandatory compliance disclaimers.
 
 ---
 
@@ -42,7 +42,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. Configure Environment (Optional)
-The system runs immediately out-of-the-box using high-speed deterministic fallback if no API key is set. To enable live Google Gemini generation (default model: `gemini-3.5-flash-lite`), set your API key:
+The system runs immediately out-of-the-box using high-speed deterministic fallback if no API key is set. To enable live Google Gemini generation (default model: `gemini-2.5-flash`), set your API key:
 
 The application uses **Google Gemini ONLY** via official `google-genai` SDK. It reads the API key strictly from `GEMINI_API_KEY`. No OpenAI, Claude, Groq, hosted vector databases, or external RAG services are used. If Gemini is unavailable, times out, or returns invalid facts, the application gracefully and safely falls back to the deterministic report.
 
@@ -126,7 +126,7 @@ Deterministic Risk Engine (Layer 1)
 Verified Findings + Cited Transactions
         ↓
 Gemini Investigation Layer (Stage 2)
-[Google Gemini 3.5 Flash Lite • Grounded Prompting • Traceable [TXN-xxxx] Citations]
+[Google Gemini 2.5 Flash / 3.5 Flash Lite • Grounded Prompting • Traceable [TXN-xxxx] Citations]
         ↓
 Post-Generation Citation & Fact Validation Firewall
 [Hallucination Stripping • Factual Amount/Date/Channel Cross-Verification • Safe Fallback Guard]

@@ -1,5 +1,5 @@
 """
-LLM Grounding & Investigation Report Generator (Gemini 2.0 Flash).
+LLM Grounding & Investigation Report Generator (Google Gemini).
 Strictly grounds output in deterministic rule engine findings and cited transactions.
 Enforces strict citation constraints, prevents definitive fraud assertions,
 and provides an instant, zero-latency deterministic fallback when the API is unavailable.

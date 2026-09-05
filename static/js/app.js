@@ -18,6 +18,7 @@ let state = {
 // DOM Elements
 const el = {
   modelStatusText: document.getElementById('modelStatusText'),
+  reportModelBadge: document.getElementById('reportModelBadge'),
   customerSearchInput: document.getElementById('customerSearchInput'),
   customerListContainer: document.getElementById('customerListContainer'),
   tabFilterAll: document.getElementById('tabFilterAll'),
@@ -134,7 +135,7 @@ async function checkHealth() {
     const res = await fetch('/api/health');
     const data = await res.json();
     if (data.gemini_api_configured) {
-      el.modelStatusText.textContent = `🟢 Gemini 2.0 Flash Grounded`;
+      el.modelStatusText.textContent = `⚡ Standby (${data.active_model})`;
     } else {
       el.modelStatusText.textContent = `⚡ Deterministic Fallback Active`;
     }
@@ -351,6 +352,28 @@ function renderInvestigationReport(result) {
 
   el.reportContent.innerHTML = html;
   el.reportRawJson.textContent = JSON.stringify(result, null, 2);
+
+  // Update model status accurately based on actual result
+  const isFallback = result.fallback_used !== false;
+  const modelName = result.llm_model_used || (isFallback ? 'Deterministic Fallback' : 'Google Gemini Grounded');
+  
+  if (isFallback) {
+    el.modelStatusText.textContent = `⚡ Deterministic Fallback Active`;
+    if (el.reportModelBadge) {
+      el.reportModelBadge.textContent = `⚡ ${modelName}`;
+      el.reportModelBadge.style.background = 'rgba(234, 179, 8, 0.15)';
+      el.reportModelBadge.style.color = '#eab308';
+      el.reportModelBadge.style.borderColor = 'rgba(234, 179, 8, 0.3)';
+    }
+  } else {
+    el.modelStatusText.textContent = `🟢 ${modelName}`;
+    if (el.reportModelBadge) {
+      el.reportModelBadge.textContent = `🟢 ${modelName}`;
+      el.reportModelBadge.style.background = 'rgba(34, 197, 94, 0.15)';
+      el.reportModelBadge.style.color = '#22c55e';
+      el.reportModelBadge.style.borderColor = 'rgba(34, 197, 94, 0.3)';
+    }
+  }
 }
 
 // Highlight and Scroll to Transaction from Citation Click
