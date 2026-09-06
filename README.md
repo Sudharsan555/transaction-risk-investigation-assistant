@@ -10,14 +10,6 @@ The system features a **strict two-stage architecture**:
 
 ---
 
-## 🎥 Demo Video
-
-Watch the project demonstration here:
-
-[Watch the Demo Video](https://drive.google.com/drive/folders/1T0-kOohGEsbu_1vTxtSwIhKb8i7PBlEm?usp=sharing)
-
----
-
 ## ⚡ HR-Friendly / One-Command Quick Run
 
 For evaluators, recruiters, and judges who want to clone and launch the entire application with a single copy-paste command:
