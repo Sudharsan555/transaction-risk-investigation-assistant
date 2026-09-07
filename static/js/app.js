@@ -121,6 +121,42 @@ function setupEventListeners() {
   el.btnCancelSandbox.addEventListener('click', closeSandboxModal);
   el.btnRunSandboxAnalysis.addEventListener('click', runSandboxAnalysis);
   
+  // Sandbox File Upload & Drag-and-Drop
+  const fileInput = document.getElementById('sandboxFileInput');
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        el.sandboxPayloadText.value = event.target.result;
+        showToast(`📁 Loaded "${file.name}" into sandbox.`);
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  el.sandboxPayloadText.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    el.sandboxPayloadText.style.borderColor = 'var(--accent-blue)';
+  });
+  el.sandboxPayloadText.addEventListener('dragleave', () => {
+    el.sandboxPayloadText.style.borderColor = '';
+  });
+  el.sandboxPayloadText.addEventListener('drop', (e) => {
+    e.preventDefault();
+    el.sandboxPayloadText.style.borderColor = '';
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        el.sandboxPayloadText.value = event.target.result;
+        showToast(`📁 Loaded "${file.name}" via drag-and-drop.`);
+      };
+      reader.readAsText(file);
+    }
+  });
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && el.sandboxModal.classList.contains('open')) {
       closeSandboxModal();

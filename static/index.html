@@ -279,8 +279,14 @@
         </div>
 
         <div>
-          <strong style="font-size: 0.8rem; color: var(--text-main); display: block; margin-bottom: 6px;">Custom Transactions Payload (JSON):</strong>
-          <textarea id="sandboxPayloadText" class="code-textarea" spellcheck="false"></textarea>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <strong style="font-size: 0.8rem; color: var(--text-main);">Custom Transactions Payload (JSON):</strong>
+            <label class="btn-secondary" style="font-size: 0.75rem; padding: 4px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+              📁 Upload JSON File
+              <input type="file" id="sandboxFileInput" accept=".json" style="display: none;">
+            </label>
+          </div>
+          <textarea id="sandboxPayloadText" class="code-textarea" spellcheck="false" placeholder="Paste JSON or drag-and-drop a .json file here..."></textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -293,6 +299,6 @@
   <!-- Toast Notification -->
   <div class="toast-msg" id="toastMsg">Notification</div>
 
-  <script src="/static/js/app.js?v=3.0"></script>
+  <script src="/static/js/app.js?v=3.1"></script>
 </body>
 </html>

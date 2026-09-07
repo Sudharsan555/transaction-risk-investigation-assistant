@@ -28,6 +28,60 @@ Application serves immediately at 👉 **`http://localhost:8000`**
 
 ---
 
+## 🎯 Evaluator & Judge Testing Guide: How to Supply JSON Test Cases
+
+Evaluators and automated grading testbeds can test arbitrary JSON test cases through any of **4 frictionless methods**:
+
+### Method 1: Headless CLI Evaluation (No Server or Browser Needed)
+To evaluate any JSON test case file directly from terminal:
+```bash
+python evaluate.py path/to/testcase.json
+```
+For pure machine-readable JSON output (ideal for automated grading scripts):
+```bash
+python evaluate.py --json path/to/testcase.json
+```
+Or via stdin piping:
+```bash
+cat testcase.json | python evaluate.py
+```
+
+### Method 2: Web Dashboard Sandbox (Interactive UI + File Upload)
+1. Open **`http://localhost:8000`** in your browser.
+2. Click **🧪 Sandbox / Custom Test** in the top navigation bar.
+3. Choose your preferred input method:
+   - **Click 1-Click Presets**: Test large outliers, odd hours, payee bursts, sparse accounts, etc.
+   - **Click "📁 Upload JSON File"**: Select any `.json` test file directly from your computer.
+   - **Drag & Drop**: Drag a `.json` file directly onto the payload text area.
+   - **Paste Raw JSON**: Paste any test case JSON directly into the editor.
+4. Click **Run Sandbox Investigation** — the dossier, metrics, citations, and grounded report render instantly.
+
+### Method 3: Interactive Swagger API Docs (`/docs`)
+1. Open **`http://localhost:8000/docs`**
+2. Expand **`POST /api/analyze/custom`**
+3. Click **Try it out**, paste your JSON test payload, and click **Execute**.
+
+### Method 4: Automated cURL / API Integration
+```bash
+curl -X POST "http://localhost:8000/api/analyze/custom" \
+     -H "Content-Type: application/json" \
+     -d @path/to/testcase.json
+```
+
+---
+
+### 🛡️ Zero-Friction Input Compatibility Guarantee
+The evaluation engine is engineered to accept **any standard bank or benchmark JSON format without throwing syntax or mapping errors**:
+- ✅ **Anti-Contamination Split Schema**: `{ "historical_transactions": [...], "observed_transactions": [...] }`
+- ✅ **Legacy Flat Schema**: `{ "transactions": [...] }` (Auto-partitions baseline vs evaluated transactions)
+- ✅ **Raw JSON Array**: `[ { "transaction_id": "...", "amount": ... }, ... ]`
+- ✅ **Interchangeable Field Names**: Automatically maps `merchant`, `counterparty`, `recipient`, or `description` to `payee`.
+- ✅ **Standard ISO-8601 Timestamps**: Full support for timestamps with or without `Z` suffix (`2026-08-01T10:00:00Z` or `2026-08-01T10:00:00`).
+- ✅ **Sanitized Amounts**: Accepts numeric floats (`45.00`) or formatted strings (`"$45.00"`).
+- ✅ **Zero Phantom Scores**: Accounts with $< 5$ transactions strictly return `INSUFFICIENT_EVIDENCE` (Score = `0/100`).
+
+---
+
 ## 🚀 Quick Setup & Run
 
 ### 1. Clone the Repository
@@ -274,7 +328,7 @@ curl -X POST http://localhost:8000/api/analyze/custom \
 
 ## 🧪 Running Automated Tests
 
-Run the full automated test suite (**49 unit & integration tests** covering deterministic rules, anti-contamination baselines, Gemini fact-checking firewalls, and HTTP 422 input validation):
+Run the full automated test suite (**51 unit & integration tests** covering deterministic rules, anti-contamination baselines, Gemini fact-checking firewalls, and HTTP 422 input validation):
 ```bash
 python -m unittest discover tests -v
 ```
