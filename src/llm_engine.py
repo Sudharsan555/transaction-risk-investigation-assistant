@@ -1,5 +1,5 @@
 """
-LLM Grounding & Investigation Report Generator (Gemini 2.0 Flash).
+LLM Grounding & Investigation Report Generator (Google Gemini).
 Strictly grounds output in deterministic rule engine findings and cited transactions.
 Enforces strict citation constraints, prevents definitive fraud assertions,
 and provides an instant, zero-latency deterministic fallback when the API is unavailable.
@@ -246,12 +246,14 @@ class LLMInvestigationEngine:
                         system_instruction=SYSTEM_INSTRUCTION,
                         temperature=0.1,
                         max_output_tokens=1500,
+                        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
                     )
                 except Exception:
                     gen_config = {
                         "system_instruction": SYSTEM_INSTRUCTION,
                         "temperature": 0.1,
                         "max_output_tokens": 1500,
+                        "automatic_function_calling": {"disable": True},
                     }
 
                 response = self.client.models.generate_content(

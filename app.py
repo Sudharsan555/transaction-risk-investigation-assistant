@@ -99,7 +99,7 @@ async def analyze_customer(customer_id: str):
     # 1. Deterministic Rule Evaluation (Strictly no LLM)
     result = rule_engine.evaluate_customer(customer_id, transactions=txns, profile=customer)
 
-    # 2. Grounded LLM Layer (Gemini 2.0 Flash / Resilient Fallback)
+    # 2. Grounded LLM Layer (Google Gemini / Resilient Fallback)
     report_md, model_name, fallback_used = llm_engine.generate_investigation_report(result)
     result.llm_report = report_md
     result.llm_model_used = model_name

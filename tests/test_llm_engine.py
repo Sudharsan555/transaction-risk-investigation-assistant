@@ -169,6 +169,92 @@ class TestLLMInvestigationEngine(unittest.TestCase):
         self.assertNotIn("FRAUD_DETECTED_CONFIRMED", cleaned)
         self.assertIn("DISCLAIMER:", cleaned)
 
+    def test_gemini_afc_disabled_config(self):
+        """Verifies that AFC is explicitly disabled in GenerateContentConfig to prevent SDK AFC warning."""
+        from google.genai import types, _extra_utils
+        cfg = types.GenerateContentConfig(
+            system_instruction="Test",
+            temperature=0.1,
+            max_output_tokens=1500,
+            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+        )
+        self.assertIsNotNone(cfg.automatic_function_calling)
+        self.assertTrue(cfg.automatic_function_calling.disable)
+        self.assertTrue(_extra_utils.should_disable_afc(cfg))
+
+    def test_gemini_successful_report_generation_with_afc_disabled(self):
+        """Tests successful report generation with Gemini mock client and AFC disabled."""
+        from unittest.mock import MagicMock
+        from google.genai import types
+
+        engine = LLMInvestigationEngine()
+        mock_client = MagicMock()
+        mock_response = MagicMock()
+        mock_response.text = (
+            "### 📋 Executive Summary\n"
+            "Customer Elena Rostova exhibited anomalous activity in [TXN-1318].\n\n"
+            "### 🔍 Detailed Risk Findings & Evidence Breakdown\n"
+            "High severity anomalies identified.\n\n"
+            "### 🛠️ Investigator Action Checklist\n"
+            "1. Contact account holder.\n\n"
+            f"DISCLAIMER: {DISCLAIMER_TEXT}"
+        )
+        mock_client.models.generate_content.return_value = mock_response
+        engine.client = mock_client
+
+        res = self.rule_engine.evaluate_customer("CUST-104")
+        report, model_name, fallback_used = engine.generate_investigation_report(res)
+
+        # Check call config
+        self.assertTrue(mock_client.models.generate_content.called)
+        called_kwargs = mock_client.models.generate_content.call_args.kwargs
+        called_config = called_kwargs.get("config")
+        if isinstance(called_config, types.GenerateContentConfig):
+            self.assertTrue(called_config.automatic_function_calling.disable)
+        elif isinstance(called_config, dict):
+            self.assertTrue(called_config.get("automatic_function_calling", {}).get("disable"))
+
+        # Verify output
+        self.assertFalse(fallback_used)
+        self.assertIn("Google Gemini", model_name)
+        self.assertTrue(report.startswith("VERDICT: ATTENTION_REQUIRED"))
+        self.assertIn("[TXN-1318]", report)
+
+    def test_gemini_fallback_on_api_exception(self):
+        """Tests that when Gemini API call raises an exception, the deterministic fallback is used."""
+        from unittest.mock import MagicMock
+
+        engine = LLMInvestigationEngine()
+        mock_client = MagicMock()
+        mock_client.models.generate_content.side_effect = Exception("API connection timed out")
+        engine.client = mock_client
+
+        res = self.rule_engine.evaluate_customer("CUST-104")
+        report, model_name, fallback_used = engine.generate_investigation_report(res)
+
+        self.assertTrue(fallback_used)
+        self.assertIn("Deterministic Fallback", model_name)
+        self.assertTrue(report.startswith("VERDICT: ATTENTION_REQUIRED"))
+        self.assertIn("DISCLAIMER:", report)
+
+    def test_gemini_fallback_on_empty_response(self):
+        """Tests that when Gemini API call returns empty response, fallback is used."""
+        from unittest.mock import MagicMock
+
+        engine = LLMInvestigationEngine()
+        mock_client = MagicMock()
+        mock_response = MagicMock()
+        mock_response.text = ""
+        mock_client.models.generate_content.return_value = mock_response
+        engine.client = mock_client
+
+        res = self.rule_engine.evaluate_customer("CUST-104")
+        report, model_name, fallback_used = engine.generate_investigation_report(res)
+
+        self.assertTrue(fallback_used)
+        self.assertIn("Deterministic Fallback", model_name)
+        self.assertTrue(report.startswith("VERDICT: ATTENTION_REQUIRED"))
+
 
 if __name__ == "__main__":
     unittest.main()
