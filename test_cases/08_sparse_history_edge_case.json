@@ -1,0 +1,45 @@
+{
+  "scenario_description": "Recently opened account with only 2 transactions (< 5 minimum reliable history). Returns INSUFFICIENT_EVIDENCE.",
+  "expected_verdict": "INSUFFICIENT_EVIDENCE",
+  "customer_profile": {
+    "customer_id": "CUST-198",
+    "name": "Zoe Kensington",
+    "account_type": "Recently Opened Checking",
+    "account_number": "ACC-00481923",
+    "known_payees": [
+      "Corner Cafe",
+      "Campus Bookstore"
+    ],
+    "common_channels": [
+      "Mobile",
+      "POS"
+    ]
+  },
+  "historical_transactions": [
+    {
+      "transaction_id": "TXN-2485",
+      "customer_id": "CUST-198",
+      "timestamp": "2026-05-07T10:01:53",
+      "description": "Payment to Corner Cafe",
+      "payee": "Corner Cafe",
+      "amount": 37.34,
+      "channel": "POS",
+      "category": "General",
+      "is_flagged": false,
+      "flag_reasons": []
+    },
+    {
+      "transaction_id": "TXN-2484",
+      "customer_id": "CUST-198",
+      "timestamp": "2026-07-20T12:11:12",
+      "description": "Payment to Corner Cafe",
+      "payee": "Corner Cafe",
+      "amount": 64.69,
+      "channel": "Mobile",
+      "category": "General",
+      "is_flagged": false,
+      "flag_reasons": []
+    }
+  ],
+  "observed_transactions": []
+}

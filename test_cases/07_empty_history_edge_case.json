@@ -1,0 +1,16 @@
+{
+  "scenario_description": "New account with zero transactions. Explicitly returns INSUFFICIENT_EVIDENCE.",
+  "expected_verdict": "INSUFFICIENT_EVIDENCE",
+  "customer_profile": {
+    "customer_id": "CUST-199",
+    "name": "Lucas Vance",
+    "account_type": "New Checking Account",
+    "account_number": "ACC-00192834",
+    "known_payees": [],
+    "common_channels": [
+      "Mobile"
+    ]
+  },
+  "historical_transactions": [],
+  "observed_transactions": []
+}

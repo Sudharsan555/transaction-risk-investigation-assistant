@@ -248,6 +248,74 @@ All data resides in `data/`:
 
 ---
 
+## 🏆 Judge & Evaluator Testing Guide (Zero-Friction Evaluation)
+
+We have engineered four distinct evaluation methods catering to both non-technical business judges and automated technical testbeds:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│               EVALUATOR & JUDGE TESTING WORKFLOWS                      │
+├──────────────────────────┬─────────────────────────────────────────────┤
+│ 1. Zero-JSON 1-Click UI  │ Click "⚡ Run Test Instantly" on any card    │
+│ 2. Drag-and-Drop Upload  │ Drop any .json test file into Web Sandbox   │
+│ 3. Standalone CLI Tool   │ python evaluate.py test_cases/ (No server!) │
+│ 4. Swagger / OpenAPI     │ http://localhost:8000/docs                  │
+└──────────────────────────┴─────────────────────────────────────────────┘
+```
+
+### Method 1: Zero-JSON 1-Click Benchmark Suite (Recommended for Judges)
+*Ideal for evaluators who do not want to write or format raw JSON.*
+1. Open `http://localhost:8000` in your web browser.
+2. Click **"🧪 Sandbox Analyzer"** in the top navigation bar.
+3. On the **⚡ 1-Click Scenarios (Zero JSON Needed)** tab, browse the 8 pre-configured scenario cards:
+   - **Case 1: Large Wire Outlier** (`CUST-104`): $14,500 international wire vs $109 baseline.
+   - **Case 2: New Payee Burst** (`CUST-109`): Rapid crypto settlement burst within 48h.
+   - **Case 3: Odd-Hours Activity** (`CUST-112`): 03:15 AM & 04:20 AM diurnal window violations.
+   - **Case 4: Pattern Break** (`CUST-115`): Sudden uncharacteristic high-value wire transfers.
+   - **Case 5: Multi-Vector Anomaly** (`CUST-118`): Concurrent outlier + new payee + odd hours.
+   - **Case 6: Clean Baseline Customer** (`CUST-101`): Routine checking adhering strictly to baseline.
+   - **Case 7: Empty History Edge Case** (`CUST-199`): 0 transactions returning `INSUFFICIENT_EVIDENCE`.
+   - **Case 8: Sparse History Edge Case** (`CUST-198`): 2 transactions (< 5 minimum reliable baseline).
+4. Click **"⚡ Run Test Instantly"** on any card.
+   - The modal automatically loads the account, runs deterministic rules, grounds the Gemini investigation report, and displays interactive citations `[TXN-xxxx]` in the ledger.
+
+---
+
+### Method 2: Drag-and-Drop File Upload (Web UI)
+*Ideal for evaluators who have `.json` test files from their own test suites.*
+1. In the Sandbox modal, switch to the **"📁 Custom JSON / File Upload"** tab.
+2. Drag and drop any `.json` file into the dropzone (or click *"browse from your computer"*).
+3. The file is instantly parsed, validated, and formatted into the editor.
+4. Click **"Run Sandbox Investigation"** to execute the pipeline.
+
+---
+
+### Method 3: Standalone Headless CLI (`evaluate.py`)
+*Ideal for automated CI/CD runners, terminal testing, or headless grading environments without starting a web server or binding port 8000.*
+
+```bash
+# Evaluate the entire benchmark test suite in 2 seconds:
+python evaluate.py test_cases
+
+# Evaluate a specific test case file:
+python evaluate.py test_cases/01_large_outlier_wire.json
+
+# Automated grading scripts (raw JSON output only):
+python evaluate.py test_cases/01_large_outlier_wire.json --json
+
+# Pipe JSON directly via stdin:
+cat test_cases/01_large_outlier_wire.json | python evaluate.py --json
+```
+
+---
+
+### Method 4: Interactive Swagger / OpenAPI Docs
+*Ideal for API-first verification.*
+- Visit: `http://localhost:8000/docs`
+- Expand `POST /api/analyze/custom`, click **"Try it out"**, select any sample payload, and click **"Execute"**.
+
+---
+
 ## 🧪 Test Scenarios & Verification Fixtures
 
 You can verify any scenario using the REST API or Web UI at `http://localhost:8000`.

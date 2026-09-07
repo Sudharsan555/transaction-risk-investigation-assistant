@@ -80,12 +80,20 @@ def evaluate_single_payload(payload_dict: dict, data_loader: DataLoader, rule_en
         cust_profile = derived_profile
         result = rule_engine.evaluate_customer(
             cust_id,
-            transactions=eval_txns,
+            transactions=eval_txns if eval_txns else hist_txns,
             profile=cust_profile,
             historical_transactions=hist_txns
         )
     else:
-        if not eval_txns:
+        if not eval_txns and not hist_txns:
+            # If a known customer ID was provided without explicit transactions, evaluate from data loader
+            known_cust = data_loader.get_customer(cust_id) if cust_id else None
+            if known_cust:
+                result = rule_engine.evaluate_customer(cust_id)
+            else:
+                empty_profile = cust_profile or data_loader.derive_baseline([], cust_id, cust_name)
+                result = rule_engine.evaluate_customer(cust_id, transactions=[], profile=empty_profile)
+        elif not eval_txns:
             empty_profile = cust_profile or data_loader.derive_baseline([], cust_id, cust_name)
             result = rule_engine.evaluate_customer(cust_id, transactions=[], profile=empty_profile)
         elif cust_profile is not None:
@@ -161,17 +169,35 @@ def main():
     )
     parser.add_argument("file", nargs="?", help="Path to JSON test case file.")
     parser.add_argument("--input", "-i", dest="input_file", help="Path to JSON test case file.")
+    parser.add_argument("--file", "-f", dest="file_flag", help="Path to JSON test case file.")
     parser.add_argument("--json", action="store_true", help="Output raw JSON response only (ideal for automated grading scripts).")
 
     args = parser.parse_args()
-    target_path = args.input_file or args.file
+    target_path = args.file_flag or args.input_file or args.file
 
     raw_text = None
     if target_path:
         p = Path(target_path)
         if not p.exists():
-            print(f"❌ Error: File not found: {target_path}", file=sys.stderr)
+            print(f"❌ Error: File or directory not found: {target_path}", file=sys.stderr)
             sys.exit(1)
+        if p.is_dir():
+            json_files = sorted(p.glob("*.json"))
+            if not json_files:
+                print(f"❌ Error: No .json files found in directory: {target_path}", file=sys.stderr)
+                sys.exit(1)
+            all_items = []
+            for jf in json_files:
+                try:
+                    c = json.loads(jf.read_text(encoding="utf-8").strip())
+                    if isinstance(c, dict) and "test_cases" in c:
+                        all_items.extend(c["test_cases"])
+                    else:
+                        all_items.append(c)
+                except Exception as e:
+                    print(f"⚠️ Warning: Could not parse {jf.name}: {e}", file=sys.stderr)
+            run_evaluation(all_items, json_output_only=args.json)
+            sys.exit(0)
         raw_text = p.read_text(encoding="utf-8").strip()
     elif not sys.stdin.isatty():
         raw_text = sys.stdin.read().strip()

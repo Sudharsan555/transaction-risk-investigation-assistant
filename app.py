@@ -214,16 +214,20 @@ async def analyze_custom_payload(request: CustomAnalysisRequest):
         cust_profile = derived_profile
         result = rule_engine.evaluate_customer(
             cust_id,
-            transactions=eval_txns,
+            transactions=eval_txns if eval_txns else hist_txns,
             profile=cust_profile,
             historical_transactions=hist_txns
         )
     else:
         # No explicit historical_transactions provided
         if not eval_txns:
-            # Entirely empty payload
-            empty_profile = cust_profile or data_loader.derive_baseline([], cust_id, cust_name)
-            result = rule_engine.evaluate_customer(cust_id, transactions=[], profile=empty_profile)
+            # Check if this was a known customer ID passed without explicit transactions
+            known_cust = data_loader.get_customer(cust_id) if cust_id else None
+            if known_cust:
+                result = rule_engine.evaluate_customer(cust_id)
+            else:
+                empty_profile = cust_profile or data_loader.derive_baseline([], cust_id, cust_name)
+                result = rule_engine.evaluate_customer(cust_id, transactions=[], profile=empty_profile)
         elif cust_profile is not None:
             # User provided a manual customer profile without historical transactions
             # Rule engine strictly enforces MIN_TRANSACTIONS_FOR_BASELINE:

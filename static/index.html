@@ -263,34 +263,61 @@
   <div class="modal-overlay" id="sandboxModal">
     <div class="modal-container">
       <div class="modal-header">
-        <h3 class="modal-title">🧪 Sandbox Risk Analyzer & Benchmark Test Suites</h3>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h3 class="modal-title">🧪 Evaluator Testing Sandbox & Benchmark Suite</h3>
+          <span class="track-badge">PS06</span>
+        </div>
         <button class="btn-icon" id="btnCloseSandbox">✕</button>
       </div>
-      <div class="modal-body">
-        <p style="font-size: 0.82rem; color: var(--text-muted);">
-          Select a pre-built benchmark test suite (covering large transfer outliers, payee bursts, odd-hours, pattern breaks, clean baselines, and edge cases), or paste your own custom transaction array to evaluate.
-        </p>
 
-        <div>
-          <strong style="font-size: 0.8rem; color: var(--text-main); display: block; margin-bottom: 8px;">Preset Test Cases:</strong>
-          <div class="fixtures-presets" id="presetsContainer">
-            <!-- Rendered from /api/test-fixtures -->
+      <!-- Navigation Tabs inside Modal -->
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tabBenchmarks">⚡ 1-Click Scenarios (Zero JSON Needed)</button>
+        <button class="modal-tab" id="tabCustomJson">📁 Custom JSON / File Upload</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Tab 1: 1-Click Scenario Cards (Zero JSON Needed) -->
+        <div id="viewBenchmarks" class="sandbox-view">
+          <div class="benchmark-intro-banner">
+            <strong>🚀 Instant Evaluator Benchmarking (No JSON Required)</strong>
+            <span>Evaluators and judges don't need to write or format JSON. Simply click <strong>"⚡ Run Test Instantly"</strong> on any test case below to execute deterministic risk screening, generate grounded Gemini analysis, and inspect transaction citations.</span>
+          </div>
+          <div class="benchmark-grid" id="benchmarkGrid">
+            <!-- Populated dynamically from /api/test-fixtures -->
           </div>
         </div>
 
-        <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <strong style="font-size: 0.8rem; color: var(--text-main);">Custom Transactions Payload (JSON):</strong>
-            <label class="btn-secondary" style="font-size: 0.75rem; padding: 4px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-              📁 Upload JSON File
-              <input type="file" id="sandboxFileInput" accept=".json" style="display: none;">
-            </label>
+        <!-- Tab 2: Custom JSON & File Upload -->
+        <div id="viewCustomJson" class="sandbox-view" style="display: none;">
+          <div class="upload-dropzone" id="uploadDropZone">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-indigo)" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <div style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">
+              Drag & Drop your <code style="color: var(--accent-blue);">.json</code> test file here
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">
+              or <label for="sandboxFileInput" style="color: var(--accent-indigo); cursor: pointer; text-decoration: underline; font-weight: 600;">browse from your computer</label>
+            </div>
+            <input type="file" id="sandboxFileInput" accept=".json" style="display: none;">
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+            <strong style="font-size: 0.8rem; color: var(--text-main);">Custom Transaction Payload (JSON):</strong>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn-fixture" id="btnFormatJson" title="Auto-format JSON and fix common syntax issues">✨ Format JSON</button>
+              <button class="btn-fixture" id="btnLoadDefaultTemplate" title="Reset to Alex Mercer sample payload">📋 Sample Template</button>
+            </div>
           </div>
           <textarea id="sandboxPayloadText" class="code-textarea" spellcheck="false" placeholder="Paste JSON or drag-and-drop a .json file here..."></textarea>
         </div>
       </div>
+
       <div class="modal-footer">
-        <button class="btn-secondary" id="btnCancelSandbox">Cancel</button>
+        <button class="btn-secondary" id="btnCancelSandbox">Close</button>
         <button class="btn-primary" id="btnRunSandboxAnalysis">Run Sandbox Investigation</button>
       </div>
     </div>
@@ -299,6 +326,6 @@
   <!-- Toast Notification -->
   <div class="toast-msg" id="toastMsg">Notification</div>
 
-  <script src="/static/js/app.js?v=3.1"></script>
+  <script src="/static/js/app.js?v=3.2"></script>
 </body>
 </html>

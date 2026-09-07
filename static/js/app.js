@@ -68,8 +68,16 @@ const el = {
   btnCloseSandbox: document.getElementById('btnCloseSandbox'),
   btnCancelSandbox: document.getElementById('btnCancelSandbox'),
   btnRunSandboxAnalysis: document.getElementById('btnRunSandboxAnalysis'),
-  presetsContainer: document.getElementById('presetsContainer'),
   sandboxPayloadText: document.getElementById('sandboxPayloadText'),
+  tabBenchmarks: document.getElementById('tabBenchmarks'),
+  tabCustomJson: document.getElementById('tabCustomJson'),
+  viewBenchmarks: document.getElementById('viewBenchmarks'),
+  viewCustomJson: document.getElementById('viewCustomJson'),
+  benchmarkGrid: document.getElementById('benchmarkGrid'),
+  uploadDropZone: document.getElementById('uploadDropZone'),
+  sandboxFileInput: document.getElementById('sandboxFileInput'),
+  btnFormatJson: document.getElementById('btnFormatJson'),
+  btnLoadDefaultTemplate: document.getElementById('btnLoadDefaultTemplate'),
   
   toastMsg: document.getElementById('toastMsg')
 };
@@ -120,42 +128,56 @@ function setupEventListeners() {
   el.btnCloseSandbox.addEventListener('click', closeSandboxModal);
   el.btnCancelSandbox.addEventListener('click', closeSandboxModal);
   el.btnRunSandboxAnalysis.addEventListener('click', runSandboxAnalysis);
-  
-  // Sandbox File Upload & Drag-and-Drop
-  const fileInput = document.getElementById('sandboxFileInput');
-  if (fileInput) {
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        el.sandboxPayloadText.value = event.target.result;
-        showToast(`📁 Loaded "${file.name}" into sandbox.`);
-      };
-      reader.readAsText(file);
-    });
+
+  // Tabs inside modal
+  if (el.tabBenchmarks && el.tabCustomJson) {
+    el.tabBenchmarks.addEventListener('click', () => switchSandboxTab('BENCHMARKS'));
+    el.tabCustomJson.addEventListener('click', () => switchSandboxTab('CUSTOM'));
   }
 
-  el.sandboxPayloadText.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    el.sandboxPayloadText.style.borderColor = 'var(--accent-blue)';
-  });
-  el.sandboxPayloadText.addEventListener('dragleave', () => {
-    el.sandboxPayloadText.style.borderColor = '';
-  });
-  el.sandboxPayloadText.addEventListener('drop', (e) => {
-    e.preventDefault();
-    el.sandboxPayloadText.style.borderColor = '';
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        el.sandboxPayloadText.value = event.target.result;
-        showToast(`📁 Loaded "${file.name}" via drag-and-drop.`);
-      };
-      reader.readAsText(file);
-    }
-  });
+  // Format JSON
+  if (el.btnFormatJson) {
+    el.btnFormatJson.addEventListener('click', formatSandboxJson);
+  }
+
+  // Load sample template
+  if (el.btnLoadDefaultTemplate) {
+    el.btnLoadDefaultTemplate.addEventListener('click', loadDefaultSampleTemplate);
+  }
+
+  // Sandbox File Upload & Drag-and-Drop
+  if (el.sandboxFileInput) {
+    el.sandboxFileInput.addEventListener('change', handleFileUpload);
+  }
+
+  if (el.uploadDropZone) {
+    el.uploadDropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      el.uploadDropZone.classList.add('drag-over');
+    });
+    el.uploadDropZone.addEventListener('dragleave', () => {
+      el.uploadDropZone.classList.remove('drag-over');
+    });
+    el.uploadDropZone.addEventListener('drop', handleFileDrop);
+  }
+
+  // Also support drag-and-drop directly onto textarea
+  if (el.sandboxPayloadText) {
+    el.sandboxPayloadText.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      el.sandboxPayloadText.style.borderColor = 'var(--accent-blue)';
+    });
+    el.sandboxPayloadText.addEventListener('dragleave', () => {
+      el.sandboxPayloadText.style.borderColor = '';
+    });
+    el.sandboxPayloadText.addEventListener('drop', (e) => {
+      e.preventDefault();
+      el.sandboxPayloadText.style.borderColor = '';
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        readFileIntoSandbox(e.dataTransfer.files[0]);
+      }
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && el.sandboxModal.classList.contains('open')) {
@@ -504,123 +526,255 @@ async function fetchTestFixtures() {
     const res = await fetch('/api/test-fixtures');
     const data = await res.json();
     state.testFixtures = data.test_cases || [];
-    renderSandboxPresets();
+    renderBenchmarkGrid();
   } catch (err) {
     console.error('Error fetching test fixtures:', err);
   }
 }
 
-// Render Sandbox Preset Buttons
-function renderSandboxPresets() {
-  el.presetsContainer.innerHTML = '';
-  state.testFixtures.forEach(fix => {
-    const btn = document.createElement('button');
-    btn.className = 'btn-fixture';
-    btn.textContent = fix.customer_name + ` (${fix.expected_verdict})`;
-    btn.title = fix.description;
-    btn.addEventListener('click', () => loadPresetIntoSandbox(fix));
-    el.presetsContainer.appendChild(btn);
+// Switch between Benchmark Suite (Tab 1) and Custom JSON (Tab 2)
+function switchSandboxTab(tab) {
+  if (tab === 'BENCHMARKS') {
+    if (el.tabBenchmarks) el.tabBenchmarks.classList.add('active');
+    if (el.tabCustomJson) el.tabCustomJson.classList.remove('active');
+    if (el.viewBenchmarks) el.viewBenchmarks.style.display = 'flex';
+    if (el.viewCustomJson) el.viewCustomJson.style.display = 'none';
+    if (el.btnRunSandboxAnalysis) el.btnRunSandboxAnalysis.style.display = 'none';
+  } else {
+    if (el.tabCustomJson) el.tabCustomJson.classList.add('active');
+    if (el.tabBenchmarks) el.tabBenchmarks.classList.remove('active');
+    if (el.viewBenchmarks) el.viewBenchmarks.style.display = 'none';
+    if (el.viewCustomJson) el.viewCustomJson.style.display = 'flex';
+    if (el.btnRunSandboxAnalysis) el.btnRunSandboxAnalysis.style.display = 'inline-block';
+  }
+}
+
+// Render 1-Click Benchmark Scenario Cards
+function renderBenchmarkGrid() {
+  if (!el.benchmarkGrid) return;
+  el.benchmarkGrid.innerHTML = '';
+
+  const verdictStyles = {
+    'ATTENTION_REQUIRED': { color: '#ef4444', label: '⚠️ ATTENTION REQUIRED' },
+    'NOTHING_FLAGGED': { color: '#10b981', label: '✅ CLEAN BASELINE' },
+    'INSUFFICIENT_EVIDENCE': { color: '#facc15', label: '⏳ INSUFFICIENT EVIDENCE' }
+  };
+
+  state.testFixtures.forEach((fix) => {
+    const card = document.createElement('div');
+    card.className = 'benchmark-card';
+
+    const vStyle = verdictStyles[fix.expected_verdict] || { color: '#38bdf8', label: fix.expected_verdict };
+    const cleanCaseTitle = fix.case_id.replace(/^TEST_CASE_\d+_/, '').replace(/_/g, ' ');
+
+    card.innerHTML = `
+      <div class="benchmark-card-header">
+        <div>
+          <div class="benchmark-card-title">${cleanCaseTitle}</div>
+          <div class="benchmark-card-meta">
+            <span>👤 <strong>${fix.customer_name}</strong> (<code>${fix.customer_id}</code>)</span>
+          </div>
+        </div>
+        <span class="track-badge" style="font-size: 0.68rem; color: ${vStyle.color}; border-color: ${vStyle.color};">
+          ${vStyle.label}
+        </span>
+      </div>
+      <div class="benchmark-card-desc">${fix.description}</div>
+      <div class="benchmark-card-actions">
+        <button class="btn-benchmark-run">
+          ⚡ Run Test Instantly
+        </button>
+        <button class="btn-benchmark-inspect">
+          📝 Inspect / Edit JSON
+        </button>
+      </div>
+    `;
+
+    // 1-Click Instant Execution
+    const runBtn = card.querySelector('.btn-benchmark-run');
+    runBtn.addEventListener('click', async () => {
+      closeSandboxModal();
+      showToast(`⚡ Running benchmark for ${fix.customer_name}...`);
+      await selectCustomer(fix.customer_id);
+    });
+
+    // Inspect / Edit JSON in Tab 2
+    const inspectBtn = card.querySelector('.btn-benchmark-inspect');
+    inspectBtn.addEventListener('click', async () => {
+      await loadPresetIntoSandbox(fix);
+      switchSandboxTab('CUSTOM');
+    });
+
+    el.benchmarkGrid.appendChild(card);
   });
 }
 
-function loadPresetIntoSandbox(fix) {
-  // If fixture corresponds to a known customer ID, load that customer's transactions
-  fetch(`/api/customers/${fix.customer_id}/transactions`)
-    .then(r => r.json())
-    .then(data => {
-      const txns = data.transactions || [];
-      const clean = txns.filter(t => !t.is_flagged);
-      const flagged = txns.filter(t => t.is_flagged);
-      const payload = {
-        customer_profile: {
-          customer_id: fix.customer_id,
-          name: fix.customer_name,
-          account_type: "Checking",
-          account_number: "ACC-CUSTOM-001"
-        },
-        historical_transactions: clean.length >= 5 ? clean : txns.slice(0, Math.max(5, txns.length - 1)),
-        observed_transactions: flagged.length > 0 ? flagged : txns.slice(-1)
-      };
-      el.sandboxPayloadText.value = JSON.stringify(payload, null, 2);
-      showToast(`Loaded ${fix.customer_name} fixture.`);
-    })
-    .catch(() => {
-      showToast('Could not load preset data.');
-    });
+// Load testcase payload into Custom JSON editor
+async function loadPresetIntoSandbox(fix) {
+  try {
+    const res = await fetch(`/api/customers/${fix.customer_id}/transactions`);
+    const data = await res.json();
+    const txns = data.transactions || [];
+    const flaggedIds = new Set(fix.sample_transaction_ids || []);
+
+    let hist, obs;
+    if (flaggedIds.size > 0) {
+      obs = txns.filter(t => flaggedIds.has(t.transaction_id));
+      hist = txns.filter(t => !flaggedIds.has(t.transaction_id));
+    } else if (txns.length >= 5) {
+      obs = txns.slice(-2);
+      hist = txns.slice(0, -2);
+    } else {
+      hist = txns;
+      obs = [];
+    }
+
+    const payload = {
+      scenario_description: fix.description,
+      customer_profile: {
+        customer_id: fix.customer_id,
+        name: fix.customer_name,
+        account_type: "Standard Checking",
+        account_number: "ACC-CUSTOM-001"
+      },
+      historical_transactions: hist,
+      observed_transactions: obs
+    };
+    el.sandboxPayloadText.value = JSON.stringify(payload, null, 2);
+    showToast(`Loaded ${fix.customer_name} payload into editor.`);
+  } catch (err) {
+    showToast('Could not load preset data.');
+  }
+}
+
+// Auto-Format and Syntax-Clean JSON
+function formatSandboxJson() {
+  let raw = (el.sandboxPayloadText.value || '').trim();
+  if (!raw) {
+    showToast('⚠️ JSON editor is empty.');
+    return;
+  }
+  if (raw.includes('```json')) {
+    raw = raw.split('```json')[1].split('```')[0].trim();
+  } else if (raw.includes('```')) {
+    raw = raw.split('```')[1].split('```')[0].trim();
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    el.sandboxPayloadText.value = JSON.stringify(parsed, null, 2);
+    showToast('✨ JSON formatted successfully!');
+  } catch (err) {
+    showToast('❌ JSON parse error: ' + err.message);
+  }
+}
+
+// Load Default Alex Mercer Sample
+function loadDefaultSampleTemplate() {
+  const sample = {
+    customer_profile: {
+      customer_id: "CUST-DEMO-999",
+      name: "Alex Mercer",
+      account_type: "Personal Checking",
+      account_number: "ACC-99201948",
+      known_payees: ["Local Supermarket", "Metro Fuel", "Neighborhood Cafe"],
+      common_channels: ["POS", "Mobile"]
+    },
+    historical_transactions: [
+      {
+        transaction_id: "HIST-01",
+        customer_id: "CUST-DEMO-999",
+        timestamp: "2026-08-01T10:00:00",
+        description: "Groceries",
+        payee: "Local Supermarket",
+        amount: 45.00,
+        channel: "POS"
+      },
+      {
+        transaction_id: "HIST-02",
+        customer_id: "CUST-DEMO-999",
+        timestamp: "2026-08-02T11:30:00",
+        description: "Fuel",
+        payee: "Metro Fuel",
+        amount: 52.50,
+        channel: "POS"
+      },
+      {
+        transaction_id: "HIST-03",
+        customer_id: "CUST-DEMO-999",
+        timestamp: "2026-08-03T12:15:00",
+        description: "Lunch",
+        payee: "Neighborhood Cafe",
+        amount: 38.00,
+        channel: "Mobile"
+      },
+      {
+        transaction_id: "HIST-04",
+        customer_id: "CUST-DEMO-999",
+        timestamp: "2026-08-04T09:45:00",
+        description: "Groceries",
+        payee: "Local Supermarket",
+        amount: 60.00,
+        channel: "POS"
+      },
+      {
+        transaction_id: "HIST-05",
+        customer_id: "CUST-DEMO-999",
+        timestamp: "2026-08-05T13:00:00",
+        description: "Coffee",
+        payee: "Neighborhood Cafe",
+        amount: 35.50,
+        channel: "Mobile"
+      }
+    ],
+    observed_transactions: [
+      {
+        transaction_id: "TXN-ANOMALOUS-01",
+        customer_id: "CUST-DEMO-999",
+        timestamp: "2026-08-06T03:42:00",
+        description: "Urgent High Value Wire",
+        payee: "Unknown Offshore Crypto",
+        amount: 8950.00,
+        channel: "Wire"
+      }
+    ]
+  };
+  el.sandboxPayloadText.value = JSON.stringify(sample, null, 2);
+  showToast('📋 Loaded Alex Mercer sample payload.');
+}
+
+// File Upload Handlers
+function handleFileUpload(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  readFileIntoSandbox(file);
+}
+
+function handleFileDrop(e) {
+  e.preventDefault();
+  if (el.uploadDropZone) el.uploadDropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+    readFileIntoSandbox(e.dataTransfer.files[0]);
+  }
+}
+
+function readFileIntoSandbox(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    el.sandboxPayloadText.value = e.target.result;
+    formatSandboxJson();
+    switchSandboxTab('CUSTOM');
+    showToast(`📁 Loaded: ${file.name}`);
+  };
+  reader.onerror = () => {
+    showToast('❌ Error reading file.');
+  };
+  reader.readAsText(file);
 }
 
 function openSandboxModal() {
+  switchSandboxTab('BENCHMARKS');
   if (!el.sandboxPayloadText.value) {
-    // Default template adhering to strict PS06 anti-contamination baseline schema
-    const sample = {
-      customer_profile: {
-        customer_id: "CUST-DEMO-999",
-        name: "Alex Mercer",
-        account_type: "Personal Checking",
-        account_number: "ACC-99201948",
-        known_payees: ["Local Supermarket", "Metro Fuel", "Neighborhood Cafe"],
-        common_channels: ["POS", "Mobile"]
-      },
-      historical_transactions: [
-        {
-          transaction_id: "HIST-01",
-          customer_id: "CUST-DEMO-999",
-          timestamp: "2026-08-01T10:00:00",
-          description: "Groceries",
-          payee: "Local Supermarket",
-          amount: 45.00,
-          channel: "POS"
-        },
-        {
-          transaction_id: "HIST-02",
-          customer_id: "CUST-DEMO-999",
-          timestamp: "2026-08-02T11:30:00",
-          description: "Fuel",
-          payee: "Metro Fuel",
-          amount: 52.50,
-          channel: "POS"
-        },
-        {
-          transaction_id: "HIST-03",
-          customer_id: "CUST-DEMO-999",
-          timestamp: "2026-08-03T12:15:00",
-          description: "Lunch",
-          payee: "Neighborhood Cafe",
-          amount: 38.00,
-          channel: "Mobile"
-        },
-        {
-          transaction_id: "HIST-04",
-          customer_id: "CUST-DEMO-999",
-          timestamp: "2026-08-04T09:45:00",
-          description: "Groceries",
-          payee: "Local Supermarket",
-          amount: 60.00,
-          channel: "POS"
-        },
-        {
-          transaction_id: "HIST-05",
-          customer_id: "CUST-DEMO-999",
-          timestamp: "2026-08-05T13:00:00",
-          description: "Coffee",
-          payee: "Neighborhood Cafe",
-          amount: 35.50,
-          channel: "Mobile"
-        }
-      ],
-      observed_transactions: [
-        {
-          transaction_id: "TXN-ANOMALOUS-01",
-          customer_id: "CUST-DEMO-999",
-          timestamp: "2026-08-06T03:42:00",
-          description: "Urgent High Value Wire",
-          payee: "Unknown Offshore Crypto",
-          amount: 8950.00,
-          channel: "Wire"
-        }
-      ]
-    };
-    el.sandboxPayloadText.value = JSON.stringify(sample, null, 2);
+    loadDefaultSampleTemplate();
   }
   el.sandboxModal.classList.add('open');
 }
