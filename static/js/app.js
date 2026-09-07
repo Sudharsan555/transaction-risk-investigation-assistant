@@ -73,7 +73,7 @@ const el = {
   tabCustomJson: document.getElementById('tabCustomJson'),
   viewBenchmarks: document.getElementById('viewBenchmarks'),
   viewCustomJson: document.getElementById('viewCustomJson'),
-  benchmarkGrid: document.getElementById('benchmarkGrid'),
+  benchmarkGridContainer: document.getElementById('benchmarkGridContainer') || document.getElementById('benchmarkGrid'),
   uploadDropZone: document.getElementById('uploadDropZone'),
   sandboxFileInput: document.getElementById('sandboxFileInput'),
   btnFormatJson: document.getElementById('btnFormatJson'),
@@ -534,78 +534,185 @@ async function fetchTestFixtures() {
 
 // Switch between Benchmark Suite (Tab 1) and Custom JSON (Tab 2)
 function switchSandboxTab(tab) {
-  if (tab === 'BENCHMARKS') {
-    if (el.tabBenchmarks) el.tabBenchmarks.classList.add('active');
-    if (el.tabCustomJson) el.tabCustomJson.classList.remove('active');
-    if (el.viewBenchmarks) el.viewBenchmarks.style.display = 'flex';
-    if (el.viewCustomJson) el.viewCustomJson.style.display = 'none';
-    if (el.btnRunSandboxAnalysis) el.btnRunSandboxAnalysis.style.display = 'none';
-  } else {
-    if (el.tabCustomJson) el.tabCustomJson.classList.add('active');
-    if (el.tabBenchmarks) el.tabBenchmarks.classList.remove('active');
-    if (el.viewBenchmarks) el.viewBenchmarks.style.display = 'none';
-    if (el.viewCustomJson) el.viewCustomJson.style.display = 'flex';
-    if (el.btnRunSandboxAnalysis) el.btnRunSandboxAnalysis.style.display = 'inline-block';
+  const isBenchmarks = tab === 'BENCHMARKS';
+  
+  if (el.tabBenchmarks) {
+    el.tabBenchmarks.classList.toggle('active', isBenchmarks);
+    el.tabBenchmarks.style.background = isBenchmarks ? 'linear-gradient(135deg, #4f46e5, #0ea5e9)' : 'rgba(255, 255, 255, 0.04)';
+    el.tabBenchmarks.style.color = isBenchmarks ? '#ffffff' : '#94a3b8';
+    el.tabBenchmarks.style.border = isBenchmarks ? '1px solid transparent' : '1px solid rgba(255, 255, 255, 0.08)';
+    el.tabBenchmarks.style.boxShadow = isBenchmarks ? '0 4px 14px rgba(79, 70, 229, 0.4)' : 'none';
   }
+  
+  if (el.tabCustomJson) {
+    el.tabCustomJson.classList.toggle('active', !isBenchmarks);
+    el.tabCustomJson.style.background = !isBenchmarks ? 'linear-gradient(135deg, #4f46e5, #0ea5e9)' : 'rgba(255, 255, 255, 0.04)';
+    el.tabCustomJson.style.color = !isBenchmarks ? '#ffffff' : '#94a3b8';
+    el.tabCustomJson.style.border = !isBenchmarks ? '1px solid transparent' : '1px solid rgba(255, 255, 255, 0.08)';
+    el.tabCustomJson.style.boxShadow = !isBenchmarks ? '0 4px 14px rgba(79, 70, 229, 0.4)' : 'none';
+  }
+
+  if (el.viewBenchmarks) el.viewBenchmarks.style.display = isBenchmarks ? 'block' : 'none';
+  if (el.viewCustomJson) el.viewCustomJson.style.display = isBenchmarks ? 'none' : 'block';
+  if (el.btnRunSandboxAnalysis) el.btnRunSandboxAnalysis.style.display = isBenchmarks ? 'none' : 'inline-block';
 }
 
-// Render 1-Click Benchmark Scenario Cards
+// Render 1-Click Benchmark Scenario Cards Grouped by Logical Category
 function renderBenchmarkGrid() {
-  if (!el.benchmarkGrid) return;
-  el.benchmarkGrid.innerHTML = '';
+  const container = el.benchmarkGridContainer || document.getElementById('benchmarkGridContainer') || document.getElementById('benchmarkGrid');
+  if (!container) return;
+  container.innerHTML = '';
 
-  const verdictStyles = {
-    'ATTENTION_REQUIRED': { color: '#ef4444', label: '⚠️ ATTENTION REQUIRED' },
-    'NOTHING_FLAGGED': { color: '#10b981', label: '✅ CLEAN BASELINE' },
-    'INSUFFICIENT_EVIDENCE': { color: '#facc15', label: '⏳ INSUFFICIENT EVIDENCE' }
+  const verdictConfig = {
+    'ATTENTION_REQUIRED': {
+      cardClass: 'risk-attention',
+      badgeClass: 'attention',
+      borderColor: '#ef4444',
+      badgeBg: 'rgba(239, 68, 68, 0.15)',
+      badgeColor: '#f87171',
+      badgeBorder: 'rgba(239, 68, 68, 0.35)',
+      label: '⚠️ ATTENTION REQUIRED'
+    },
+    'NOTHING_FLAGGED': {
+      cardClass: 'risk-clean',
+      badgeClass: 'clean',
+      borderColor: '#10b981',
+      badgeBg: 'rgba(16, 185, 129, 0.15)',
+      badgeColor: '#34d399',
+      badgeBorder: 'rgba(16, 185, 129, 0.35)',
+      label: '✅ NOTHING FLAGGED'
+    },
+    'INSUFFICIENT_EVIDENCE': {
+      cardClass: 'risk-insufficient',
+      badgeClass: 'insufficient',
+      borderColor: '#f59e0b',
+      badgeBg: 'rgba(245, 158, 11, 0.15)',
+      badgeColor: '#fbbf24',
+      badgeBorder: 'rgba(245, 158, 11, 0.35)',
+      label: '⏳ INSUFFICIENT EVIDENCE'
+    }
   };
 
-  state.testFixtures.forEach((fix) => {
-    const card = document.createElement('div');
-    card.className = 'benchmark-card';
+  const categories = [
+    {
+      id: 'ANOMALIES',
+      title: '🚨 High-Risk Behavioral Anomalies',
+      subtitle: 'Triggers multi-vector deterministic rules & elevated risk scores (Urgency Index)',
+      filter: fix => fix.expected_verdict === 'ATTENTION_REQUIRED'
+    },
+    {
+      id: 'CLEAN',
+      title: '✅ Normal Baseline Adherence Control',
+      subtitle: 'Routine customer accounts conforming strictly to established spending and temporal baseline',
+      filter: fix => fix.expected_verdict === 'NOTHING_FLAGGED'
+    },
+    {
+      id: 'EDGE_CASES',
+      title: '⏳ Data Quality & Cold-Start Limits',
+      subtitle: 'Sparse and empty account records with insufficient baseline history (< 5 transactions)',
+      filter: fix => fix.expected_verdict === 'INSUFFICIENT_EVIDENCE'
+    }
+  ];
 
-    const vStyle = verdictStyles[fix.expected_verdict] || { color: '#38bdf8', label: fix.expected_verdict };
-    const cleanCaseTitle = fix.case_id.replace(/^TEST_CASE_\d+_/, '').replace(/_/g, ' ');
+  categories.forEach((cat) => {
+    const items = state.testFixtures.filter(cat.filter);
+    if (items.length === 0) return;
 
-    card.innerHTML = `
-      <div class="benchmark-card-header">
-        <div>
-          <div class="benchmark-card-title">${cleanCaseTitle}</div>
-          <div class="benchmark-card-meta">
-            <span>👤 <strong>${fix.customer_name}</strong> (<code>${fix.customer_id}</code>)</span>
-          </div>
+    const section = document.createElement('div');
+    section.style.marginBottom = '20px';
+
+    section.innerHTML = `
+      <div class="benchmark-category-header" style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+        <div class="benchmark-category-title" style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px; color: #e2e8f0;">
+          <span>${cat.title}</span>
+          <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 400; text-transform: none;">— ${cat.subtitle}</span>
         </div>
-        <span class="track-badge" style="font-size: 0.68rem; color: ${vStyle.color}; border-color: ${vStyle.color};">
-          ${vStyle.label}
+        <span class="benchmark-category-count" style="font-size: 0.7rem; background: rgba(255, 255, 255, 0.08); padding: 3px 10px; border-radius: 12px; color: #cbd5e1; font-weight: 600;">
+          ${items.length} Test Case${items.length > 1 ? 's' : ''}
         </span>
       </div>
-      <div class="benchmark-card-desc">${fix.description}</div>
-      <div class="benchmark-card-actions">
-        <button class="btn-benchmark-run">
-          ⚡ Run Test Instantly
-        </button>
-        <button class="btn-benchmark-inspect">
-          📝 Inspect / Edit JSON
-        </button>
-      </div>
+      <div class="benchmark-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 12px;"></div>
     `;
 
-    // 1-Click Instant Execution
-    const runBtn = card.querySelector('.btn-benchmark-run');
-    runBtn.addEventListener('click', async () => {
-      closeSandboxModal();
-      showToast(`⚡ Running benchmark for ${fix.customer_name}...`);
-      await selectCustomer(fix.customer_id);
+    const grid = section.querySelector('.benchmark-grid');
+
+    items.forEach((fix) => {
+      const card = document.createElement('div');
+      card.className = `benchmark-card ${fix.expected_verdict}`;
+
+      const cfg = verdictConfig[fix.expected_verdict] || {
+        borderColor: '#38bdf8',
+        badgeBg: 'rgba(56, 189, 248, 0.15)',
+        badgeColor: '#38bdf8',
+        badgeBorder: 'rgba(56, 189, 248, 0.35)',
+        label: fix.expected_verdict
+      };
+
+      const cleanCaseTitle = fix.case_id
+        .replace(/^TEST_CASE_\d+_/, '')
+        .replace(/_/g, ' ')
+        .toLowerCase()
+        .replace(/\b\w/g, l => l.toUpperCase());
+
+      card.setAttribute('style', `
+        background: #111827;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 4px solid ${cfg.borderColor};
+        border-radius: 10px;
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      `);
+
+      card.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+            <div style="font-size: 0.86rem; font-weight: 700; color: #f8fafc; line-height: 1.3;">${cleanCaseTitle}</div>
+            <span style="background: ${cfg.badgeBg}; color: ${cfg.badgeColor}; border: 1px solid ${cfg.badgeBorder}; padding: 3px 8px; border-radius: 4px; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap;">
+              ${cfg.label}
+            </span>
+          </div>
+          <div style="font-size: 0.74rem; color: #94a3b8; display: flex; align-items: center; gap: 6px;">
+            <span>👤 <strong>${fix.customer_name}</strong></span>
+            <span>•</span>
+            <code style="color: var(--accent-blue); background: rgba(56, 189, 248, 0.1); padding: 1px 5px; border-radius: 3px;">${fix.customer_id}</code>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.4; background: rgba(0, 0, 0, 0.3); padding: 8px 10px; border-radius: 6px; margin-top: 2px;">
+            ${fix.description}
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+          <button class="btn-benchmark-run" style="flex: 1.3; background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; border: none; padding: 8px 14px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);">
+            ⚡ Run Test Instantly
+          </button>
+          <button class="btn-benchmark-inspect" style="flex: 1; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); color: #cbd5e1; padding: 8px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+            📝 Inspect JSON
+          </button>
+        </div>
+      `;
+
+      // 1-Click Instant Execution
+      const runBtn = card.querySelector('.btn-benchmark-run');
+      runBtn.addEventListener('click', async () => {
+        closeSandboxModal();
+        showToast(`⚡ Executing ${fix.customer_name} benchmark...`);
+        await selectCustomer(fix.customer_id);
+      });
+
+      // Inspect / Edit JSON in Tab 2
+      const inspectBtn = card.querySelector('.btn-benchmark-inspect');
+      inspectBtn.addEventListener('click', async () => {
+        await loadPresetIntoSandbox(fix);
+        switchSandboxTab('CUSTOM');
+      });
+
+      grid.appendChild(card);
     });
 
-    // Inspect / Edit JSON in Tab 2
-    const inspectBtn = card.querySelector('.btn-benchmark-inspect');
-    inspectBtn.addEventListener('click', async () => {
-      await loadPresetIntoSandbox(fix);
-      switchSandboxTab('CUSTOM');
-    });
-
-    el.benchmarkGrid.appendChild(card);
+    container.appendChild(section);
   });
 }
 

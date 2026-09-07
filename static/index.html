@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Transaction Risk Investigation Assistant | Fraud Desk (PS06)</title>
-  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/style.css?v=3.5">
   <script src="/static/js/marked.min.js"></script>
 </head>
 <body>
@@ -276,15 +276,15 @@
         <button class="modal-tab" id="tabCustomJson">📁 Custom JSON / File Upload</button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body" style="padding: 20px 24px;">
         <!-- Tab 1: 1-Click Scenario Cards (Zero JSON Needed) -->
-        <div id="viewBenchmarks" class="sandbox-view">
+        <div id="viewBenchmarks" class="sandbox-view" style="display: block;">
           <div class="benchmark-intro-banner">
-            <strong>🚀 Instant Evaluator Benchmarking (No JSON Required)</strong>
-            <span>Evaluators and judges don't need to write or format JSON. Simply click <strong>"⚡ Run Test Instantly"</strong> on any test case below to execute deterministic risk screening, generate grounded Gemini analysis, and inspect transaction citations.</span>
+            <strong>🚀 Instant Evaluator Benchmarking (Zero JSON Required)</strong>
+            <span>Evaluators and judges don't need to write or format JSON. Simply click <strong>"⚡ Run Test Instantly"</strong> on any scenario below to execute deterministic risk screening, ground Gemini's investigation report, and inspect transaction citations.</span>
           </div>
-          <div class="benchmark-grid" id="benchmarkGrid">
-            <!-- Populated dynamically from /api/test-fixtures -->
+          <div id="benchmarkGridContainer">
+            <!-- Populated dynamically with categorized scenario sections -->
           </div>
         </div>
 
@@ -326,6 +326,6 @@
   <!-- Toast Notification -->
   <div class="toast-msg" id="toastMsg">Notification</div>
 
-  <script src="/static/js/app.js?v=3.2"></script>
+  <script src="/static/js/app.js?v=3.5"></script>
 </body>
 </html>
