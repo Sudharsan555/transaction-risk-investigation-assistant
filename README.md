@@ -267,52 +267,146 @@ We have engineered four distinct evaluation methods catering to both non-technic
 *Ideal for evaluators who do not want to write or format raw JSON.*
 1. Open `http://localhost:8000` in your web browser.
 2. Click **"🧪 Sandbox Analyzer"** in the top navigation bar.
-3. On the **⚡ 1-Click Scenarios (Zero JSON Needed)** tab, browse the 8 pre-configured scenario cards:
-   - **Case 1: Large Wire Outlier** (`CUST-104`): $14,500 international wire vs $109 baseline.
-   - **Case 2: New Payee Burst** (`CUST-109`): Rapid crypto settlement burst within 48h.
-   - **Case 3: Odd-Hours Activity** (`CUST-112`): 03:15 AM & 04:20 AM diurnal window violations.
-   - **Case 4: Pattern Break** (`CUST-115`): Sudden uncharacteristic high-value wire transfers.
-   - **Case 5: Multi-Vector Anomaly** (`CUST-118`): Concurrent outlier + new payee + odd hours.
-   - **Case 6: Clean Baseline Customer** (`CUST-101`): Routine checking adhering strictly to baseline.
-   - **Case 7: Empty History Edge Case** (`CUST-199`): 0 transactions returning `INSUFFICIENT_EVIDENCE`.
-   - **Case 8: Sparse History Edge Case** (`CUST-198`): 2 transactions (< 5 minimum reliable baseline).
-4. Click **"⚡ Run Test Instantly"** on any card.
-   - The modal automatically loads the account, runs deterministic rules, grounds the Gemini investigation report, and displays interactive citations `[TXN-xxxx]` in the ledger.
+3. On the **⚡ 1-Click Scenarios (Zero JSON Needed)** tab, browse the categorized scenario benchmark cards:
+   - **🚨 Section 1: High-Risk Behavioral Anomalies**
+     - **Case 1: Large Wire Outlier** (`CUST-104` Elena Rostova): $14,500 wire outlier vs $109 spend baseline.
+     - **Case 2: New Payee Burst** (`CUST-109` Marcus Vance): 3 rapid successive payments to unseen crypto payee.
+     - **Case 3: Odd-Hours Activity** (`CUST-112` Aisha Patel): 03:15 AM & 04:20 AM diurnal window violations.
+     - **Case 4: Pattern Break** (`CUST-115` David Chen): Sudden uncharacteristic high-value wire transfers.
+     - **Case 5: Multi-Vector Anomaly** (`CUST-118` Sophia Morales): Concurrent outlier + new payee + odd hours.
+   - **✅ Section 2: Normal Baseline Adherence Control**
+     - **Case 6: Clean Baseline Customer** (`CUST-101` Alexander Hayes): 85 routine transactions adhering to baseline.
+   - **⏳ Section 3: Data Quality & Cold-Start Limits**
+     - **Case 7: Empty History Edge Case** (`CUST-199` Lucas Vance): 0 transactions returning `INSUFFICIENT_EVIDENCE`.
+     - **Case 8: Sparse History Edge Case** (`CUST-198` Zoe Kensington): 2 transactions (< 5 minimum reliable baseline).
+4. Click **"⚡ Run Test Instantly"** on any card:
+   - Evaluates the scenario immediately, computes additive risk scores, generates the grounded Gemini report, and lights up traceable citations in the transaction ledger.
 
 ---
 
-### Method 2: Drag-and-Drop File Upload (Web UI)
-*Ideal for evaluators who have `.json` test files from their own test suites.*
+### Method 2: Drag-and-Drop / Custom File Upload (Web UI)
+*Ideal for evaluators who have their own `.json` test files.*
 1. In the Sandbox modal, switch to the **"📁 Custom JSON / File Upload"** tab.
-2. Drag and drop any `.json` file into the dropzone (or click *"browse from your computer"*).
-3. The file is instantly parsed, validated, and formatted into the editor.
+2. **Drag & Drop** your `.json` file into the dashed dropzone (or click *"browse from your computer"*).
+3. The editor automatically reads and formats the JSON.
 4. Click **"Run Sandbox Investigation"** to execute the pipeline.
+5. *Need to fix syntax?* Click **"✨ Format JSON"** to automatically strip markdown code blocks and format braces.
 
 ---
 
 ### Method 3: Standalone Headless CLI (`evaluate.py`)
-*Ideal for automated CI/CD runners, terminal testing, or headless grading environments without starting a web server or binding port 8000.*
+*Ideal for automated grading testbeds, terminal evaluators, or headless CI environments without starting a web server or binding port 8000.*
 
 ```bash
-# Evaluate the entire benchmark test suite in 2 seconds:
+# 1. Run the entire test suite in batch (evaluates all 8 scenarios in 2 seconds):
 python evaluate.py test_cases
 
-# Evaluate a specific test case file:
+# 2. Run any specific test case file:
 python evaluate.py test_cases/01_large_outlier_wire.json
 
-# Automated grading scripts (raw JSON output only):
+# 3. Output raw JSON response only (ideal for automated grading scripts):
 python evaluate.py test_cases/01_large_outlier_wire.json --json
 
-# Pipe JSON directly via stdin:
+# 4. Pipe JSON directly via stdin:
 cat test_cases/01_large_outlier_wire.json | python evaluate.py --json
 ```
 
 ---
 
 ### Method 4: Interactive Swagger / OpenAPI Docs
-*Ideal for API-first verification.*
-- Visit: `http://localhost:8000/docs`
-- Expand `POST /api/analyze/custom`, click **"Try it out"**, select any sample payload, and click **"Execute"**.
+*Ideal for REST API testing.*
+- Open: `http://localhost:8000/docs`
+- Expand `POST /api/analyze/custom`, click **"Try it out"**, paste any payload, and click **"Execute"**.
+
+---
+
+## 📋 How Evaluators Can Test Different Input JSON Payloads
+
+The system includes 8 ready-to-test JSON files in the [`test_cases/`](file:///C:/Users/Vsb_Aids_pc292/.gemini/antigravity/scratch/transaction-risk-investigation-assistant/test_cases) directory. Evaluators can use these files directly or model their own test cases on them.
+
+### Quick Testcase Matrix & CLI Commands
+
+| Scenario File | Target Account | Seeded Anomaly Vector | Expected Verdict | Expected Risk Score | Quick Command |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `01_large_outlier_wire.json` | `CUST-104` Elena Rostova | $14,500 Outbound Wire (132x average spend) | `ATTENTION_REQUIRED` | `80 / 100` | `python evaluate.py test_cases/01_large_outlier_wire.json` |
+| `02_new_payee_burst.json` | `CUST-109` Marcus Vance | 3 Rapid Transfers to New Crypto Payee | `ATTENTION_REQUIRED` | `100 / 100` | `python evaluate.py test_cases/02_new_payee_burst.json` |
+| `03_odd_hours_activity.json` | `CUST-112` Aisha Patel | Transactions at 03:15 AM & 04:20 AM | `ATTENTION_REQUIRED` | `100 / 100` | `python evaluate.py test_cases/03_odd_hours_activity.json` |
+| `04_pattern_break_wire.json` | `CUST-115` David Chen | Unprecedented High-Value International Wires | `ATTENTION_REQUIRED` | `100 / 100` | `python evaluate.py test_cases/04_pattern_break_wire.json` |
+| `05_multi_vector_fraud.json` | `CUST-118` Sophia Morales | Concurrent Outlier + New Payee + Odd Hours | `ATTENTION_REQUIRED` | `100 / 100` | `python evaluate.py test_cases/05_multi_vector_fraud.json` |
+| `06_clean_baseline.json` | `CUST-101` Alexander Hayes | 85 Routine Transactions Conforming to Baseline | `NOTHING_FLAGGED` | `0 / 100` | `python evaluate.py test_cases/06_clean_baseline.json` |
+| `07_empty_history_edge_case.json` | `CUST-199` Lucas Vance | Brand New Account (0 Transactions) | `INSUFFICIENT_EVIDENCE` | `0 / 100` | `python evaluate.py test_cases/07_empty_history_edge_case.json` |
+| `08_sparse_history_edge_case.json` | `CUST-198` Zoe Kensington | Sparse History (2 Transactions < 5 threshold) | `INSUFFICIENT_EVIDENCE` | `0 / 100` | `python evaluate.py test_cases/08_sparse_history_edge_case.json` |
+
+---
+
+### Supported JSON Payload Schemas
+
+When evaluators provide their own JSON files, the assistant supports two flexible input structures:
+
+#### Schema A: Strict Baseline Separation (Recommended)
+Guarantees mathematical anti-contamination: the behavioral baseline is computed **exclusively** from `historical_transactions`, and `observed_transactions` are evaluated against that baseline:
+
+```json
+{
+  "customer_profile": {
+    "customer_id": "CUST-EVAL-01",
+    "name": "Jane Doe",
+    "account_type": "Personal Checking",
+    "account_number": "ACC-55291048",
+    "known_payees": ["Local Market", "Metro Fuel", "Corner Cafe"],
+    "common_channels": ["POS", "Mobile"]
+  },
+  "historical_transactions": [
+    {"transaction_id": "H01", "timestamp": "2026-08-01T10:00:00", "payee": "Local Market", "amount": 42.50, "channel": "POS"},
+    {"transaction_id": "H02", "timestamp": "2026-08-02T11:30:00", "payee": "Metro Fuel", "amount": 55.00, "channel": "POS"},
+    {"transaction_id": "H03", "timestamp": "2026-08-03T12:15:00", "payee": "Corner Cafe", "amount": 28.00, "channel": "Mobile"},
+    {"transaction_id": "H04", "timestamp": "2026-08-04T09:45:00", "payee": "Local Market", "amount": 61.00, "channel": "POS"},
+    {"transaction_id": "H05", "timestamp": "2026-08-05T13:00:00", "payee": "Corner Cafe", "amount": 35.00, "channel": "Mobile"}
+  ],
+  "observed_transactions": [
+    {
+      "transaction_id": "OBS-01",
+      "timestamp": "2026-08-06T03:30:00",
+      "payee": "Offshore Crypto Exchange",
+      "amount": 9200.00,
+      "channel": "Wire",
+      "description": "Urgent Offshore Wire Transfer"
+    }
+  ]
+}
+```
+
+#### Schema B: Flat Transaction Array (Auto-Partitioned)
+Evaluators can also paste or upload a raw list of transactions `[ {...}, {...} ]`. If 6 or more transactions are provided, the engine automatically treats the earlier transactions as historical baseline and the final transactions as observed transactions:
+
+```json
+[
+  {"transaction_id": "TXN-01", "timestamp": "2026-08-01T10:00:00", "payee": "Supermarket", "amount": 40.00, "channel": "POS"},
+  {"transaction_id": "TXN-02", "timestamp": "2026-08-02T11:00:00", "payee": "Gas Station", "amount": 50.00, "channel": "POS"},
+  {"transaction_id": "TXN-03", "timestamp": "2026-08-03T12:00:00", "payee": "Coffee Shop", "amount": 30.00, "channel": "Mobile"},
+  {"transaction_id": "TXN-04", "timestamp": "2026-08-04T09:00:00", "payee": "Supermarket", "amount": 45.00, "channel": "POS"},
+  {"transaction_id": "TXN-05", "timestamp": "2026-08-05T14:00:00", "payee": "Pharmacy", "amount": 35.00, "channel": "POS"},
+  {"transaction_id": "TXN-06", "timestamp": "2026-08-06T03:15:00", "payee": "Unknown Wire Beneficiary", "amount": 8500.00, "channel": "Wire"}
+]
+```
+
+---
+
+### Step-by-Step: How to Test Your Own JSON
+
+1. **Create your JSON payload** following either Schema A or Schema B above (or edit one of the pre-built files in `test_cases/`).
+2. **Test via Web UI**:
+   - Open `http://localhost:8000` → click **"🧪 Sandbox Analyzer"** → switch to **"📁 Custom JSON / File Upload"**.
+   - Drag and drop your `.json` file into the dropzone (or paste your JSON).
+   - Click **"Run Sandbox Investigation"**.
+3. **Test via CLI**:
+   ```bash
+   python evaluate.py path/to/your_file.json
+   ```
+4. **Test via cURL**:
+   ```bash
+   curl -X POST http://localhost:8000/api/analyze/custom -H "Content-Type: application/json" -d @path/to/your_file.json
+   ```
 
 ---
 
